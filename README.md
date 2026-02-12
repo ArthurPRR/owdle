@@ -1,2 +1,2 @@
 # owdle
-owdle game
+guessing game for overwatch characters
