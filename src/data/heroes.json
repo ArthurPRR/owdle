@@ -1,0 +1,63 @@
+[
+  {
+    "name": "Tracer",
+    "species": "Human",
+    "role": "Damage",
+    "subrole": "Flanker",
+    "continent": "Europe",
+    "affiliation": ["Overwatch"],
+    "gender": "Female",
+    "year": 2016
+  },
+  {
+    "name": "Reinhardt",
+    "species": "Human",
+    "role": "Tank",
+    "subrole": "Stalwart",
+    "continent": "Europe",    
+    "affiliation": ["Crusaders", "Overwatch"],
+    "gender": "Male",
+    "year": 2016
+  },
+  {
+    "name": "Mercy",
+    "nameFr": "Ange",
+    "species": "Human",
+    "role": "Support",
+    "subrole": "Medic",
+    "continent": "Europe",
+    "affiliation": ["Overwatch"],
+    "gender": "Female",
+    "year": 2016
+  },
+  {
+    "name": "Genji",
+    "species": "Human",
+    "role": "Damage",
+    "subrole": "Flanker",
+    "continent": "Asia",
+    "affiliation": ["Overwatch", "Shimada Clan"],
+    "gender": "Male",
+    "year": 2016
+  },
+  {
+    "name": "Ana",
+    "species": "Human",
+    "role": "Support",
+    "subrole": "Tactician",
+    "continent": "Africa",
+    "affiliation": ["Overwatch"],
+    "gender": "Female",
+    "year": 2016
+  },
+  {
+  "name": "Echo",
+  "species": "Omnic",
+  "role": "Damage", 
+  "subrole": "Recon",
+  "continent": "Asia",
+  "affiliation": ["Overwatch", "MEKA"],
+  "gender": "Female",
+  "year": 2020
+  }
+]
