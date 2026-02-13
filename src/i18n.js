@@ -1,7 +1,7 @@
 export const landingModes = [
   {
     id: "illimited",
-    title: { fr: "Illimited", en: "Unlimited" },
+    title: { fr: "Classique illimité", en: "Unlimited classic" },
     description: {
       fr: "Joue autant de parties que tu veux",
       en: "Play as many rounds as you want",
@@ -10,7 +10,7 @@ export const landingModes = [
   },
   {
     id: "daily",
-    title: { fr: "Daily", en: "Daily" },
+    title: { fr: "Classique quotidien", en: "Daily classic" },
     description: {
       fr: "Un nouveau heros chaque jour",
       en: "One new hero everyday",
@@ -85,16 +85,26 @@ export const gameText = {
 export const valueTranslations = {
   fr: {
     role: {
-      Damage: "Dégâts",
+      Damage: "Dégâts", 
       Tank: "Tank",
       Support: "Soutien",
     },
     subrole: {
+      // Tank
+      Bruiser: "Colosse",  
+      Initiator: "Engagement",
+      Stalwart: "Indéfectible",
+
+      // DPS
       Recon: "Reconnaissance",
       Flanker: "Flanker",
-      Stalwart: "Indéfectible",
+      Sharpshooter: "Fine gâchette",
+      Specialist: "Spécialiste",
+
+      // Support
       Medic: "Secouriste",
-      Tactician: "Tacticien",
+      Tactician: "Tactique",
+      Survivor: "Survie"
     },
     species: {
       Human: "Humain",

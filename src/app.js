@@ -19,6 +19,23 @@ const uiText = gameText;
 
 const root = document.getElementById("app");
 
+function buildHeroImageMap() {
+  const images = import.meta.glob("./assets/heroes/*.{png,jpg,jpeg,webp}", {
+    eager: true,
+    import: "default",
+  });
+
+  return Object.fromEntries(
+    Object.entries(images).map(([path, url]) => {
+      const filename = path.split("/").pop() ?? "";
+      const slug = filename.replace(/\.(png|jpe?g|webp)$/i, "").toLowerCase();
+      return [slug, url];
+    })
+  );
+}
+
+const heroImageMap = buildHeroImageMap();
+
 function pickRandom(list) {
   const index = Math.floor(Math.random() * list.length);
   return list[index];
@@ -60,6 +77,7 @@ function pickDaily(list, timeZone) {
 }
 
 const localeStorageKey = "owdle-locale";
+const dailyStateKeyPrefix = "owdle-daily";
 
 function getUrlLocale() {
   if (typeof window === "undefined") {
@@ -90,6 +108,44 @@ function saveLocale(locale) {
 
   try {
     localStorage.setItem(localeStorageKey, locale);
+  } catch {
+    return;
+  }
+}
+
+function getDailyStorageKey(timeZone) {
+  const dateKey = getDateKey(timeZone);
+  return `${dailyStateKeyPrefix}-${dateKey}`;
+}
+
+function loadDailyState(timeZone) {
+  if (typeof localStorage === "undefined") {
+    return null;
+  }
+
+  const storageKey = getDailyStorageKey(timeZone);
+
+  try {
+    const raw = localStorage.getItem(storageKey);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+function saveDailyState(timeZone) {
+  if (typeof localStorage === "undefined") {
+    return;
+  }
+
+  const storageKey = getDailyStorageKey(timeZone);
+  const payload = {
+    guesses: state.guesses.map((guess) => guess.name),
+    solved: state.solved,
+  };
+
+  try {
+    localStorage.setItem(storageKey, JSON.stringify(payload));
   } catch {
     return;
   }
@@ -250,6 +306,15 @@ function normalize(value) {
   return value.trim().toLowerCase();
 }
 
+function slugifyName(value) {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
 function findHeroByName(name) {
   const target = normalize(name);
   return (
@@ -269,6 +334,11 @@ function getHeroDisplayName(hero, locale = state.locale) {
   }
 
   return hero.name;
+}
+
+function getHeroImageUrl(hero) {
+  const slug = hero.image ?? slugifyName(hero.name);
+  return heroImageMap[slug] ?? null;
 }
 
 function getHeroAltName(hero, locale = state.locale) {
@@ -309,19 +379,33 @@ function sortHeroesByName(list, locale = state.locale) {
   );
 }
 
-function updateHeroOptions(query = "") {
-  const datalist = document.getElementById("hero-options");
-  if (!datalist) {
-    return;
+const suggestionLimit = 8;
+
+function buildSuggestions(query) {
+  if (!query) {
+    return [];
   }
 
   const available = getAvailableHeroes();
-  const filtered = query ? getMatchingHeroes(query, available) : available;
-  const sorted = sortHeroesByName(filtered);
+  const matches = getMatchingHeroes(query, available);
+  return sortHeroesByName(matches).slice(0, suggestionLimit);
+}
 
-  datalist.innerHTML = sorted
-    .map((hero) => `<option value=\"${getHeroDisplayName(hero)}\"></option>`)
-    .join("");
+function getSuggestionItemHtml(hero, isActive) {
+  const displayName = getHeroDisplayName(hero);
+  const imageUrl = getHeroImageUrl(hero);
+  const imageHtml = imageUrl
+    ? `<img class=\"hero-avatar\" src=\"${imageUrl}\" alt=\"${displayName}\" loading=\"lazy\" />`
+    : "";
+  const activeClass = isActive ? " active" : "";
+
+  return `
+    <button type=\"button\" class=\"suggestion-button${activeClass}\" role=\"option\" aria-selected=\"${
+      isActive
+    }\" data-hero=\"${hero.name}\">
+      <span class=\"hero-label\">${imageHtml}<span>${displayName}</span></span>
+    </button>
+  `;
 }
 
 function getMatchingHeroes(query, list) {
@@ -378,7 +462,13 @@ function compareValues(guess, answer, key) {
 
 function formatValue(hero, key) {
   if (key === "name") {
-    return getHeroDisplayName(hero);
+    const displayName = getHeroDisplayName(hero);
+    const imageUrl = getHeroImageUrl(hero);
+    const imageHtml = imageUrl
+      ? `<img class=\"hero-avatar\" src=\"${imageUrl}\" alt=\"${displayName}\" loading=\"lazy\" />`
+      : "";
+
+    return `<span class=\"hero-label\">${imageHtml}<span>${displayName}</span></span>`;
   }
 
   if (key === "role") {
@@ -452,17 +542,21 @@ function render() {
       <section class=\"controls\">
         <form id=\"guess-form\">
           <label for=\"guess-input\">${getText("labelHero")}</label>
-          <div class=\"input-row\">
-            <input id=\"guess-input\" name=\"guess\" list=\"hero-options\" autocomplete=\"off\" placeholder=\"${getText(
-              "placeholder"
-            )}\" required ${
-              solved ? "disabled" : ""
-            } />
-            <button type=\"submit\" ${solved ? "disabled" : ""}>${getText(
-              "guess"
-            )}</button>
+          <div class=\"autocomplete\">
+            <div class=\"input-row\">
+              <input id=\"guess-input\" name=\"guess\" autocomplete=\"off\" aria-autocomplete=\"list\" aria-controls=\"hero-suggestions\" placeholder=\"${getText(
+                "placeholder"
+              )}\" required ${
+                solved ? "disabled" : ""
+              } />
+              <button type=\"submit\" ${solved ? "disabled" : ""}>${getText(
+                "guess"
+              )}</button>
+            </div>
+            <div class=\"suggestions\" id=\"hero-suggestions\" role=\"listbox\" aria-label=\"${getText(
+              "labelHero"
+            )}\"></div>
           </div>
-          <datalist id=\"hero-options\"></datalist>
           <p class=\"message\">${message}</p>
         </form>
       </section>
@@ -481,9 +575,13 @@ function render() {
           solved
             ? `<div class=\"win-row\">
                 <p class=\"win\">${getText("win", getHeroDisplayName(state.answer))}</p>
-                <button type=\"button\" class=\"replay\" id=\"replay-button\">${getText(
-                  "replay"
-                )}</button>
+                ${
+                  state.mode !== "daily"
+                    ? `<button type=\"button\" class=\"replay\" id=\"replay-button\">${getText(
+                        "replay"
+                      )}</button>`
+                    : ""
+                }
               </div>`
             : `<p class=\"muted\">${getText("guesses", state.guesses.length)}</p>`
         }
@@ -493,14 +591,115 @@ function render() {
 
   const form = document.getElementById("guess-form");
   const input = document.getElementById("guess-input");
+  const suggestions = document.getElementById("hero-suggestions");
   const replayButton = document.getElementById("replay-button");
   const langButtons = document.querySelectorAll(".lang-button");
 
-  updateHeroOptions(input.value);
+  let currentSuggestions = [];
+  let activeIndex = -1;
+
+  const renderSuggestions = () => {
+    if (!suggestions) {
+      return;
+    }
+
+    if (currentSuggestions.length === 0) {
+      suggestions.innerHTML = "";
+      suggestions.classList.remove("open");
+      return;
+    }
+
+    suggestions.classList.add("open");
+    suggestions.innerHTML = currentSuggestions
+      .map((hero, index) => getSuggestionItemHtml(hero, index === activeIndex))
+      .join("");
+  };
+
+  const updateSuggestions = () => {
+    currentSuggestions = buildSuggestions(input.value.trim());
+    if (activeIndex >= currentSuggestions.length) {
+      activeIndex = currentSuggestions.length - 1;
+    }
+    renderSuggestions();
+  };
+
+  const selectSuggestion = (hero) => {
+    input.value = getHeroDisplayName(hero);
+    currentSuggestions = [];
+    activeIndex = -1;
+    renderSuggestions();
+
+    if (typeof form.requestSubmit === "function") {
+      form.requestSubmit();
+    } else {
+      form.dispatchEvent(new Event("submit", { cancelable: true }));
+    }
+  };
+
+  updateSuggestions();
 
   input.addEventListener("input", () => {
-    updateHeroOptions(input.value.trim());
+    activeIndex = -1;
+    updateSuggestions();
   });
+
+  input.addEventListener("keydown", (event) => {
+    if (!currentSuggestions.length) {
+      return;
+    }
+
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      activeIndex = (activeIndex + 1) % currentSuggestions.length;
+      renderSuggestions();
+      return;
+    }
+
+    if (event.key === "ArrowUp") {
+      event.preventDefault();
+      activeIndex = (activeIndex - 1 + currentSuggestions.length) % currentSuggestions.length;
+      renderSuggestions();
+      return;
+    }
+
+    if (event.key === "Enter" && activeIndex >= 0) {
+      event.preventDefault();
+      selectSuggestion(currentSuggestions[activeIndex]);
+    }
+
+    if (event.key === "Escape") {
+      currentSuggestions = [];
+      activeIndex = -1;
+      renderSuggestions();
+    }
+  });
+
+  input.addEventListener("blur", () => {
+    setTimeout(() => {
+      currentSuggestions = [];
+      activeIndex = -1;
+      renderSuggestions();
+    }, 120);
+  });
+
+  if (suggestions) {
+    suggestions.addEventListener("mousedown", (event) => {
+      event.preventDefault();
+    });
+
+    suggestions.addEventListener("click", (event) => {
+      const target = event.target.closest(".suggestion-button");
+      if (!target) {
+        return;
+      }
+
+      const heroName = target.dataset.hero;
+      const hero = heroes.find((entry) => entry.name === heroName);
+      if (hero) {
+        selectSuggestion(hero);
+      }
+    });
+  }
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -540,6 +739,9 @@ function render() {
     state.messageKey = "";
     state.guesses = [hero, ...state.guesses];
     state.solved = hero.name === state.answer.name;
+    if (state.mode === "daily") {
+      saveDailyState(state.timeZone);
+    }
     input.value = "";
     render();
   });
@@ -565,12 +767,23 @@ export function initGame(options = {}) {
   const locale = options.locale ?? state.locale ?? getInitialLocale();
 
   state.answer = mode === "daily" ? pickDaily(heroes, timeZone) : pickRandom(heroes);
-  state.guesses = [];
   state.messageKey = "";
+  state.guesses = [];
   state.solved = false;
   state.mode = mode;
   state.timeZone = timeZone;
   state.locale = locale;
+
+  if (mode === "daily") {
+    const saved = loadDailyState(timeZone);
+    if (saved) {
+      state.guesses = saved.guesses
+        .map((name) => heroes.find((hero) => hero.name === name) || null)
+        .filter(Boolean);
+      state.solved = Boolean(saved.solved);
+    }
+  }
+
   render();
 }
 
