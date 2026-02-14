@@ -736,6 +736,7 @@ function render() {
       return;
     }
 
+    const shouldScrollToWin = !state.solved && hero.name === state.answer.name;
     state.messageKey = "";
     state.guesses = [hero, ...state.guesses];
     state.solved = hero.name === state.answer.name;
@@ -744,6 +745,14 @@ function render() {
     }
     input.value = "";
     render();
+    if (shouldScrollToWin) {
+      const winMessage = document.querySelector(".win");
+      if (winMessage) {
+        requestAnimationFrame(() => {
+          winMessage.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      }
+    }
   });
 
   if (replayButton) {

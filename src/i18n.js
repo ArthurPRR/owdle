@@ -109,6 +109,7 @@ export const valueTranslations = {
     species: {
       Human: "Humain",
       Omnic: "Omniac",
+      Animal: "Animal"
     },
     gender: {
       Female: "Femme",

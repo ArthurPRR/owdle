@@ -1,9 +1,40 @@
 [
   {
-    "name": "Tracer",
+    "name": "Ana",
+    "species": "Human",
+    "role": "Support",
+    "subrole": "Tactician",
+    "continent": "Africa",
+    "affiliation": ["Overwatch"],
+    "gender": "Female",
+    "year": 2016
+  },
+  {
+  "name": "Echo",
+  "species": "Omnic",
+  "role": "Damage", 
+  "subrole": "Recon",
+  "continent": "Asia",
+  "affiliation": ["Overwatch"],
+  "gender": "Female",
+  "year": 2020
+  },
+  {
+    "name": "Genji",
     "species": "Human",
     "role": "Damage",
     "subrole": "Flanker",
+    "continent": "Asia",
+    "affiliation": ["Overwatch", "Shimada Clan"],
+    "gender": "Male",
+    "year": 2016
+  },  
+  {
+    "name": "Mercy",
+    "nameFr": "Ange",
+    "species": "Human",
+    "role": "Support",
+    "subrole": "Medic",
     "continent": "Europe",
     "affiliation": ["Overwatch"],
     "gender": "Female",
@@ -20,44 +51,33 @@
     "year": 2016
   },
   {
-    "name": "Mercy",
-    "nameFr": "Ange",
+    "name": "Tracer",
     "species": "Human",
-    "role": "Support",
-    "subrole": "Medic",
+    "role": "Damage",
+    "subrole": "Flanker",
     "continent": "Europe",
     "affiliation": ["Overwatch"],
     "gender": "Female",
     "year": 2016
   },
   {
-    "name": "Genji",
-    "species": "Human",
-    "role": "Damage",
-    "subrole": "Flanker",
-    "continent": "Asia",
-    "affiliation": ["Overwatch", "Shimada Clan"],
-    "gender": "Male",
+    "name": "Winston",
+    "species": "Animal",
+    "role": "Tank",
+    "subrole": "Initiator",
+    "continent": "Other",
+    "affiliation": ["Overwatch", "Horizon Lunar Colony"],
+    "gender":"Male",
     "year": 2016
   },
   {
-    "name": "Ana",
-    "species": "Human",
+    "name": "Zenyatta",
+    "species": "Omnic",
     "role": "Support",
     "subrole": "Tactician",
-    "continent": "Africa",
-    "affiliation": ["Overwatch"],
-    "gender": "Female",
+    "continent": "Asia",
+    "affiliation": ["Shambali"],
+    "gender": "Male",
     "year": 2016
-  },
-  {
-  "name": "Echo",
-  "species": "Omnic",
-  "role": "Damage", 
-  "subrole": "Recon",
-  "continent": "Asia",
-  "affiliation": ["Overwatch", "MEKA"],
-  "gender": "Female",
-  "year": 2020
   }
 ]
