@@ -640,6 +640,7 @@ function render() {
             )}\"></div>
           </div>
           <p class=\"message\">${message}</p>
+          <p class=\"muted\">${getText("guesses", state.guesses.length)}</p>
         </form>
       </section>
 
@@ -665,7 +666,7 @@ function render() {
                     : ""
                 }
               </div>`
-            : `<p class=\"muted\">${getText("guesses", state.guesses.length)}</p>`
+            : ``
         }
       </section>
     </main>
@@ -834,10 +835,13 @@ function render() {
     if (shouldScrollToWin) {
       const winMessage = document.querySelector(".win");
       if (winMessage) {
-        requestAnimationFrame(() => {
-          const targetTop =
-            winMessage.getBoundingClientRect().top + window.scrollY - 16;
-          window.scrollTo({ top: targetTop, behavior: "smooth" });
+        const targetTop =
+          winMessage.getBoundingClientRect().top + window.scrollY - 16;
+        console.log("scrollY:", window.scrollY);
+        console.log("targetTop:", targetTop);
+        window.scrollTo({
+          top: targetTop,
+          behavior: "smooth"
         });
       }
     }

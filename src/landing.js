@@ -1,5 +1,5 @@
 import "./styles.css";
-import { landingModes, landingText } from "./i18n.js";
+import { landingModes, landingText } from "./translate.js";
 
 const modes = landingModes;
 const uiText = landingText;
