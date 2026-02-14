@@ -307,6 +307,12 @@ td + td {
   font-weight: 600;
 }
 
+.year-arrow {
+  margin-left: 6px;
+  font-weight: 700;
+  color: #1f140a;
+}
+
 .hero-label {
   display: inline-flex;
   align-items: center;

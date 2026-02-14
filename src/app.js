@@ -1,5 +1,5 @@
 import heroes from "./data/heroes.json";
-import { attributeLabels, gameText, valueTranslations } from "./i18n.js";
+import { attributeLabels, gameText, valueTranslations } from "./translate.js";
 
 const state = {
   answer: null,
@@ -306,6 +306,14 @@ function normalize(value) {
   return value.trim().toLowerCase();
 }
 
+function normalizeLoose(value) {
+  return normalize(value).replace(/[^a-z0-9]/g, "");
+}
+
+function getHeroSuggestionName(hero) {
+  return getHeroDisplayName(hero);
+}
+
 function slugifyName(value) {
   return value
     .normalize("NFD")
@@ -317,13 +325,31 @@ function slugifyName(value) {
 
 function findHeroByName(name) {
   const target = normalize(name);
+  const targetLoose = normalizeLoose(name);
   return (
     heroes.find((hero) => {
-      const primary = normalize(getHeroDisplayName(hero));
+      const primaryName = getHeroDisplayName(hero);
+      const primary = normalize(primaryName);
+      const primaryLoose = normalizeLoose(primaryName);
       const alt = getHeroAltName(hero);
       const altNormalized = alt ? normalize(alt) : null;
+      const aliases = hero.aliases ?? [];
+      const aliasMatch = aliases.some((alias) => {
+        const aliasNormalized = normalize(alias);
+        const aliasLoose = normalizeLoose(alias);
+        return (
+          aliasNormalized === target ||
+          aliasLoose === targetLoose ||
+          (targetLoose && aliasLoose === targetLoose)
+        );
+      });
 
-      return primary === target || (altNormalized && altNormalized === target);
+      return (
+        primary === target ||
+        primaryLoose === targetLoose ||
+        (altNormalized && altNormalized === target) ||
+        aliasMatch
+      );
     }) || null
   );
 }
@@ -371,9 +397,9 @@ function getAvailableHeroes() {
   return heroes.filter((hero) => !guessed.has(hero.name));
 }
 
-function sortHeroesByName(list, locale = state.locale) {
+function sortHeroesByName(list) {
   return [...list].sort((a, b) =>
-    getHeroDisplayName(a, locale).localeCompare(getHeroDisplayName(b, locale), locale, {
+    getHeroSuggestionName(a).localeCompare(getHeroSuggestionName(b), state.locale, {
       sensitivity: "base",
     })
   );
@@ -392,7 +418,7 @@ function buildSuggestions(query) {
 }
 
 function getSuggestionItemHtml(hero, isActive) {
-  const displayName = getHeroDisplayName(hero);
+  const displayName = getHeroSuggestionName(hero);
   const imageUrl = getHeroImageUrl(hero);
   const imageHtml = imageUrl
     ? `<img class=\"hero-avatar\" src=\"${imageUrl}\" alt=\"${displayName}\" loading=\"lazy\" />`
@@ -410,18 +436,60 @@ function getSuggestionItemHtml(hero, isActive) {
 
 function getMatchingHeroes(query, list) {
   const target = normalize(query);
+  const targetLoose = normalizeLoose(query);
   if (!target) {
     return [];
   }
 
   return list.filter((hero) => {
-    const primary = normalize(getHeroDisplayName(hero));
-    if (primary.startsWith(target)) {
+    const primaryName = getHeroSuggestionName(hero);
+    const primary = normalize(primaryName);
+    const primaryLoose = normalizeLoose(primaryName);
+    if (primary.startsWith(target) || primaryLoose.startsWith(targetLoose)) {
+      return true;
+    }
+
+    const aliases = hero.aliases ?? [];
+    const aliasMatch = aliases.some((alias) => {
+      const aliasNormalized = normalize(alias);
+      const aliasLoose = normalizeLoose(alias);
+      return (
+        aliasNormalized.startsWith(target) ||
+        aliasLoose.startsWith(targetLoose) ||
+        aliasNormalized === target ||
+        aliasLoose === targetLoose
+      );
+    });
+    if (aliasMatch) {
       return true;
     }
 
     const alt = getHeroAltName(hero);
-    return alt ? normalize(alt) === target : false;
+    if (alt) {
+      const altNormalized = normalize(alt);
+      return altNormalized === target;
+    }
+
+    return false;
+  });
+}
+
+function isAutoSelectMatch(hero, query) {
+  const target = normalize(query);
+  const targetLoose = normalizeLoose(query);
+  const displayName = getHeroSuggestionName(hero);
+  const display = normalize(displayName);
+  const displayLoose = normalizeLoose(displayName);
+
+  if (display.startsWith(target) || displayLoose.startsWith(targetLoose)) {
+    return true;
+  }
+
+  const aliases = hero.aliases ?? [];
+  return aliases.some((alias) => {
+    const aliasNormalized = normalize(alias);
+    const aliasLoose = normalizeLoose(alias);
+    return aliasNormalized.startsWith(target) || aliasLoose.startsWith(targetLoose);
   });
 }
 
@@ -499,7 +567,21 @@ function renderGuesses() {
       const cells = attributeKeys
         .map((key) => {
           const cellClass = compareValues(guess, state.answer, key);
-          return `<td class=\"${cellClass}\">${formatValue(guess, key)}</td>`;
+          let cellValue = formatValue(guess, key);
+
+          if (key === "year" && cellClass === "cell wrong") {
+            const guessYear = Number(guess.year);
+            const answerYear = Number(state.answer?.year);
+
+            if (!Number.isNaN(guessYear) && !Number.isNaN(answerYear)) {
+              const isEarlier = guessYear < answerYear;
+              const arrowClass = isEarlier ? "year-up" : "year-down";
+              const arrowSymbol = isEarlier ? "&uarr;" : "&darr;";
+              cellValue = `${cellValue}<span class=\"year-arrow ${arrowClass}\" aria-hidden=\"true\">${arrowSymbol}</span>`;
+            }
+          }
+
+          return `<td class=\"${cellClass}\">${cellValue}</td>`;
         })
         .join("");
 
@@ -624,7 +706,7 @@ function render() {
   };
 
   const selectSuggestion = (hero) => {
-    input.value = getHeroDisplayName(hero);
+    input.value = getHeroSuggestionName(hero);
     currentSuggestions = [];
     activeIndex = -1;
     renderSuggestions();
@@ -717,17 +799,21 @@ function render() {
     let hero = findHeroByName(value);
 
     if (!hero) {
-      const matches = sortHeroesByName(getMatchingHeroes(value, available));
+      const matches = sortHeroesByName(getMatchingHeroes(value, available)).filter((entry) =>
+        isAutoSelectMatch(entry, value)
+      );
       if (matches.length > 0) {
         hero = matches[0];
-        input.value = getHeroDisplayName(hero);
+        input.value = getHeroSuggestionName(hero);
+      } else {
+        state.messageKey = "unknownHero";
+        render();
+        const nextInput = document.getElementById("guess-input");
+        if (nextInput) {
+          nextInput.focus();
+        }
+        return;
       }
-    }
-
-    if (!hero) {
-      state.messageKey = "unknownHero";
-      render();
-      return;
     }
 
     if (state.guesses.some((guess) => guess.name === hero.name)) {
@@ -749,9 +835,16 @@ function render() {
       const winMessage = document.querySelector(".win");
       if (winMessage) {
         requestAnimationFrame(() => {
-          winMessage.scrollIntoView({ behavior: "smooth", block: "start" });
+          const targetTop =
+            winMessage.getBoundingClientRect().top + window.scrollY - 16;
+          window.scrollTo({ top: targetTop, behavior: "smooth" });
         });
       }
+    }
+
+    const nextInput = document.getElementById("guess-input");
+    if (nextInput && !state.solved) {
+      nextInput.focus();
     }
   });
 

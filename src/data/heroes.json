@@ -10,14 +10,65 @@
     "year": 2016
   },
   {
-  "name": "Echo",
-  "species": "Omnic",
-  "role": "Damage", 
-  "subrole": "Recon",
-  "continent": "Asia",
-  "affiliation": ["Overwatch"],
-  "gender": "Female",
-  "year": 2020
+    "name": "Anran",
+    "species": "Human",
+    "role": "Damage",
+    "subrole": "Flanker",
+    "continent": "Asia",
+    "affiliation": ["Overwatch", "Wuxing University"],
+    "gender": "Female",
+    "year": 2026
+  },
+  {
+    "name": "Bastion",
+    "species": "Omnic",
+    "role": "Damage",
+    "subrole": "Specialist",
+    "continent": "Europe",
+    "affiliation": ["Ironclad Guild", "Overwatch"],
+    "gender": "None",
+    "year": 2016
+  },
+  {
+    "name": "D.Va",
+    "aliases": ["DVA"],
+    "species": "Human",
+    "role": "Tank",
+    "subrole": "Initiator",
+    "continent": "Asia",
+    "affiliation": ["Overwatch", "MEKA"],
+    "gender": "Female",
+    "year": 2016
+  },
+  {
+    "name": "Domina",
+    "species": "Human",
+    "role": "Tank",
+    "subrole": "Stalwart",
+    "continent": "Asia",
+    "affiliation": ["Vishkar", "Talon"],
+    "gender": "Female",
+    "year": 2026
+  },
+  {
+    "name": "Echo",
+    "species": "Omnic",
+    "role": "Damage", 
+    "subrole": "Recon",
+    "continent": "Asia",
+    "affiliation": ["Overwatch"],
+    "gender": "None",
+    "year": 2020
+  },
+  {
+    "name": "Emre",
+    "species": "Human",
+    "role": "Damage",
+    "subrole": "Specialist",
+    "continent": "Asia",
+    "affiliation": ["Overwatch", "Talon", "The Conspiracy"],
+    "gender": "Male",
+    "year": 2026
   },
   {
     "name": "Genji",
@@ -66,8 +117,18 @@
     "role": "Tank",
     "subrole": "Initiator",
     "continent": "Other",
-    "affiliation": ["Overwatch", "Horizon Lunar Colony"],
+    "affiliation": ["Horizon Lunar Colony", "Overwatch"],
     "gender":"Male",
+    "year": 2016
+  },
+  {
+    "name": "Zarya",
+    "species": "Human",
+    "role": "Tank",
+    "subrole": "Bruiser",
+    "continent": "Asia",
+    "affiliation": ["Overwatch", "Russian Defense Forces", "Volskaya Industries"],
+    "gender":"Female",
     "year": 2016
   },
   {
