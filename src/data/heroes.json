@@ -20,13 +20,53 @@
     "year": 2026
   },
   {
+    "name": "Ashe",
+    "species": "Human",
+    "role": "Damage",
+    "subrole": "Sharpshooter",
+    "continent": "North America",
+    "affiliation": ["Deadlock Gang"],
+    "gender":"Female",
+    "year": 2018
+  },
+  {
+    "name": "Baptiste",
+    "species": "Human",
+    "role": "Support",
+    "subrole": "Tactician",
+    "continent": "America",
+    "affiliation": ["Carribbean Coalition", "Overwatch", "Talon"],
+    "gender": "Male",
+    "year": 2019
+  },
+  {
     "name": "Bastion",
     "species": "Omnic",
     "role": "Damage",
     "subrole": "Specialist",
     "continent": "Europe",
     "affiliation": ["Ironclad Guild", "Overwatch"],
-    "gender": "None",
+    "gender": "Male",
+    "year": 2016
+  },
+  {
+    "name": "Brigitte",
+    "species": "Human",
+    "role": "Support",
+    "subrole": "Survivor",
+    "continent": "Europe",
+    "affiliation": ["Overwatch"],
+    "gender": "Female",
+    "year": 2018
+  },
+  {
+    "name": "Cassidy",
+    "species": "Human",
+    "role": "Damage",
+    "subrole": "Sharpshooter",
+    "continent": "North America",
+    "affiliation": ["Blackwatch","Deadlock Gang", "Overwatch"],
+    "gender": "Male",
     "year": 2016
   },
   {
@@ -51,6 +91,16 @@
     "year": 2026
   },
   {
+    "name": "Doomfist",
+    "species": "Human",
+    "role": "Tank",
+    "subrole": "Initiator",
+    "continent": "Africa",
+    "affiliation": ["Talon"],
+    "gender":"Male",
+    "year": 2017
+  },
+  {
     "name": "Echo",
     "species": "Omnic",
     "role": "Damage", 
@@ -71,6 +121,16 @@
     "year": 2026
   },
   {
+    "name": "Freja",
+    "species": "Human",
+    "role": "Damage",
+    "subrole": "Recon",
+    "continent": "Europe",
+    "affiliation": ["Danish Armed Forces", "Overwatch", "Talon"],
+    "gender": "Female",
+    "year": 2025
+  },
+  {
     "name": "Genji",
     "species": "Human",
     "role": "Damage",
@@ -79,7 +139,119 @@
     "affiliation": ["Overwatch", "Shimada Clan"],
     "gender": "Male",
     "year": 2016
-  },  
+  },
+  {
+    "name": "Hanzo",
+    "species": "Human",
+    "role": "Damage",
+    "subrole": "Sharpshooter",
+    "continent": "Asia",
+    "affiliation": ["Shimada Clan", "Yokai"],
+    "gender": "Male",
+    "year": 2016
+  },
+  {
+    "name": "Hazard",
+    "nameFr": "Danger",
+    "species": "Human",
+    "role": "Tank",
+    "subrole": "Stalwart",
+    "continent": "Europe",
+    "affiliation": ["British Military", "Phreaks"],
+    "gender": "Male",
+    "year": 2025
+  },
+  {
+    "name": "Illari",
+    "species": "Human",
+    "role": "Support",
+    "subrole": "Survivor",
+    "continent": "South America",
+    "affiliation": ["Inti Warriors"],
+    "gender":"Female",
+    "year": 2023
+  },
+  {
+    "name": "Junker Queen",
+    "species": "Human",
+    "role": "Tank",
+    "subrole": "Stalwart",
+    "continent": "Oceanias",
+    "affiliation": ["Junkers"],
+    "gender": "Female",
+    "year": 2022
+  },
+  {
+    "name": "Junkrat",
+    "species": "Human",
+    "role": "Damage",
+    "subrole": "Specialist",
+    "continent": "Oceania",
+    "affiliation": ["Junkers"],
+    "gender": "Male",
+    "year": 2016
+  },
+  {
+    "name": "Juno",
+    "species": "Human",
+    "role": "Support",
+    "subrole": "Survivor",
+    "continent": "Other",
+    "affiliation": ["Overwatch", "Project Red Promise"],
+    "gender": "Female",
+    "year": 2023
+  },
+  {
+    "name": "Kiriko",
+    "species": "Human",
+    "role": "Support",
+    "subrole": "Medic",
+    "continent": "Asia",
+    "affiliation": ["Yamagami blades", "Yokai"],
+    "gender":"Female",
+    "year": 2022
+  },
+  {
+    "name": "Lifeweaver",
+    "species": "Human",
+    "role": "Support",
+    "subrole": "Medic",
+    "continent": "Asia",
+    "affiliation": [ "The Collective", "Vishkar"],
+    "gender": "Male",
+    "year": 2024
+  },
+  {
+    "name": "Lúcio",
+    "aliases": ["Lucio"],
+    "species": "Human",
+    "role": "Support",
+    "subrole": "Tactician",
+    "continent": "South America",
+    "affiliation": ["Overwatch"],
+    "gender": "Male",
+    "year": 2016
+  },
+  {
+    "name": "Mauga",
+    "species": "Human",
+    "role": "Tank",
+    "subrole": "Bruiser",
+    "continent": "Oceania",
+    "affiliation": ["Deepsea Raiders", "Talon"],
+    "gender": "Male",
+    "year": 2023
+  },
+  {
+    "name": "Mei",
+    "species": "Human",
+    "role": "Damage",
+    "subrole": "Specialist",
+    "continent": "Asia",
+    "affiliation": ["Atlas News", "Overwatch"],
+    "gender": "Female",
+    "year": 2016
+  },
   {
     "name": "Mercy",
     "nameFr": "Ange",
@@ -107,7 +279,7 @@
     "role": "Damage",
     "subrole": "Flanker",
     "continent": "Europe",
-    "affiliation": ["Overwatch"],
+    "affiliation": ["British Military", "Overwatch"],
     "gender": "Female",
     "year": 2016
   },

@@ -3,7 +3,6 @@
 :root {
   color-scheme: light;
   font-family: "Space Grotesk", sans-serif;
-  /* Set this to url("/path/to/image") when you pick a background image. */
   --bg-image: url("./assets/background/background_img.jpg");
   --bg-overlay: radial-gradient(
     circle at top,
