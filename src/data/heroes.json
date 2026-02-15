@@ -26,6 +26,7 @@
     "subrole": "Sharpshooter",
     "continent": "North America",
     "affiliation": ["Deadlock Gang"],
+    "UnincludedAffiliations": ["Talon", "The Arbalest"],
     "gender":"Female",
     "year": 2018
   },
@@ -136,7 +137,7 @@
     "role": "Damage",
     "subrole": "Flanker",
     "continent": "Asia",
-    "affiliation": ["Overwatch", "Shimada Clan"],
+    "affiliation": ["Blackwatch", "Overwatch", "Shambali", "Shimada Clan"],
     "gender": "Male",
     "year": 2016
   },
@@ -170,6 +171,16 @@
     "affiliation": ["Inti Warriors"],
     "gender":"Female",
     "year": 2023
+  },
+  {
+    "name": "Jetpack Cat",
+    "species": "Animal",
+    "role": "Support",
+    "subrole": "Tactician",
+    "continent": "Europe",
+    "affiliation": ["Overwatch"],
+    "gender": "Female",
+    "year": 2026
   },
   {
     "name": "Junker Queen",
@@ -264,12 +275,147 @@
     "year": 2016
   },
   {
+    "name": "Mizuki",
+    "species": "Human",
+    "role": "Support",
+    "subrole": "Survivor",
+    "continent": "Asia",
+    "affiliation": ["Hashimoto Clan", "Talon", "Yokai"],
+    "gender": "Male",
+    "year": 2026
+  },
+  {
+    "name": "Moira",
+    "species": "Human",
+    "role": "Support",
+    "subrole": "Medic",
+    "continent": "Europe",
+    "affiliation": ["Blackwatch", "Talon", "The Ministries"],
+    "gender": "Female",
+    "year": 2017
+  },
+  {
+    "name": "Orisa",
+    "species": "Omnic",
+    "role": "Tank",
+    "subrole": "Bruiser",
+    "continent": "Africa",
+    "affiliation": ["Numbani", "Overwatch"],
+    "gender": "Female",
+    "year": 2017
+  },
+  {
+    "name": "Pharah",
+    "species": "Human",
+    "role": "Damage",
+    "subrole": "Recon",
+    "continent": "Africa",
+    "affiliation": ["Helix Security International", "Overwatch"],
+    "gender":"Female",
+    "year": 2016
+  },
+  {
+    "name": "Ramattra",
+    "species": "Omnic",
+    "role": "Tank",
+    "subrole": "Stalwart",
+    "continent": "Asia",
+    "affiliation": ["Null Sector", "Shambali"],
+    "gender": "Male",
+    "year": 2022
+  },
+  {
+    "name": "Reaper",
+    "nameFr": "Faucheur",
+    "species": "Human",
+    "role": "Damage",
+    "subrole": "Flanker",
+    "continent": "America",
+    "affiliation": ["Blackwatch", "Talon"],
+    "gender": "Male",
+    "year": 2016
+  },
+  {
     "name": "Reinhardt",
     "species": "Human",
     "role": "Tank",
     "subrole": "Stalwart",
     "continent": "Europe",    
     "affiliation": ["Crusaders", "Overwatch"],
+    "gender": "Male",
+    "year": 2016
+  },
+  {
+    "name": "Roadhog",
+    "species": "Human",
+    "role": "Tank",
+    "subrole": "Bruiser",
+    "continent": "Oceania",
+    "affiliation": ["Australian Liberation Front", "Junkers"],
+    "UnincludedAffiliations": ["Wreckers"],
+    "gender": "Male",
+    "year": 2016
+  },
+  {
+    "name": "Sigma",
+    "species": "Human",
+    "role": "Tank",
+    "subrole": "Stalwart",
+    "continent": "Europe",
+    "affiliation": ["Talon"],
+    "gender": "Male",
+    "year": 2019
+  },
+  {
+    "name": "Soldier: 76",
+    "species": "Human",
+    "role": "Damage",
+    "subrole": "Specialist",
+    "continent": "South America",
+    "affiliation": ["Blackwatch","Overwatch"],
+    "UnincludedAffiliations": ["United States Army", "Soldier Enhancement Program"],
+    "gender": "Male",
+    "year": 2016
+  },
+  {
+    "name": "Sojourn",
+    "species": "Human",
+    "role": "Damage",
+    "subrole": "Sharpshooter",
+    "continent": "North America",
+    "affiliation": ["Overwatch"],
+    "UnincludedAffiliations": ["Canadian Army"],
+    "gender": "Female",
+    "year": 2022
+  },
+  {
+    "name": "Sombra",
+    "species": "Human",
+    "role": "Damage",
+    "subrole": "Recon",
+    "continent": "America",
+    "affiliation": ["Los Muertos", "Talon"],
+    "gender": "Female",
+    "year": 2016
+  },
+  {
+    "name": "Symmetra",
+    "species": "Human",
+    "role": "Damage",
+    "subrole": "Specialist",
+    "continent": "Asia",
+    "affiliation": ["Vishkar"],
+    "gender": "Female",
+    "year": 2016
+  },
+  {
+    "name": "Torbjorn",
+    "species": "Human",
+    "role": "Support",
+    "subrole": "Specialist",
+    "continent": "Europe",
+    "affiliation": ["Ironclad Guild", "Overwatch"],
+    "UnincludedAffiliations": ["SST Laboratories", "National Chemical, Biological, Radiation & Nuclear Defense Center"],
     "gender": "Male",
     "year": 2016
   },
@@ -284,14 +430,66 @@
     "year": 2016
   },
   {
+    "name": "Vendetta",
+    "species": "Human",
+    "role": "Damage",
+    "subrole": "Flanker",
+    "continent": "Europe",
+    "affiliation": ["Talon"],
+    "gender": "Female",
+    "year": 2025
+  },
+  {
+    "name": "Venture",
+    "species": "Human",
+    "role": "Damage",
+    "subrole": "Flanker",
+    "continent": "America",
+    "affiliation": ["Wayfinder Society"],
+    "gender": "Non-binary",
+    "year": 2024
+  },
+  {
+    "name": "Widowmaker",
+    "nameFr": "Fatale",
+    "species": "Human",
+    "role": "Damage",
+    "subrole": "Sharpshooter",
+    "continent": "Europe",
+    "affiliation": ["Talon"], 
+    "gender": "Female",
+    "year": 2016
+  },
+  {
     "name": "Winston",
     "species": "Animal",
     "role": "Tank",
     "subrole": "Initiator",
     "continent": "Other",
-    "affiliation": ["Horizon Lunar Colony", "Overwatch"],
+    "affiliation": ["Lucheng Interstellar", "Overwatch"],
     "gender":"Male",
     "year": 2016
+  },
+  {
+    "name": "Wrecking Ball",
+    "aliases": ["Hammond"],
+    "species": "Animal",
+    "role": "Tank",
+    "subrole": "Initiator",
+    "continent": "Oceania",
+    "affiliation": ["Junkers", "Lucheng Interstellar"],
+    "gender": "Male",
+    "year": 2018
+  },
+  {
+    "name": "Wuyang",
+    "species": "Human",
+    "role": "Support",
+    "subrole": "Survivor",
+    "continent": "Asia",
+    "affiliation": ["Overwatch", "Wuxing University"],
+    "gender": "Male",
+    "year": 2025
   },
   {
     "name": "Zarya",
