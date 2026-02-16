@@ -1,15 +1,14 @@
 # owdle
-Jeu de devinette pour les personnages d'Overwatch, inspire de Wordle.
+Guessing game for Overwatch characters, inspired by Wordle.
 
-## Apercu
-Application web en JavaScript vanilla, construite avec Vite. Le joueur doit
-deviner un hero en un nombre limite de tentatives a partir d'indices.
+## Overview
+Vanilla JavaScript web app built with Vite. The player must guess a hero based on hints given by previous guesses.
 
-## Fonctionnalites
-- Gameplay type Wordle avec comparaisons et indices.
-- Plusieurs pages (landing, daily, illimited).
-- Donnees locales pour les heros.
-- Interface rapide, sans framework.
+## Features
+- Wordle-like gameplay with comparisons and hints.
+- Multiple pages (landing, daily, illimited).
+- Local data for heroes.
+- Fast interface, no framework.
 
 ## Installation
 ```bash
@@ -17,41 +16,40 @@ npm install
 npm run dev
 ```
 
-## Scripts utiles
-- `npm run dev` : lance le serveur de developpement.
-- `npm run build` : build de production.
-- `npm run preview` : previsualisation du build.
+## Useful scripts
+- `npm run dev` : start the dev server.
+- `npm run build` : production build.
+- `npm run preview` : preview the build.
 
-## Structure du projet
+## Project structure
 ```
 src/
-	app.js
-	daily.js
-	illimited.js
-	landing.js
-	styles.css
-	translate.js
-	assets/
-	data/
+  app.js
+  daily.js
+  illimited.js
+  landing.js
+  styles.css
+  translate.js
+  assets/
+  data/
 ```
 
-## Donnees
-Les heros sont definis dans [src/data/heroes.json](src/data/heroes.json). Ce
-fichier alimente les pages et la logique du jeu.
+## Data
+Heroes are defined in [src/data/heroes.json](src/data/heroes.json). This file
+feeds the pages and the game logic.
+Images are stocked in src/assets
 
 ## Pages
-- [index.html](index.html) : page principale.
-- [daily.html](daily.html) : mode quotidien.
-- [illimited.html](illimited.html) : mode illimite.
+- [index.html](index.html) : main page.
+- [daily.html](daily.html) : daily mode.
+- [illimited.html](illimited.html) : unlimited mode.
 
-## Dev local
-1. Installe les dependances.
-2. Lance `npm run dev`.
-3. Ouvre l'URL affichee par Vite.
+## Local development
+1. Install dependencies.
+2. Run `npm run dev`.
+3. Open the URL printed by Vite.
 
-## Contribuer
-Les contributions sont les bienvenues. Ouvre une issue ou une pull request avec
-un descriptif clair des changements.
+## Contributing
+Contributions are welcome. Open an issue or a pull request with a clear
+description of the changes.
 
-## Licence
-Preciser la licence ici.

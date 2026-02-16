@@ -1,5 +1,6 @@
 import heroes from "./data/heroes.json";
 import { attributeLabels, gameText, valueTranslations } from "./translate.js";
+import logoUrl from "./assets/logo/logo.png";
 
 const state = {
   answer: null,
@@ -609,7 +610,9 @@ function render() {
     <main class=\"layout\">
       <header>
         <div class=\"header-row\">
-          <a class=\"eyebrow home-link\" href=\"/index.html\">${getText("eyebrow")}</a>
+            <a class=\"eyebrow home-link\" href=\"/index.html\" aria-label=\"OWDLE\">
+              <img class=\"logo\" src=\"${logoUrl}\" alt=\"OWDLE\" />
+            </a>
           <div class=\"lang-toggle\" role=\"group\" aria-label=\"Language\">
             <button type=\"button\" class=\"lang-button ${
               state.locale === "fr" ? "active" : ""

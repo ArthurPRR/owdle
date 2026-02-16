@@ -1,5 +1,6 @@
 import "./styles.css";
 import { landingModes, landingText } from "./translate.js";
+import logoUrl from "./assets/logo/logo.png";
 
 const modes = landingModes;
 const uiText = landingText;
@@ -71,7 +72,9 @@ function render() {
     <main class="layout landing">
       <header>
         <div class="header-row">
-          <a class="eyebrow home-link" href="/index.html">OWDLE</a>
+          <a class="eyebrow home-link" href="/index.html" aria-label="OWDLE">
+            <img class="logo" src="${logoUrl}" alt="OWDLE" />
+          </a>
           <div class="lang-toggle" role="group" aria-label="Language">
             <button type="button" class="lang-button ${
               state.locale === "fr" ? "active" : ""
