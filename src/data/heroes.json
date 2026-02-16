@@ -347,6 +347,7 @@
   },
   {
     "name": "Roadhog",
+    "nameFr": "Chopper",
     "species": "Human",
     "role": "Tank",
     "subrole": "Bruiser",
@@ -472,6 +473,7 @@
   },
   {
     "name": "Wrecking Ball",
+    "nameFr": "Bouldozer",
     "aliases": ["Hammond"],
     "species": "Animal",
     "role": "Tank",
