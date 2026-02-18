@@ -1,6 +1,7 @@
 import heroes from "./data/heroes.json";
 import { attributeLabels, gameText, valueTranslations } from "./translate.js";
 import { renderHeader, attachHeaderEvents } from "./header.js";
+import { renderFooter } from "./footer.js";
 
 const state = {
   answer: null,
@@ -80,6 +81,7 @@ function pickDaily(list, timeZone) {
 
 const localeStorageKey = "owdle-locale";
 const dailyStateKeyPrefix = "owdle-daily";
+const gitUrl = "https://github.com/";
 
 function getUrlLocale() {
   if (typeof window === "undefined") {
@@ -702,6 +704,7 @@ function render() {
             : ``
         }
       </section>
+      ${renderFooter(gitUrl, "GitHub")}
     </main>
   `;
 

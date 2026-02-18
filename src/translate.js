@@ -1,6 +1,6 @@
 export const landingModes = [
   {
-    id: "illimited",
+    id: "illimited classic",
     title: { fr: "Classique illimité", en: "Unlimited classic" },
     description: {
       fr: "Joue autant de parties que tu veux",
@@ -9,7 +9,7 @@ export const landingModes = [
     href: "/illimited.html",
   },
   {
-    id: "daily",
+    id: "daily classic",
     title: { fr: "Classique quotidien", en: "Daily classic" },
     description: {
       fr: "Un nouveau heros chaque jour",

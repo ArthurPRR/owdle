@@ -1,12 +1,14 @@
 import "./styles.css";
 import { landingModes, landingText } from "./translate.js";
 import { renderHeader, attachHeaderEvents } from "./header.js";
+import { renderFooter } from "./footer.js";
 
 const modes = landingModes;
 const uiText = landingText;
 
 const localeStorageKey = "owdle-locale";
 const themeStorageKey = "owdle-theme";
+const gitUrl = "https://github.com/";
 
 function getUrlLocale() {
   if (typeof window === "undefined") {
@@ -120,7 +122,7 @@ function render() {
         saveTheme(state.theme);
         render();
       })}
-      <h1>${text.title}</h1>
+      <h1 class="title">${text.title}</h1>
 
       <section class="mode-grid">
         ${modes
@@ -135,6 +137,7 @@ function render() {
           )
           .join("")}
       </section>
+      ${renderFooter(gitUrl, "GitHub")}
     </main>
   `;
 
