@@ -1,11 +1,12 @@
 import "./styles.css";
 import { landingModes, landingText } from "./translate.js";
-import logoUrl from "./assets/logo/logo.png";
+import { renderHeader, attachHeaderEvents } from "./header.js";
 
 const modes = landingModes;
 const uiText = landingText;
 
 const localeStorageKey = "owdle-locale";
+const themeStorageKey = "owdle-theme";
 
 function getUrlLocale() {
   if (typeof window === "undefined") {
@@ -55,8 +56,44 @@ function getInitialLocale() {
   return "en";
 }
 
+function getInitialTheme() {
+  if (typeof localStorage === "undefined") {
+    return "light";
+  }
+
+  try {
+    const saved = localStorage.getItem(themeStorageKey);
+    return saved === "dark" ? "dark" : "light";
+  } catch {
+    return "light";
+  }
+}
+
+function saveTheme(theme) {
+  if (typeof localStorage === "undefined") {
+    return;
+  }
+
+  try {
+    localStorage.setItem(themeStorageKey, theme);
+  } catch {
+    return;
+  }
+}
+
+function applyTheme(theme) {
+  if (document?.documentElement) {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }
+}
+
 const state = {
   locale: getInitialLocale(),
+  theme: getInitialTheme(),
 };
 
 const root = document.getElementById("app");
@@ -66,27 +103,24 @@ function render() {
     document.documentElement.lang = state.locale;
   }
 
+  applyTheme(state.theme);
+
   const text = uiText[state.locale] ?? uiText.en;
 
   root.innerHTML = `
     <main class="layout landing">
-      <header>
-        <div class="header-row">
-          <a class="eyebrow home-link" href="/index.html" aria-label="OWDLE">
-            <img class="logo" src="${logoUrl}" alt="OWDLE" />
-          </a>
-          <div class="lang-toggle" role="group" aria-label="Language">
-            <button type="button" class="lang-button ${
-              state.locale === "fr" ? "active" : ""
-            }" data-lang="fr">FR</button>
-            <button type="button" class="lang-button ${
-              state.locale === "en" ? "active" : ""
-            }" data-lang="en">EN</button>
-          </div>
-        </div>
-        <h1>${text.title}</h1>
-        
-      </header>
+      ${renderHeader(state.locale, state.theme, (nextLocale) => {
+        if (state.locale !== nextLocale) {
+          state.locale = nextLocale;
+          saveLocale(nextLocale);
+          render();
+        }
+      }, () => {
+        state.theme = state.theme === "dark" ? "light" : "dark";
+        saveTheme(state.theme);
+        render();
+      })}
+      <h1>${text.title}</h1>
 
       <section class="mode-grid">
         ${modes
@@ -104,16 +138,16 @@ function render() {
     </main>
   `;
 
-  const langButtons = document.querySelectorAll(".lang-button");
-  langButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const nextLocale = button.dataset.lang ?? "en";
-      if (state.locale !== nextLocale) {
-        state.locale = nextLocale;
-        saveLocale(nextLocale);
-        render();
-      }
-    });
+  attachHeaderEvents((nextLocale) => {
+    if (state.locale !== nextLocale) {
+      state.locale = nextLocale;
+      saveLocale(nextLocale);
+      render();
+    }
+  }, () => {
+    state.theme = state.theme === "dark" ? "light" : "dark";
+    saveTheme(state.theme);
+    render();
   });
 }
 

@@ -1,6 +1,6 @@
 import heroes from "./data/heroes.json";
 import { attributeLabels, gameText, valueTranslations } from "./translate.js";
-import logoUrl from "./assets/logo/logo.png";
+import { renderHeader, attachHeaderEvents } from "./header.js";
 
 const state = {
   answer: null,
@@ -10,6 +10,7 @@ const state = {
   mode: "random",
   timeZone: "UTC",
   locale: getInitialLocale(),
+  theme: getInitialTheme(),
 };
 
 let countdownTimer = null;
@@ -166,6 +167,41 @@ function getInitialLocale() {
   return "en";
 }
 
+function getInitialTheme() {
+  if (typeof localStorage === "undefined") {
+    return "light";
+  }
+
+  try {
+    const saved = localStorage.getItem("owdle-theme");
+    return saved === "dark" ? "dark" : "light";
+  } catch {
+    return "light";
+  }
+}
+
+function saveTheme(theme) {
+  if (typeof localStorage === "undefined") {
+    return;
+  }
+
+  try {
+    localStorage.setItem("owdle-theme", theme);
+  } catch {
+    return;
+  }
+}
+
+function applyTheme(theme) {
+  if (document?.documentElement) {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }
+}
+
 function getText(key, ...args) {
   const entry = uiText[state.locale]?.[key] ?? uiText.en[key];
 
@@ -197,6 +233,12 @@ function setLocale(locale) {
 
   state.locale = locale;
   saveLocale(locale);
+  render();
+}
+
+function toggleTheme() {
+  state.theme = state.theme === "dark" ? "light" : "dark";
+  saveTheme(state.theme);
   render();
 }
 
@@ -602,27 +644,15 @@ function render() {
     document.documentElement.lang = state.locale;
   }
 
+  applyTheme(state.theme);
+
   const guessCount = state.guesses.length;
   const solved = state.solved;
   const message = state.messageKey ? getText(state.messageKey) : "";
 
   root.innerHTML = `
     <main class=\"layout\">
-      <header>
-        <div class=\"header-row\">
-            <a class=\"eyebrow home-link\" href=\"/index.html\" aria-label=\"OWDLE\">
-              <img class=\"logo\" src=\"${logoUrl}\" alt=\"OWDLE\" />
-            </a>
-          <div class=\"lang-toggle\" role=\"group\" aria-label=\"Language\">
-            <button type=\"button\" class=\"lang-button ${
-              state.locale === "fr" ? "active" : ""
-            }\" data-lang=\"fr\">FR</button>
-            <button type=\"button\" class=\"lang-button ${
-              state.locale === "en" ? "active" : ""
-            }\" data-lang=\"en\">EN</button>
-          </div>
-        </div>
-      </header>
+      ${renderHeader(state.locale, state.theme, (nextLocale) => setLocale(nextLocale), () => toggleTheme())}
 
       <section class=\"controls\">
         <form id=\"guess-form\">
@@ -679,7 +709,8 @@ function render() {
   const input = document.getElementById("guess-input");
   const suggestions = document.getElementById("hero-suggestions");
   const replayButton = document.getElementById("replay-button");
-  const langButtons = document.querySelectorAll(".lang-button");
+
+  attachHeaderEvents((nextLocale) => setLocale(nextLocale), () => toggleTheme());
 
   let currentSuggestions = [];
   let activeIndex = -1;
@@ -860,12 +891,6 @@ function render() {
       initGame();
     });
   }
-
-  langButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      setLocale(button.dataset.lang ?? "en");
-    });
-  });
 
   startCountdown();
 }
