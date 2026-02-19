@@ -702,7 +702,7 @@ function render() {
               )}\" required ${
                 solved ? "disabled" : ""
               } />
-              <button type=\"submit\" ${solved ? "disabled" : ""}>${getText(
+              <button type=\"submit\" class=\"submit-button\" ${solved ? "disabled" : ""}\">${getText(
                 "guess"
               )}</button>
             </div>

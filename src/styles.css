@@ -283,6 +283,23 @@ input::placeholder {
   border-radius: 8px;
 }
 
+.submit-button{
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: none;
+  background: #d0af7d;
+  border-color: #030200;
+  color: #050000;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.submit-button:hover {
+  transform: translateY(-1px);
+  background: #efb96e;
+}
+
 button {
   padding: 12px 20px;
   border-radius: 12px;
@@ -477,8 +494,20 @@ td:nth-child(4) {
 }
 
 .replay {
-  background: #1f140a;
-  color: #fff;
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: none;
+  background: #d0af7d;
+  border-color: #030200;
+  color: #050000;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.replay:hover {
+  transform: translateY(-1px);
+  background: #efb96e;
 }
 
 .muted {
@@ -578,12 +607,22 @@ td:nth-child(4) {
 }
 
 :root.dark .suggestion-button {
-  color: #e8e0d5;
+  color: #ca4706;
 }
 
 :root.dark .suggestion-button:hover,
 :root.dark .suggestion-button.active {
   background: rgba(70, 55, 45, 0.7);
+}
+
+:root.dark .submit-button{
+  background: #7e5414;
+  border-color: #f9f9f8;
+  color: #ffffff;
+}
+
+:root.dark .submit-button:hover {
+  background: #9f7335;
 }
 
 :root.dark .mode-card {
@@ -642,8 +681,13 @@ td:nth-child(4) {
 }
 
 :root.dark .replay {
-  background: #1a1410;
-  color: #fff;
+  background: #7e5414;
+  border-color: #f9f9f8;
+  color: #ffffff;
+}
+
+:root.dark .replay:hover {
+  background: #9f7335;
 }
 
 :root.dark .win-row {
