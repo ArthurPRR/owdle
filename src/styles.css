@@ -306,7 +306,8 @@ button:hover {
 
 .results table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 6px;
   margin-top: 12px;
 }
 
@@ -314,7 +315,8 @@ th,
 td {
   text-align: left;
   padding: 12px 10px;
-  border-bottom: 1px solid rgba(60, 40, 20, 0.12);
+  border: 1px solid rgba(60, 40, 20, 0.12);
+  border-radius: 10px;
 }
 
 th {
@@ -329,11 +331,6 @@ td:nth-child(4) {
   background: rgba(246, 228, 198, 0.4);
 }
 
-th + th,
-td + td {
-  border-left: 1px solid rgba(60, 40, 20, 0.08);
-}
-
 .cell.correct {
   background: rgba(3, 254, 78, 0.45);
   font-weight: 600;
@@ -346,6 +343,87 @@ td + td {
 .cell.partial {
   background: rgba(255, 255, 5, 0.45);
   font-weight: 600;
+}
+
+.hero-selected-row {
+  perspective: 900px;
+}
+
+.hero-selected-row td {
+  transform-origin: center;
+  backface-visibility: hidden;
+  animation: heroCellFlip 0.45s ease both;
+}
+
+.hero-selected-row td:nth-child(1) {
+  animation-delay: 0ms;
+}
+
+.hero-selected-row td:nth-child(2) {
+  animation-delay: 90ms;
+}
+
+.hero-selected-row td:nth-child(3) {
+  animation-delay: 180ms;
+}
+
+.hero-selected-row td:nth-child(4) {
+  animation-delay: 270ms;
+}
+
+.hero-selected-row td:nth-child(5) {
+  animation-delay: 360ms;
+}
+
+.hero-selected-row td:nth-child(6) {
+  animation-delay: 450ms;
+}
+
+.hero-selected-row td:nth-child(7) {
+  animation-delay: 540ms;
+}
+
+.confetti-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.confetti-piece {
+  position: absolute;
+  top: -10vh;
+  background: var(--confetti-color, #f2a43c);
+  opacity: 0.95;
+  border-radius: 2px;
+  animation: confettiFall var(--confetti-duration, 1800ms) ease-in var(--confetti-delay, 0ms)
+    forwards;
+}
+
+@keyframes heroCellFlip {
+  0% {
+    transform: rotateX(90deg);
+    opacity: 0.2;
+  }
+  100% {
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translate3d(0, -12vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(var(--confetti-drift, 0px), 110vh, 0) rotate(720deg);
+    opacity: 0;
+  }
 }
 
 .year-arrow {
