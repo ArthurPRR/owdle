@@ -1,4 +1,6 @@
-export function renderFooter(gitUrl, label = "Git") {
+const gitUrl = "github.com/ArthurPRR/owdle";
+
+export function renderFooter() {
   if (!gitUrl) {
     return "";
   }

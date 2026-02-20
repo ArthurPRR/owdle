@@ -412,7 +412,7 @@
   {
     "name": "Torbjorn",
     "species": "Human",
-    "role": "Support",
+    "role": "Damage",
     "subrole": "Specialist",
     "continent": "Europe",
     "affiliation": ["Ironclad Guild", "Overwatch"],

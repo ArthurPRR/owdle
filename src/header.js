@@ -1,6 +1,8 @@
+export { renderHeader, attachHeaderEvents };
+
 import logoUrl from "./assets/logo/logo.png";
 
-export function renderHeader(locale, theme, onLocaleChange, onThemeChange) {
+function renderHeader(locale, theme, onLocaleChange, onThemeChange) {
   return `
     <header>
       <div class="header-controls">
@@ -23,7 +25,7 @@ export function renderHeader(locale, theme, onLocaleChange, onThemeChange) {
   `;
 }
 
-export function attachHeaderEvents(onLocaleChange, onThemeChange) {
+function attachHeaderEvents(onLocaleChange, onThemeChange) {
   const langButtons = document.querySelectorAll(".lang-button");
   langButtons.forEach((button) => {
     button.addEventListener("click", () => {

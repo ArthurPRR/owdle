@@ -1,4 +1,4 @@
 import "./styles.css";
-import { initUnlimitedSilhouetteGame } from "./silhouette.js";
+import { initSilhouetteGame } from "./silhouette.js";
 
-initUnlimitedSilhouetteGame();
+initSilhouetteGame();

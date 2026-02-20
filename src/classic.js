@@ -10,6 +10,10 @@ import {
   sortHeroesByName,
 } from "./heroAutocomplete.js";
 
+import { getInitialLocale, getInitialTheme, applyTheme, toggleTheme, setLocale } from "./settings.js";
+
+import { applyWin } from "./winScroll.js";
+
 const state = {
   answer: null,
   guesses: [],
@@ -17,9 +21,18 @@ const state = {
   solved: false,
   mode: "random",
   timeZone: "UTC",
-  locale: getInitialLocale(),
-  theme: getInitialTheme(),
 };
+
+function changeTheme(){
+  toggleTheme();
+  render();
+}
+
+function changeLanguage(locale){
+  setLocale(locale);
+  render();
+}
+
 
 let countdownTimer = null;
 
@@ -86,43 +99,8 @@ function pickDaily(list, timeZone) {
   return list[index];
 }
 
-const localeStorageKey = "owdle-locale";
 const dailyStateKeyPrefix = "owdle-daily";
-const gitUrl = "https://github.com/";
 
-function getUrlLocale() {
-  if (typeof window === "undefined") {
-    return null;
-  }
-
-  const params = new URLSearchParams(window.location.search);
-  const value = params.get("lang");
-  return value === "fr" || value === "en" ? value : null;
-}
-
-function loadSavedLocale() {
-  if (typeof localStorage === "undefined") {
-    return null;
-  }
-
-  try {
-    return localStorage.getItem(localeStorageKey);
-  } catch {
-    return null;
-  }
-}
-
-function saveLocale(locale) {
-  if (typeof localStorage === "undefined") {
-    return;
-  }
-
-  try {
-    localStorage.setItem(localeStorageKey, locale);
-  } catch {
-    return;
-  }
-}
 
 function getDailyStorageKey(timeZone) {
   const dateKey = getDateKey(timeZone);
@@ -162,57 +140,10 @@ function saveDailyState(timeZone) {
   }
 }
 
-function getInitialLocale() {
-  const savedLocale = loadSavedLocale();
-  if (savedLocale === "fr" || savedLocale === "en") {
-    return savedLocale;
-  }
 
-  const urlLocale = getUrlLocale();
-  if (urlLocale) {
-    return urlLocale;
-  }
-
-  return "en";
-}
-
-function getInitialTheme() {
-  if (typeof localStorage === "undefined") {
-    return "light";
-  }
-
-  try {
-    const saved = localStorage.getItem("owdle-theme");
-    return saved === "dark" ? "dark" : "light";
-  } catch {
-    return "light";
-  }
-}
-
-function saveTheme(theme) {
-  if (typeof localStorage === "undefined") {
-    return;
-  }
-
-  try {
-    localStorage.setItem("owdle-theme", theme);
-  } catch {
-    return;
-  }
-}
-
-function applyTheme(theme) {
-  if (document?.documentElement) {
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }
-}
 
 function getText(key, ...args) {
-  const entry = uiText[state.locale]?.[key] ?? uiText.en[key];
+  const entry = uiText[getInitialLocale()]?.[key] ?? uiText.en[key];
 
   if (typeof entry === "function") {
     return entry(...args);
@@ -222,11 +153,11 @@ function getText(key, ...args) {
 }
 
 function getAttributeLabel(key) {
-  return attributeLabels[state.locale]?.[key] ?? attributeLabels.en[key] ?? key;
+  return attributeLabels[getInitialLocale()]?.[key] ?? attributeLabels.en[key] ?? key;
 }
 
 function translateValue(key, value) {
-  const translations = valueTranslations[state.locale]?.[key];
+  const translations = valueTranslations[getInitialLocale()]?.[key];
 
   if (!translations) {
     return value;
@@ -235,57 +166,6 @@ function translateValue(key, value) {
   return translations[value] ?? value;
 }
 
-function setLocale(locale) {
-  if (state.locale === locale) {
-    return;
-  }
-
-  state.locale = locale;
-  saveLocale(locale);
-  render();
-}
-
-function toggleTheme() {
-  state.theme = state.theme === "dark" ? "light" : "dark";
-  saveTheme(state.theme);
-  render();
-}
-
-function launchConfetti() {
-  const container = document.createElement("div");
-  container.className = "confetti-container";
-  document.body.appendChild(container);
-
-  const colors = ["#f2a43c", "#3a7f5c", "#ef4444", "#4f46e5", "#f59e0b", "#06b6d4"];
-  const pieces = 90;
-
-  for (let index = 0; index < pieces; index += 1) {
-    const piece = document.createElement("span");
-    piece.className = "confetti-piece";
-
-    const left = Math.random() * 100;
-    const duration = 1200 + Math.random() * 1200;
-    const delay = Math.random() * 220;
-    const drift = -40 + Math.random() * 80;
-    const size = 6 + Math.random() * 7;
-    const rotation = Math.random() * 360;
-
-    piece.style.left = `${left}%`;
-    piece.style.setProperty("--confetti-color", colors[index % colors.length]);
-    piece.style.setProperty("--confetti-duration", `${duration}ms`);
-    piece.style.setProperty("--confetti-delay", `${delay}ms`);
-    piece.style.setProperty("--confetti-drift", `${drift}px`);
-    piece.style.width = `${size}px`;
-    piece.style.height = `${Math.max(4, size * 0.6)}px`;
-    piece.style.transform = `translateY(-12vh) rotate(${rotation}deg)`;
-
-    container.appendChild(piece);
-  }
-
-  setTimeout(() => {
-    container.remove();
-  }, 3200);
-}
 
 function getDateParts(date, timeZone) {
   const formatter = new Intl.DateTimeFormat("en-US", {
@@ -407,7 +287,7 @@ function slugifyName(value) {
     .replace(/(^-|-$)/g, "");
 }
 
-function getHeroDisplayName(hero, locale = state.locale) {
+function getHeroDisplayName(hero, locale = getInitialLocale()) {
   if (locale === "fr" && hero.nameFr) {
     return hero.nameFr;
   }
@@ -420,7 +300,7 @@ function getHeroImageUrl(hero) {
   return heroImageMap[slug] ?? null;
 }
 
-function getHeroAltName(hero, locale = state.locale) {
+function getHeroAltName(hero, locale = getInitialLocale()) {
   if (locale === "fr") {
     return hero.name;
   }
@@ -555,10 +435,10 @@ function renderGuesses() {
 
 function render() {
   if (document?.documentElement) {
-    document.documentElement.lang = state.locale;
+    document.documentElement.lang = getInitialLocale();
   }
 
-  applyTheme(state.theme);
+  applyTheme(getInitialTheme());
 
   const guessCount = state.guesses.length;
   const solved = state.solved;
@@ -566,7 +446,7 @@ function render() {
 
   root.innerHTML = `
     <main class=\"layout\">
-      ${renderHeader(state.locale, state.theme, (nextLocale) => setLocale(nextLocale), () => toggleTheme())}
+      ${renderHeader(getInitialLocale(), getInitialTheme(), changeLanguage, changeTheme)}
 
       <section class=\"controls\">
         <form id=\"guess-form\">
@@ -616,7 +496,7 @@ function render() {
             : ``
         }
       </section>
-      ${renderFooter(gitUrl, "GitHub")}
+      ${renderFooter()}
     </main>
   `;
 
@@ -625,14 +505,14 @@ function render() {
   const suggestions = document.getElementById("hero-suggestions");
   const replayButton = document.getElementById("replay-button");
 
-  attachHeaderEvents((nextLocale) => setLocale(nextLocale), () => toggleTheme());
+  attachHeaderEvents(changeLanguage, changeTheme);
 
   setupHeroAutocomplete({
     input,
     suggestions,
     getCandidates: () => getAvailableHeroes(),
     getAllHeroes: () => heroes,
-    getLocale: () => state.locale,
+    getLocale: () => getInitialLocale(),
     options: {
       getDisplayName: (hero) => getHeroSuggestionName(hero),
       getAltName: (hero) => getHeroAltName(hero),
@@ -676,7 +556,7 @@ function render() {
           getAltName: (entry) => getHeroAltName(entry),
           getAliases: (entry) => entry.aliases ?? [],
         }),
-        state.locale,
+        getInitialLocale(),
         (entry) => getHeroSuggestionName(entry)
       ).filter((entry) =>
         isAutoSelectMatch(entry, value, {
@@ -704,7 +584,12 @@ function render() {
       return;
     }
 
-    const shouldScrollToWin = !state.solved && hero.name === state.answer.name;
+    const justWon = !state.solved && hero.name === state.answer.name;
+    if (justWon) {
+      applyWin();
+    }
+
+
     state.messageKey = "";
     state.guesses = [hero, ...state.guesses];
     state.solved = hero.name === state.answer.name;
@@ -722,23 +607,7 @@ function render() {
       }, 1200);
     }
 
-    if (shouldScrollToWin) {
-      launchConfetti();
-    }
 
-    if (shouldScrollToWin) {
-      const winMessage = document.querySelector(".win");
-      if (winMessage) {
-        const targetTop =
-          winMessage.getBoundingClientRect().top + window.scrollY - 16;
-        console.log("scrollY:", window.scrollY);
-        console.log("targetTop:", targetTop);
-        window.scrollTo({
-          top: targetTop,
-          behavior: "smooth"
-        });
-      }
-    }
 
     const nextInput = document.getElementById("guess-input");
     if (nextInput && !state.solved) {
@@ -758,7 +627,7 @@ function render() {
 export function initGame(options = {}) {
   const mode = options.mode ?? "random";
   const timeZone = options.timeZone ?? "UTC";
-  const locale = options.locale ?? state.locale ?? getInitialLocale();
+  const locale = options.locale ?? getInitialLocale() ?? "en";
 
   state.answer = mode === "daily" ? pickDaily(heroes, timeZone) : pickRandom(heroes);
   state.messageKey = "";
@@ -766,7 +635,7 @@ export function initGame(options = {}) {
   state.solved = false;
   state.mode = mode;
   state.timeZone = timeZone;
-  state.locale = locale;
+  setLocale(locale);
 
   if (mode === "daily") {
     const saved = loadDailyState(timeZone);

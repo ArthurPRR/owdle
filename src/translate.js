@@ -77,7 +77,7 @@ export const gameText = {
     placeholder: "Try Tracer, Mercy...",
     guess: "Guess",
     replay: "Replay",
-    win: (name) => `Correct! The hero was ${name}.`,
+    win: (name) => `🎉 Correct! The hero was ${name}.`,
     guesses: (count) => `Guesses: ${count}`,
     empty: "No guesses yet. Start by typing a hero name.",
     unknownHero: "Unknown hero. Pick a name from the list.",
@@ -91,13 +91,28 @@ export const gameText = {
     placeholder: "Essaie Tracer, Ange...",
     guess: "Essayer",
     replay: "Rejouer",
-    win: (name) => `Bravo ! Le héros etait ${name}.`,
+    win: (name) => `🎉 Bravo ! Le héros etait ${name}.`,
     guesses: (count) => `Essais : ${count}`,
     empty: "Pas encore d'essai. Commence par taper un héros.",
     unknownHero: "Héros inconnu. Choisis un nom dans la liste.",
     alreadyGuessed: "Tu as déjà essaye ce héros.",
     dailyCountdown: (time) => `Prochain héros dans ${time}`,
   },
+};
+
+export const silhouetteText = {
+	en: {
+    ...gameText.en,
+		title: "Silhouette",
+		subtitle: "Guess the hero from the silhouette",
+		empty: "Start guessing to reveal the silhouette.",
+	},
+	fr: {
+    ...gameText.fr,
+		title: "Silhouette",
+		subtitle: "Devine le héros à partir de sa silhouette",
+		empty: "Commence à deviner pour révéler la silhouette.",
+	},
 };
 
 export const valueTranslations = {

@@ -4,46 +4,20 @@ import { renderHeader, attachHeaderEvents } from "./header.js";
 import { renderFooter } from "./footer.js";
 import {
 	findHeroByName,
-	getMatchingHeroes,
+    getMatchingHeroes,
 	isAutoSelectMatch,
 	setupHeroAutocomplete,
 	sortHeroesByName,
 } from "./heroAutocomplete.js";
 
-const localeStorageKey = "owdle-locale";
-const themeStorageKey = "owdle-theme";
-const gitUrl = "https://github.com/";
+import { getInitialLocale, getInitialTheme, applyTheme, toggleTheme, setLocale } from "./settings.js";
 
-const text = {
-	en: {
-		title: "Silhouette Daily",
-		subtitle: "Guess the hero from the silhouette",
-		label: "Hero name",
-		placeholder: "Type a hero...",
-		guess: "Guess",
-		attempts: (count) => `Attempts: ${count}`,
-		win: (name) => `🎉 Well done! It was ${name}.`,
-		unknown: "Unknown hero",
-		already: "You already tried this hero",
-		empty: "Start guessing to reveal the silhouette.",
-	},
-	fr: {
-		title: "Silhouette du jour",
-		subtitle: "Devine le héros à partir de sa silhouette",
-		label: "Nom du héros",
-		placeholder: "Entre un héros...",
-		guess: "Valider",
-		attempts: (count) => `Essais : ${count}`,
-		win: (name) => `🎉 Bravo ! C'était ${name}.`,
-		unknown: "Héros inconnu",
-		already: "Tu as déjà essayé ce héros",
-		empty: "Commence à deviner pour révéler la silhouette.",
-	},
-};
+import { silhouetteText  } from "./translate.js";
+import { applyWin } from "./winScroll.js";
+
+
 
 const state = {
-	locale: getInitialLocale(),
-	theme: getInitialTheme(),
 	mode: "daily",
 	timeZone: "UTC",
 	answer: null,
@@ -54,6 +28,18 @@ const state = {
 	solved: false,
 	message: "",
 };
+
+
+function changeTheme(){
+  toggleTheme();
+  render();
+}
+
+function changeLanguage(locale){
+  setLocale(locale);
+  render();
+}
+
 
 const root = document.getElementById("app");
 
@@ -114,87 +100,9 @@ function pickRandom(list) {
 	return list[index];
 }
 
-function getUrlLocale() {
-	if (typeof window === "undefined") {
-		return null;
-	}
-
-	const params = new URLSearchParams(window.location.search);
-	const value = params.get("lang");
-	return value === "fr" || value === "en" ? value : null;
-}
-
-function loadSavedLocale() {
-	if (typeof localStorage === "undefined") {
-		return null;
-	}
-
-	try {
-		return localStorage.getItem(localeStorageKey);
-	} catch {
-		return null;
-	}
-}
-
-function saveLocale(locale) {
-	if (typeof localStorage === "undefined") {
-		return;
-	}
-
-	try {
-		localStorage.setItem(localeStorageKey, locale);
-	} catch {
-		return;
-	}
-}
-
-function getInitialLocale() {
-	const savedLocale = loadSavedLocale();
-	if (savedLocale === "fr" || savedLocale === "en") {
-		return savedLocale;
-	}
-
-	const urlLocale = getUrlLocale();
-	if (urlLocale) {
-		return urlLocale;
-	}
-
-	return "en";
-}
-
-function getInitialTheme() {
-	if (typeof localStorage === "undefined") {
-		return "light";
-	}
-
-	try {
-		const saved = localStorage.getItem(themeStorageKey);
-		return saved === "dark" ? "dark" : "light";
-	} catch {
-		return "light";
-	}
-}
-
-function saveTheme(theme) {
-	if (typeof localStorage === "undefined") {
-		return;
-	}
-
-	try {
-		localStorage.setItem(themeStorageKey, theme);
-	} catch {
-		return;
-	}
-}
-
-function applyTheme(theme) {
-	if (document?.documentElement) {
-		if (theme === "dark") {
-			document.documentElement.classList.add("dark");
-		} else {
-			document.documentElement.classList.remove("dark");
-		}
-	}
+function getAvailableHeroes() {
+  const guessed = new Set(state.guesses.map((guess) => guess.name));
+  return heroes.filter((hero) => !guessed.has(hero.name));
 }
 
 function normalize(value) {
@@ -211,7 +119,7 @@ function slugifyName(value) {
 }
 
 function getHeroDisplayName(hero) {
-	if (state.locale === "fr" && hero.nameFr) {
+	if (getInitialLocale() === "fr" && hero.nameFr) {
 		return hero.nameFr;
 	}
 
@@ -226,7 +134,7 @@ function getHeroImageUrl(hero) {
 function getSilhouetteStyle() {
 	const reveal = Math.min(state.guesses.length, 8);
 	const blur = state.solved ? 0 : Math.max(0, 9 - reveal * 1.2);
-	const rotation = state.solved ? 0 : state.rotation;
+	const rotation = state.solved || state.guesses.length >= 10 ? 0 : state.rotation;
 
 	return `
 		width: 100%;
@@ -245,7 +153,7 @@ function getTriedHeroItemHtml(hero) {
 	const imageUrl = getHeroImageUrl(hero);
 
 	return `
-		<div class="silhouette-tried-item">
+		<div class="silhouette-tried-item${hero.name === state.answer.name ? " is-correct" : ""}" title="${name}">
 			${
 				imageUrl
 					? `<img class="silhouette-tried-avatar" src="${imageUrl}" alt="${name}" loading="lazy" />`
@@ -256,35 +164,14 @@ function getTriedHeroItemHtml(hero) {
 	`;
 }
 
-function getUiText() {
-	const localeText = text[state.locale] ?? text.en;
-
-	if (state.mode === "unlimited") {
-		return {
-			...localeText,
-			title: state.locale === "fr" ? "Silhouette Illimité" : "Silhouette Unlimited",
-			subtitle:
-				state.locale === "fr"
-					? "Enchaîne les héros sans limite"
-					: "Keep guessing heroes with no daily limit",
-			nextRound: state.locale === "fr" ? "Héros suivant" : "Next hero",
-		};
-	}
-
-	return {
-		...localeText,
-		nextRound: state.locale === "fr" ? "Héros suivant" : "Next hero",
-	};
-}
-
 function render() {
 	if (document?.documentElement) {
-		document.documentElement.lang = state.locale;
+		document.documentElement.lang = getInitialLocale();
 	}
 
-	applyTheme(state.theme);
+	applyTheme(getInitialTheme());
 
-	const ui = getUiText();
+	const ui = silhouetteText[getInitialLocale()] ?? silhouetteText.en;
 	const imageUrl = getHeroImageUrl(state.answer);
 	const attemptsUsed = state.guesses.length;
 	const statusText = state.solved
@@ -294,20 +181,10 @@ function render() {
 	root.innerHTML = `
 		<main class="layout">
 			${renderHeader(
-				state.locale,
-				state.theme,
-				(nextLocale) => {
-					if (state.locale !== nextLocale) {
-						state.locale = nextLocale;
-						saveLocale(nextLocale);
-						render();
-					}
-				},
-				() => {
-					state.theme = state.theme === "dark" ? "light" : "dark";
-					saveTheme(state.theme);
-					render();
-				}
+				getInitialLocale(),
+				getInitialTheme(),
+				changeLanguage,
+				changeTheme
 			)}
 
 			<section class="controls">
@@ -315,7 +192,7 @@ function render() {
 				<p class="subtitle">${ui.subtitle}</p>
 			</section>
 
-			<section class="results" style="margin-bottom: 24px;">
+			<section class="frame" style="margin-bottom: 24px;">
 				${
 					imageUrl
 						? `<div class="silhouette-frame"><img src="${imageUrl}" alt="silhouette" style="${getSilhouetteStyle()}" /></div>`
@@ -325,7 +202,7 @@ function render() {
 
 			<section class="controls">
 				<form id="silhouette-form">
-					<label for="silhouette-input">${ui.label}</label>
+					<label for="silhouette-input">${ui.labelHero}</label>
 					<div class="autocomplete">
 						<div class="input-row">
 							<input
@@ -338,17 +215,13 @@ function render() {
 								${state.solved ? "disabled" : ""}
 								required
 							/>
-							<button type="submit" ${state.solved ? "disabled" : ""}>${ui.guess}</button>
-							${
-								state.mode === "unlimited" && state.solved
-									? `<button type="button" id="silhouette-next-round">${ui.nextRound}</button>`
-									: ""
-							}
+							<button type="submit" class="submit-button" ${state.solved ? "disabled" : ""}>${ui.guess}</button>
+
 						</div>
-						<div class="suggestions" id="silhouette-suggestions" role="listbox" aria-label="${ui.label}"></div>
+						<div class="suggestions" id="silhouette-suggestions" role="listbox" aria-label="${ui.labelHero}"></div>
 					</div>
 				</form>
-				<p class="muted" style="margin-top: 10px;">${ui.attempts(attemptsUsed)}</p>
+				<p class="muted" style="margin-top: 10px;">${ui.guesses(attemptsUsed)}</p>
 				<p class="message">${statusText || ""}</p>
 			</section>
 
@@ -360,41 +233,35 @@ function render() {
 								.join("")}</div>`
 						: `<p class="empty">${ui.empty}</p>`
 				}
+                ${
+                    state.mode === "unlimited" && state.solved
+                        ? `<div class="silhouette-replay-button">
+                        <button type="button" id="silhouette-next-round">${ui.replay}</button>
+                        </div>`
+                        : ""
+                }
 			</section>
 
-			${renderFooter(gitUrl, "GitHub")}
+			${renderFooter()}
 		</main>
 	`;
 
-	attachHeaderEvents(
-		(nextLocale) => {
-			if (state.locale !== nextLocale) {
-				state.locale = nextLocale;
-				saveLocale(nextLocale);
-				render();
-			}
-		},
-		() => {
-			state.theme = state.theme === "dark" ? "light" : "dark";
-			saveTheme(state.theme);
-			render();
-		}
-	);
+	attachHeaderEvents(changeLanguage, changeTheme);
 
 	const form = document.getElementById("silhouette-form");
 	const input = document.getElementById("silhouette-input");
 	const suggestions = document.getElementById("silhouette-suggestions");
-	const nextRoundButton = document.getElementById("silhouette-next-round");
+	const replayButton = document.getElementById("silhouette-next-round");
 
 	setupHeroAutocomplete({
 		input,
 		suggestions,
-		getCandidates: () => heroes,
+		getCandidates: () => getAvailableHeroes(),
 		getAllHeroes: () => heroes,
-		getLocale: () => state.locale,
+		getLocale: getInitialLocale,
 		options: {
 			getDisplayName: (hero) => getHeroDisplayName(hero),
-			getAltName: (hero) => (state.locale === "fr" ? hero.name : hero.nameFr ?? null),
+			getAltName: (hero) => (getInitialLocale() === "fr" ? hero.name : hero.nameFr ?? null),
 			getImageUrl: (hero) => getHeroImageUrl(hero),
 			getAliases: (hero) => hero.aliases ?? [],
 		},
@@ -408,6 +275,7 @@ function render() {
 			}
 		},
 	});
+    
 
 	if (form && input) {
 		form.addEventListener("submit", (event) => {
@@ -420,18 +288,19 @@ function render() {
 
 			let hero = findHeroByName(value, heroes, {
 				getDisplayName: (entry) => getHeroDisplayName(entry),
-				getAltName: (entry) => (state.locale === "fr" ? entry.name : entry.nameFr ?? null),
+				getAltName: (entry) => (getInitialLocale() === "fr" ? entry.name : entry.nameFr ?? null),
 				getAliases: (entry) => entry.aliases ?? [],
 			});
 
+            const available = getAvailableHeroes();
 			if (!hero) {
 				const matches = sortHeroesByName(
-					getMatchingHeroes(value, heroes, {
+					getMatchingHeroes(value, available, {
 						getDisplayName: (entry) => getHeroDisplayName(entry),
-						getAltName: (entry) => (state.locale === "fr" ? entry.name : entry.nameFr ?? null),
+						getAltName: (entry) => (getInitialLocale() === "fr" ? entry.name : entry.nameFr ?? null),
 						getAliases: (entry) => entry.aliases ?? [],
 					}),
-					state.locale,
+					getInitialLocale(),
 					(entry) => getHeroDisplayName(entry)
 				).filter((entry) =>
 					isAutoSelectMatch(entry, value, {
@@ -447,16 +316,20 @@ function render() {
 			}
 
 			if (!hero) {
-				state.message = ui.unknown;
+				state.message = ui.unknownHero;
 				render();
 				return;
 			}
 
 			if (state.guesses.some((guess) => guess.name === hero.name)) {
-				state.message = ui.already;
+				state.message = ui.alreadyGuessed;
 				render();
 				return;
 			}
+            const justWon = !state.solved && hero.name === state.answer.name;
+            if (justWon) {
+                applyWin();
+            }
 
 			state.guesses = [...state.guesses, hero];
 			state.solved = hero.name === state.answer.name;
@@ -465,8 +338,14 @@ function render() {
 		});
 	}
 
-	if (nextRoundButton) {
-		nextRoundButton.addEventListener("click", () => {
+    
+    const nextInput = document.getElementById("silhouette-input");
+    if (nextInput && !state.solved) {
+        nextInput.focus();
+    }
+
+	if (replayButton) {
+		replayButton.addEventListener("click", () => {
 			startNewRound();
 		});
 	}
@@ -492,13 +371,34 @@ function startNewRound() {
 	render();
 }
 
-export function initDailySilhouetteGame(timeZone = "UTC") {
-	state.mode = "daily";
-	state.timeZone = timeZone;
-	startNewRound();
+
+
+export function initSilhouetteGame(options = {}) {
+  const mode = options.mode ?? "random";
+  const timeZone = options.timeZone ?? "UTC";
+  const locale = options.locale ?? getInitialLocale() ?? "en";
+
+  state.answer = mode === "daily" ? pickDaily(heroes, timeZone) : pickRandom(heroes);
+  state.messageKey = "";
+  state.guesses = [];
+  state.solved = false;
+  state.mode = mode;
+  state.timeZone = timeZone;
+
+  if (mode === "daily") {
+    /*const saved = loadDailyState(timeZone);
+    if (saved) {
+      state.guesses = saved.guesses
+        .map((name) => heroes.find((hero) => hero.name === name) || null)
+        .filter(Boolean);
+      state.solved = Boolean(saved.solved);
+    }*/
+  }
+
+  render();
 }
 
-export function initUnlimitedSilhouetteGame() {
-	state.mode = "unlimited";
-	startNewRound();
+
+export function initDailySilhouetteGame(timeZone = "UTC") {
+	initSilhouetteGame({mode: "daily", timeZone});
 }
