@@ -1,12 +1,12 @@
 export const landingModes = [
   {
-    id: "illimited classic",
+    id: "unlimited classic",
     title: { fr: "Classique illimité", en: "Unlimited classic" },
     description: {
       fr: "Joue autant de parties que tu veux",
       en: "Play as many rounds as you want",
     },
-    href: "/illimited.html",
+    href: "/classic-unlimited.html",
   },
   {
     id: "daily classic",
@@ -15,7 +15,25 @@ export const landingModes = [
       fr: "Un nouveau heros chaque jour",
       en: "One new hero everyday",
     },
-    href: "/daily.html",
+    href: "/classic-daily.html",
+  },
+  {
+    id: "unlimited silhouette",
+    title: { fr: "Silhouette illimitée", en: "Unlimited silhouette" },
+    description: {
+      fr: "Trouve autant de silhouettes que tu veux",
+      en: "Guess as many silhouettes as you want",
+    },
+    href: "/silhouette-unlimited.html",
+  },
+  {
+    id: "daily silhouette",
+    title: { fr: "Silhouette quotidienne", en: "Daily silhouette" },
+    description: {
+      fr: "Trouve la silhouette d'un nouveau héros chaque jour",
+      en: "Guess the silhouette of a new hero every day",
+    },
+    href: "/silhouette-daily.html",
   },
 ];
 

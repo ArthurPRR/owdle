@@ -2,6 +2,13 @@ import heroes from "./data/heroes.json";
 import { attributeLabels, gameText, valueTranslations } from "./translate.js";
 import { renderHeader, attachHeaderEvents } from "./header.js";
 import { renderFooter } from "./footer.js";
+import {
+  findHeroByName,
+  getMatchingHeroes,
+  isAutoSelectMatch,
+  setupHeroAutocomplete,
+  sortHeroesByName,
+} from "./heroAutocomplete.js";
 
 const state = {
   answer: null,
@@ -387,10 +394,6 @@ function normalize(value) {
   return value.trim().toLowerCase();
 }
 
-function normalizeLoose(value) {
-  return normalize(value).replace(/[^a-z0-9]/g, "");
-}
-
 function getHeroSuggestionName(hero) {
   return getHeroDisplayName(hero);
 }
@@ -402,37 +405,6 @@ function slugifyName(value) {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
-}
-
-function findHeroByName(name) {
-  const target = normalize(name);
-  const targetLoose = normalizeLoose(name);
-  return (
-    heroes.find((hero) => {
-      const primaryName = getHeroDisplayName(hero);
-      const primary = normalize(primaryName);
-      const primaryLoose = normalizeLoose(primaryName);
-      const alt = getHeroAltName(hero);
-      const altNormalized = alt ? normalize(alt) : null;
-      const aliases = hero.aliases ?? [];
-      const aliasMatch = aliases.some((alias) => {
-        const aliasNormalized = normalize(alias);
-        const aliasLoose = normalizeLoose(alias);
-        return (
-          aliasNormalized === target ||
-          aliasLoose === targetLoose ||
-          (targetLoose && aliasLoose === targetLoose)
-        );
-      });
-
-      return (
-        primary === target ||
-        primaryLoose === targetLoose ||
-        (altNormalized && altNormalized === target) ||
-        aliasMatch
-      );
-    }) || null
-  );
 }
 
 function getHeroDisplayName(hero, locale = state.locale) {
@@ -476,102 +448,6 @@ function compareRoles(guess, answer) {
 function getAvailableHeroes() {
   const guessed = new Set(state.guesses.map((guess) => guess.name));
   return heroes.filter((hero) => !guessed.has(hero.name));
-}
-
-function sortHeroesByName(list) {
-  return [...list].sort((a, b) =>
-    getHeroSuggestionName(a).localeCompare(getHeroSuggestionName(b), state.locale, {
-      sensitivity: "base",
-    })
-  );
-}
-
-const suggestionLimit = 8;
-
-function buildSuggestions(query) {
-  if (!query) {
-    return [];
-  }
-
-  const available = getAvailableHeroes();
-  const matches = getMatchingHeroes(query, available);
-  return sortHeroesByName(matches).slice(0, suggestionLimit);
-}
-
-function getSuggestionItemHtml(hero, isActive) {
-  const displayName = getHeroSuggestionName(hero);
-  const imageUrl = getHeroImageUrl(hero);
-  const imageHtml = imageUrl
-    ? `<img class=\"hero-avatar\" src=\"${imageUrl}\" alt=\"${displayName}\" loading=\"lazy\" />`
-    : "";
-  const activeClass = isActive ? " active" : "";
-
-  return `
-    <button type=\"button\" class=\"suggestion-button${activeClass}\" role=\"option\" aria-selected=\"${
-      isActive
-    }\" data-hero=\"${hero.name}\">
-      <span class=\"hero-label\">${imageHtml}<span>${displayName}</span></span>
-    </button>
-  `;
-}
-
-function getMatchingHeroes(query, list) {
-  const target = normalize(query);
-  const targetLoose = normalizeLoose(query);
-  if (!target) {
-    return [];
-  }
-
-  return list.filter((hero) => {
-    const primaryName = getHeroSuggestionName(hero);
-    const primary = normalize(primaryName);
-    const primaryLoose = normalizeLoose(primaryName);
-    if (primary.startsWith(target) || primaryLoose.startsWith(targetLoose)) {
-      return true;
-    }
-
-    const aliases = hero.aliases ?? [];
-    const aliasMatch = aliases.some((alias) => {
-      const aliasNormalized = normalize(alias);
-      const aliasLoose = normalizeLoose(alias);
-      return (
-        aliasNormalized.startsWith(target) ||
-        aliasLoose.startsWith(targetLoose) ||
-        aliasNormalized === target ||
-        aliasLoose === targetLoose
-      );
-    });
-    if (aliasMatch) {
-      return true;
-    }
-
-    const alt = getHeroAltName(hero);
-    if (alt) {
-      const altNormalized = normalize(alt);
-      return altNormalized === target;
-    }
-
-    return false;
-  });
-}
-
-function isAutoSelectMatch(hero, query) {
-  const target = normalize(query);
-  const targetLoose = normalizeLoose(query);
-  const displayName = getHeroSuggestionName(hero);
-  const display = normalize(displayName);
-  const displayLoose = normalizeLoose(displayName);
-
-  if (display.startsWith(target) || displayLoose.startsWith(targetLoose)) {
-    return true;
-  }
-
-  const aliases = hero.aliases ?? [];
-  return aliases.some((alias) => {
-    const aliasNormalized = normalize(alias);
-    const aliasLoose = normalizeLoose(alias);
-    return aliasNormalized.startsWith(target) || aliasLoose.startsWith(targetLoose);
-  });
 }
 
 function compareValues(guess, answer, key) {
@@ -751,111 +627,28 @@ function render() {
 
   attachHeaderEvents((nextLocale) => setLocale(nextLocale), () => toggleTheme());
 
-  let currentSuggestions = [];
-  let activeIndex = -1;
+  setupHeroAutocomplete({
+    input,
+    suggestions,
+    getCandidates: () => getAvailableHeroes(),
+    getAllHeroes: () => heroes,
+    getLocale: () => state.locale,
+    options: {
+      getDisplayName: (hero) => getHeroSuggestionName(hero),
+      getAltName: (hero) => getHeroAltName(hero),
+      getImageUrl: (hero) => getHeroImageUrl(hero),
+      getAliases: (hero) => hero.aliases ?? [],
+    },
+    onSelectSuggestion: (hero) => {
+      input.value = getHeroSuggestionName(hero);
 
-  const renderSuggestions = () => {
-    if (!suggestions) {
-      return;
-    }
-
-    if (currentSuggestions.length === 0) {
-      suggestions.innerHTML = "";
-      suggestions.classList.remove("open");
-      return;
-    }
-
-    suggestions.classList.add("open");
-    suggestions.innerHTML = currentSuggestions
-      .map((hero, index) => getSuggestionItemHtml(hero, index === activeIndex))
-      .join("");
-  };
-
-  const updateSuggestions = () => {
-    currentSuggestions = buildSuggestions(input.value.trim());
-    if (activeIndex >= currentSuggestions.length) {
-      activeIndex = currentSuggestions.length - 1;
-    }
-    renderSuggestions();
-  };
-
-  const selectSuggestion = (hero) => {
-    input.value = getHeroSuggestionName(hero);
-    currentSuggestions = [];
-    activeIndex = -1;
-    renderSuggestions();
-
-    if (typeof form.requestSubmit === "function") {
-      form.requestSubmit();
-    } else {
-      form.dispatchEvent(new Event("submit", { cancelable: true }));
-    }
-  };
-
-  updateSuggestions();
-
-  input.addEventListener("input", () => {
-    activeIndex = -1;
-    updateSuggestions();
-  });
-
-  input.addEventListener("keydown", (event) => {
-    if (!currentSuggestions.length) {
-      return;
-    }
-
-    if (event.key === "ArrowDown") {
-      event.preventDefault();
-      activeIndex = (activeIndex + 1) % currentSuggestions.length;
-      renderSuggestions();
-      return;
-    }
-
-    if (event.key === "ArrowUp") {
-      event.preventDefault();
-      activeIndex = (activeIndex - 1 + currentSuggestions.length) % currentSuggestions.length;
-      renderSuggestions();
-      return;
-    }
-
-    if (event.key === "Enter" && activeIndex >= 0) {
-      event.preventDefault();
-      selectSuggestion(currentSuggestions[activeIndex]);
-    }
-
-    if (event.key === "Escape") {
-      currentSuggestions = [];
-      activeIndex = -1;
-      renderSuggestions();
-    }
-  });
-
-  input.addEventListener("blur", () => {
-    setTimeout(() => {
-      currentSuggestions = [];
-      activeIndex = -1;
-      renderSuggestions();
-    }, 120);
-  });
-
-  if (suggestions) {
-    suggestions.addEventListener("mousedown", (event) => {
-      event.preventDefault();
-    });
-
-    suggestions.addEventListener("click", (event) => {
-      const target = event.target.closest(".suggestion-button");
-      if (!target) {
-        return;
+      if (typeof form.requestSubmit === "function") {
+        form.requestSubmit();
+      } else {
+        form.dispatchEvent(new Event("submit", { cancelable: true }));
       }
-
-      const heroName = target.dataset.hero;
-      const hero = heroes.find((entry) => entry.name === heroName);
-      if (hero) {
-        selectSuggestion(hero);
-      }
-    });
-  }
+    },
+  });
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -870,11 +663,26 @@ function render() {
     }
 
     const available = getAvailableHeroes();
-    let hero = findHeroByName(value);
+    let hero = findHeroByName(value, heroes, {
+      getDisplayName: (entry) => getHeroDisplayName(entry),
+      getAltName: (entry) => getHeroAltName(entry),
+      getAliases: (entry) => entry.aliases ?? [],
+    });
 
     if (!hero) {
-      const matches = sortHeroesByName(getMatchingHeroes(value, available)).filter((entry) =>
-        isAutoSelectMatch(entry, value)
+      const matches = sortHeroesByName(
+        getMatchingHeroes(value, available, {
+          getDisplayName: (entry) => getHeroSuggestionName(entry),
+          getAltName: (entry) => getHeroAltName(entry),
+          getAliases: (entry) => entry.aliases ?? [],
+        }),
+        state.locale,
+        (entry) => getHeroSuggestionName(entry)
+      ).filter((entry) =>
+        isAutoSelectMatch(entry, value, {
+          getDisplayName: (item) => getHeroSuggestionName(item),
+          getAliases: (item) => item.aliases ?? [],
+        })
       );
       if (matches.length > 0) {
         hero = matches[0];
