@@ -1,14 +1,18 @@
+export { normalize, normalizeLoose, sortHeroesByName, findHeroByName, getMatchingHeroes, isAutoSelectMatch, setupHeroAutocomplete, getAvailableHeroes };
+
+import heroes from "./data/heroes.json";
+
 const suggestionLimit = 8;
 
-export function normalize(value) {
+function normalize(value) {
   return value.trim().toLowerCase();
 }
 
-export function normalizeLoose(value) {
+function normalizeLoose(value) {
   return normalize(value).replace(/[^a-z0-9]/g, "");
 }
 
-export function sortHeroesByName(list, locale, getDisplayName) {
+function sortHeroesByName(list, locale, getDisplayName) {
   return [...list].sort((firstHero, secondHero) =>
     getDisplayName(firstHero).localeCompare(getDisplayName(secondHero), locale, {
       sensitivity: "base",
@@ -16,7 +20,7 @@ export function sortHeroesByName(list, locale, getDisplayName) {
   );
 }
 
-export function findHeroByName(name, list, options) {
+function findHeroByName(name, list, options) {
   const target = normalize(name);
   const targetLoose = normalizeLoose(name);
 
@@ -50,7 +54,7 @@ export function findHeroByName(name, list, options) {
   );
 }
 
-export function getMatchingHeroes(query, list, options) {
+function getMatchingHeroes(query, list, options) {
   const target = normalize(query);
   const targetLoose = normalizeLoose(query);
 
@@ -95,7 +99,7 @@ export function getMatchingHeroes(query, list, options) {
   });
 }
 
-export function isAutoSelectMatch(hero, query, options) {
+function isAutoSelectMatch(hero, query, options) {
   const target = normalize(query);
   const targetLoose = normalizeLoose(query);
 
@@ -141,7 +145,7 @@ function getSuggestionItemHtml(hero, isActive, options) {
   `;
 }
 
-export function setupHeroAutocomplete(config) {
+function setupHeroAutocomplete(config) {
   const {
     input,
     suggestions,
@@ -260,4 +264,9 @@ export function setupHeroAutocomplete(config) {
   return {
     updateSuggestions,
   };
+}
+
+function getAvailableHeroes(guessed) {
+  const guessedNames = new Set(guessed.map((guess) => guess.name));
+  return heroes.filter((hero) => !guessedNames.has(hero.name));
 }

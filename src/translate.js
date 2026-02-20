@@ -73,6 +73,7 @@ export const gameText = {
   en: {
     eyebrow: "OWDLE",
     title: "Find the hero",
+    subtitle: "Guess the hero from their attributes",
     labelHero: "Hero name",
     placeholder: "Try Tracer, Mercy...",
     guess: "Guess",
@@ -87,15 +88,16 @@ export const gameText = {
   fr: {
     eyebrow: "OWDLE",
     title: "Trouve le héros",
+    subtitle: "Devine le héros à partir de ses attributs",
     labelHero: "Nom du héros",
     placeholder: "Essaie Tracer, Ange...",
     guess: "Essayer",
     replay: "Rejouer",
-    win: (name) => `🎉 Bravo ! Le héros etait ${name}.`,
+    win: (name) => `🎉 Bravo ! Le héros était ${name}.`,
     guesses: (count) => `Essais : ${count}`,
     empty: "Pas encore d'essai. Commence par taper un héros.",
     unknownHero: "Héros inconnu. Choisis un nom dans la liste.",
-    alreadyGuessed: "Tu as déjà essaye ce héros.",
+    alreadyGuessed: "Tu as déjà essayé ce héros.",
     dailyCountdown: (time) => `Prochain héros dans ${time}`,
   },
 };

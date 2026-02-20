@@ -1,5 +1,5 @@
 import heroes from "./data/heroes.json";
-import { attributeLabels, gameText, valueTranslations } from "./translate.js";
+import { gameText } from "./translate.js";
 import { renderHeader, attachHeaderEvents } from "./header.js";
 import { renderFooter } from "./footer.js";
 import {
@@ -8,7 +8,14 @@ import {
   isAutoSelectMatch,
   setupHeroAutocomplete,
   sortHeroesByName,
+  getAvailableHeroes,
 } from "./heroAutocomplete.js";
+
+import { getText, getAttributeLabel, translateValue,
+    pickDaily, pickRandom, getHeroSuggestionName,
+    startCountdown, getHeroDisplayName,
+    getHeroImageUrl, getHeroAltName,
+    saveDailyState, loadDailyState, normalize } from "./data-utils.js";
 
 import { getInitialLocale, getInitialTheme, applyTheme, toggleTheme, setLocale } from "./settings.js";
 
@@ -19,9 +26,11 @@ const state = {
   guesses: [],
   messageKey: "",
   solved: false,
-  mode: "random",
+  mode: "unlimited",
   timeZone: "UTC",
 };
+
+const gameMode = "classic";
 
 function changeTheme(){
   toggleTheme();
@@ -34,279 +43,15 @@ function changeLanguage(locale){
 }
 
 
-let countdownTimer = null;
-
 const attributeKeys = ["name", "species", "role", "continent", "affiliation", "gender", "year"];
 
 const uiText = gameText;
 
 const root = document.getElementById("app");
 
-function buildHeroImageMap() {
-  const images = import.meta.glob("./assets/heroes/*.{png,jpg,jpeg,webp}", {
-    eager: true,
-    import: "default",
-  });
-
-  return Object.fromEntries(
-    Object.entries(images).map(([path, url]) => {
-      const filename = path.split("/").pop() ?? "";
-      const slug = filename.replace(/\.(png|jpe?g|webp)$/i, "").toLowerCase();
-      return [slug, url];
-    })
-  );
-}
-
-const heroImageMap = buildHeroImageMap();
-
-function pickRandom(list) {
-  const index = Math.floor(Math.random() * list.length);
-  return list[index];
-}
-
-function getDateKey(timeZone) {
-  try {
-    const formatter = new Intl.DateTimeFormat("en-CA", {
-      timeZone,
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    });
-
-    return formatter.format(new Date());
-  } catch {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, "0");
-    const day = String(now.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  }
-}
-
-function hashString(value) {
-  let hash = 5381;
-
-  for (let index = 0; index < value.length; index += 1) {
-    hash = (hash * 33) ^ value.charCodeAt(index);
-  }
-
-  return Math.abs(hash);
-}
-
-function pickDaily(list, timeZone) {
-  const key = getDateKey(timeZone);
-  const index = hashString(key) % list.length;
-  return list[index];
-}
-
-const dailyStateKeyPrefix = "owdle-daily";
-
-
-function getDailyStorageKey(timeZone) {
-  const dateKey = getDateKey(timeZone);
-  return `${dailyStateKeyPrefix}-${dateKey}`;
-}
-
-function loadDailyState(timeZone) {
-  if (typeof localStorage === "undefined") {
-    return null;
-  }
-
-  const storageKey = getDailyStorageKey(timeZone);
-
-  try {
-    const raw = localStorage.getItem(storageKey);
-    return raw ? JSON.parse(raw) : null;
-  } catch {
-    return null;
-  }
-}
-
-function saveDailyState(timeZone) {
-  if (typeof localStorage === "undefined") {
-    return;
-  }
-
-  const storageKey = getDailyStorageKey(timeZone);
-  const payload = {
-    guesses: state.guesses.map((guess) => guess.name),
-    solved: state.solved,
-  };
-
-  try {
-    localStorage.setItem(storageKey, JSON.stringify(payload));
-  } catch {
-    return;
-  }
-}
 
 
 
-function getText(key, ...args) {
-  const entry = uiText[getInitialLocale()]?.[key] ?? uiText.en[key];
-
-  if (typeof entry === "function") {
-    return entry(...args);
-  }
-
-  return entry ?? "";
-}
-
-function getAttributeLabel(key) {
-  return attributeLabels[getInitialLocale()]?.[key] ?? attributeLabels.en[key] ?? key;
-}
-
-function translateValue(key, value) {
-  const translations = valueTranslations[getInitialLocale()]?.[key];
-
-  if (!translations) {
-    return value;
-  }
-
-  return translations[value] ?? value;
-}
-
-
-function getDateParts(date, timeZone) {
-  const formatter = new Intl.DateTimeFormat("en-US", {
-    timeZone,
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-  });
-
-  const parts = formatter.formatToParts(date);
-  const values = Object.fromEntries(
-    parts
-      .filter((part) => part.type !== "literal")
-      .map((part) => [part.type, part.value])
-  );
-
-  return {
-    year: Number(values.year),
-    month: Number(values.month),
-    day: Number(values.day),
-    hour: Number(values.hour),
-    minute: Number(values.minute),
-    second: Number(values.second),
-  };
-}
-
-function getTimeZoneOffsetMs(date, timeZone) {
-  const parts = getDateParts(date, timeZone);
-  const asUtc = Date.UTC(
-    parts.year,
-    parts.month - 1,
-    parts.day,
-    parts.hour,
-    parts.minute,
-    parts.second
-  );
-
-  return asUtc - date.getTime();
-}
-
-function getNextMidnight(timeZone) {
-  const now = new Date();
-  const parts = getDateParts(now, timeZone);
-  const offsetMs = getTimeZoneOffsetMs(now, timeZone);
-  const nextMidnightLocalUtc =
-    Date.UTC(parts.year, parts.month - 1, parts.day, 0, 0, 0) + 24 * 60 * 60 * 1000;
-
-  return new Date(nextMidnightLocalUtc - offsetMs);
-}
-
-function formatDuration(ms) {
-  const clamped = Math.max(0, ms);
-  const totalSeconds = Math.floor(clamped / 1000);
-  const hours = Math.floor(totalSeconds / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  const seconds = totalSeconds % 60;
-
-  return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(
-    seconds
-  ).padStart(2, "0")}`;
-}
-
-function getCountdownText() {
-  if (state.mode !== "daily") {
-    return "";
-  }
-
-  const nextMidnight = getNextMidnight(state.timeZone);
-  const diffMs = nextMidnight.getTime() - Date.now();
-  return getText("dailyCountdown", formatDuration(diffMs));
-}
-
-function stopCountdown() {
-  if (countdownTimer) {
-    clearInterval(countdownTimer);
-    countdownTimer = null;
-  }
-}
-
-function startCountdown() {
-  stopCountdown();
-
-  if (state.mode !== "daily") {
-    return;
-  }
-
-  const countdown = document.getElementById("daily-countdown");
-
-  if (!countdown) {
-    return;
-  }
-
-  const update = () => {
-    countdown.textContent = getCountdownText();
-  };
-
-  update();
-  countdownTimer = setInterval(update, 1000);
-}
-
-function normalize(value) {
-  return value.trim().toLowerCase();
-}
-
-function getHeroSuggestionName(hero) {
-  return getHeroDisplayName(hero);
-}
-
-function slugifyName(value) {
-  return value
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-}
-
-function getHeroDisplayName(hero, locale = getInitialLocale()) {
-  if (locale === "fr" && hero.nameFr) {
-    return hero.nameFr;
-  }
-
-  return hero.name;
-}
-
-function getHeroImageUrl(hero) {
-  const slug = hero.image ?? slugifyName(hero.name);
-  return heroImageMap[slug] ?? null;
-}
-
-function getHeroAltName(hero, locale = getInitialLocale()) {
-  if (locale === "fr") {
-    return hero.name;
-  }
-
-  return hero.nameFr ?? null;
-}
 
 function compareRoles(guess, answer) {
   const guessRole = normalize(String(guess.role ?? ""));
@@ -325,10 +70,6 @@ function compareRoles(guess, answer) {
   return "cell wrong";
 }
 
-function getAvailableHeroes() {
-  const guessed = new Set(state.guesses.map((guess) => guess.name));
-  return heroes.filter((hero) => !guessed.has(hero.name));
-}
 
 function compareValues(guess, answer, key) {
   if (key === "role") {
@@ -396,7 +137,7 @@ function formatValue(hero, key) {
 
 function renderGuesses() {
   if (state.guesses.length === 0) {
-    return `<p class=\"empty\">${getText("empty")}</p>`;
+    return `<p class=\"empty\">${getText(uiText,"empty")}</p>`;
   }
 
   const rows = state.guesses
@@ -442,32 +183,34 @@ function render() {
 
   const guessCount = state.guesses.length;
   const solved = state.solved;
-  const message = state.messageKey ? getText(state.messageKey) : "";
+  const message = state.messageKey ? getText(uiText,state.messageKey) : "";
 
   root.innerHTML = `
     <main class=\"layout\">
       ${renderHeader(getInitialLocale(), getInitialTheme(), changeLanguage, changeTheme)}
 
       <section class=\"controls\">
+				<p class="subtitle">${getText(uiText, "subtitle")}</p>
         <form id=\"guess-form\">
-          <label for=\"guess-input\">${getText("labelHero")}</label>
+          <label for=\"guess-input\">${getText(uiText, "labelHero")}</label>
           <div class=\"autocomplete\">
             <div class=\"input-row\">
               <input id=\"guess-input\" name=\"guess\" autocomplete=\"off\" aria-autocomplete=\"list\" aria-controls=\"hero-suggestions\" placeholder=\"${getText(
+                uiText,
                 "placeholder"
               )}\" required ${
                 solved ? "disabled" : ""
               } />
-              <button type=\"submit\" class=\"submit-button\" ${solved ? "disabled" : ""}\">${getText(
+              <button type=\"submit\" class=\"submit-button\" ${solved ? "disabled" : ""}\">${getText(uiText,
                 "guess"
               )}</button>
             </div>
-            <div class=\"suggestions\" id=\"hero-suggestions\" role=\"listbox\" aria-label=\"${getText(
+            <div class=\"suggestions\" id=\"hero-suggestions\" role=\"listbox\" aria-label=\"${getText(uiText, 
               "labelHero"
             )}\"></div>
           </div>
           <p class=\"message\">${message}</p>
-          <p class=\"muted\">${getText("guesses", state.guesses.length)}</p>
+          <p class=\"muted\">${getText(uiText, "guesses", state.guesses.length)}</p>
         </form>
       </section>
 
@@ -484,10 +227,10 @@ function render() {
         ${
           solved
             ? `<div class=\"win-row\">
-                <p class=\"win\">${getText("win", getHeroDisplayName(state.answer))}</p>
+                <p class=\"win\">${getText(uiText, "win", getHeroDisplayName(state.answer))}</p>
                 ${
                   state.mode !== "daily"
-                    ? `<button type=\"button\" class=\"replay\" id=\"replay-button\">${getText(
+                    ? `<button type=\"button\" class=\"replay\" id=\"replay-button\">${getText(uiText, 
                         "replay"
                       )}</button>`
                     : ""
@@ -510,7 +253,7 @@ function render() {
   setupHeroAutocomplete({
     input,
     suggestions,
-    getCandidates: () => getAvailableHeroes(),
+    getCandidates: () => getAvailableHeroes(state.guesses),
     getAllHeroes: () => heroes,
     getLocale: () => getInitialLocale(),
     options: {
@@ -542,7 +285,7 @@ function render() {
       return;
     }
 
-    const available = getAvailableHeroes();
+    const available = getAvailableHeroes(state.guesses);
     let hero = findHeroByName(value, heroes, {
       getDisplayName: (entry) => getHeroDisplayName(entry),
       getAltName: (entry) => getHeroAltName(entry),
@@ -594,7 +337,7 @@ function render() {
     state.guesses = [hero, ...state.guesses];
     state.solved = hero.name === state.answer.name;
     if (state.mode === "daily") {
-      saveDailyState(state.timeZone);
+      saveDailyState(state, state.timeZone, gameMode);
     }
     input.value = "";
     render();
@@ -620,8 +363,9 @@ function render() {
       initGame();
     });
   }
-
-  startCountdown();
+  if (state.mode === "daily") {
+    startCountdown(state.timeZone);
+  }
 }
 
 export function initGame(options = {}) {
@@ -629,7 +373,7 @@ export function initGame(options = {}) {
   const timeZone = options.timeZone ?? "UTC";
   const locale = options.locale ?? getInitialLocale() ?? "en";
 
-  state.answer = mode === "daily" ? pickDaily(heroes, timeZone) : pickRandom(heroes);
+  state.answer = mode === "daily" ? pickDaily(heroes, timeZone, 1) : pickRandom(heroes);
   state.messageKey = "";
   state.guesses = [];
   state.solved = false;
@@ -638,7 +382,7 @@ export function initGame(options = {}) {
   setLocale(locale);
 
   if (mode === "daily") {
-    const saved = loadDailyState(timeZone);
+    const saved = loadDailyState(timeZone, gameMode);
     if (saved) {
       state.guesses = saved.guesses
         .map((name) => heroes.find((hero) => hero.name === name) || null)

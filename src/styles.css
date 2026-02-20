@@ -349,11 +349,17 @@ button:hover {
   align-items: center;
   gap: 8px;
   padding: 8px 10px;
-  border: 1px solid rgba(60, 40, 20, 0.16);
+  border: 1px solid rgba(235, 29, 11, 0.25);
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(241, 86, 86, 0.7);
   color: #251b12;
   font-weight: 600;
+}
+
+.silhouette-tried-item.is-correct {
+  background: rgba(3, 254, 78, 0.25);
+  border-color: rgba(3, 180, 78, 0.7);
+  color: #0f3b1f;
 }
 
 .silhouette-tried-avatar {
@@ -366,12 +372,6 @@ button:hover {
 
 .silhouette-tried-avatar-empty {
   display: inline-block;
-}
-
-.silhouette-tried-item.is-correct {
-  background: rgba(3, 254, 78, 0.25);
-  border-color: rgba(3, 180, 78, 0.7);
-  color: #0f3b1f;
 }
 
 .silhouette-replay-button {

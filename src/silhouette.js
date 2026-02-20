@@ -8,7 +8,13 @@ import {
 	isAutoSelectMatch,
 	setupHeroAutocomplete,
 	sortHeroesByName,
+	getAvailableHeroes,
 } from "./heroAutocomplete.js";
+
+import { getHeroDisplayName, getHeroImageUrl, pickDaily, pickRandom,
+	getText,
+ } from "./data-utils.js";
+
 
 import { getInitialLocale, getInitialTheme, applyTheme, toggleTheme, setLocale } from "./settings.js";
 
@@ -18,7 +24,7 @@ import { applyWin } from "./winScroll.js";
 
 
 const state = {
-	mode: "daily",
+	mode: "unlimited",
 	timeZone: "UTC",
 	answer: null,
 	rotation: 0,
@@ -43,93 +49,7 @@ function changeLanguage(locale){
 
 const root = document.getElementById("app");
 
-const heroImageMap = buildHeroImageMap();
 
-function buildHeroImageMap() {
-	const images = import.meta.glob("./assets/heroes/*.{png,jpg,jpeg,webp}", {
-		eager: true,
-		import: "default",
-	});
-
-	return Object.fromEntries(
-		Object.entries(images).map(([path, url]) => {
-			const filename = path.split("/").pop() ?? "";
-			const slug = filename.replace(/\.(png|jpe?g|webp)$/i, "").toLowerCase();
-			return [slug, url];
-		})
-	);
-}
-
-function getDateKey(timeZone) {
-	try {
-		const formatter = new Intl.DateTimeFormat("en-CA", {
-			timeZone,
-			year: "numeric",
-			month: "2-digit",
-			day: "2-digit",
-		});
-
-		return formatter.format(new Date());
-	} catch {
-		const now = new Date();
-		const year = now.getFullYear();
-		const month = String(now.getMonth() + 1).padStart(2, "0");
-		const day = String(now.getDate()).padStart(2, "0");
-		return `${year}-${month}-${day}`;
-	}
-}
-
-function hashString(value) {
-	let hash = 5381;
-
-	for (let index = 0; index < value.length; index += 1) {
-		hash = (hash * 33) ^ value.charCodeAt(index);
-	}
-
-	return Math.abs(hash);
-}
-
-function pickDaily(list, timeZone = "UTC") {
-	const key = getDateKey(timeZone);
-	const index = hashString(`${key}-silhouette`) % list.length;
-	return list[index];
-}
-
-function pickRandom(list) {
-	const index = Math.floor(Math.random() * list.length);
-	return list[index];
-}
-
-function getAvailableHeroes() {
-  const guessed = new Set(state.guesses.map((guess) => guess.name));
-  return heroes.filter((hero) => !guessed.has(hero.name));
-}
-
-function normalize(value) {
-	return value.trim().toLowerCase();
-}
-
-function slugifyName(value) {
-	return value
-		.normalize("NFD")
-		.replace(/[\u0300-\u036f]/g, "")
-		.toLowerCase()
-		.replace(/[^a-z0-9]+/g, "-")
-		.replace(/(^-|-$)/g, "");
-}
-
-function getHeroDisplayName(hero) {
-	if (getInitialLocale() === "fr" && hero.nameFr) {
-		return hero.nameFr;
-	}
-
-	return hero.name;
-}
-
-function getHeroImageUrl(hero) {
-	const slug = hero.image ?? slugifyName(hero.name);
-	return heroImageMap[slug] ?? null;
-}
 
 function getSilhouetteStyle() {
 	const reveal = Math.min(state.guesses.length, 8);
@@ -171,11 +91,11 @@ function render() {
 
 	applyTheme(getInitialTheme());
 
-	const ui = silhouetteText[getInitialLocale()] ?? silhouetteText.en;
+	const uiText = silhouetteText;
 	const imageUrl = getHeroImageUrl(state.answer);
 	const attemptsUsed = state.guesses.length;
 	const statusText = state.solved
-		? ui.win(getHeroDisplayName(state.answer))
+		? getText(uiText, "win", getHeroDisplayName(state.answer))
 		: state.message;
 
 	root.innerHTML = `
@@ -188,8 +108,7 @@ function render() {
 			)}
 
 			<section class="controls">
-				<h1 class="title">${ui.title}</h1>
-				<p class="subtitle">${ui.subtitle}</p>
+				<p class="subtitle">${getText(uiText, "subtitle")}</p>
 			</section>
 
 			<section class="frame" style="margin-bottom: 24px;">
@@ -202,7 +121,7 @@ function render() {
 
 			<section class="controls">
 				<form id="silhouette-form">
-					<label for="silhouette-input">${ui.labelHero}</label>
+					<label for="silhouette-input">${getText(uiText, "labelHero")}</label>
 					<div class="autocomplete">
 						<div class="input-row">
 							<input
@@ -211,18 +130,17 @@ function render() {
 								autocomplete="off"
 								aria-autocomplete="list"
 								aria-controls="silhouette-suggestions"
-								placeholder="${ui.placeholder}"
+								placeholder="${getText(uiText, "placeholder")}"
 								${state.solved ? "disabled" : ""}
 								required
 							/>
-							<button type="submit" class="submit-button" ${state.solved ? "disabled" : ""}>${ui.guess}</button>
+							<button type="submit" class="submit-button" ${state.solved ? "disabled" : ""}>${getText(uiText, "guess")}</button>
 
 						</div>
-						<div class="suggestions" id="silhouette-suggestions" role="listbox" aria-label="${ui.labelHero}"></div>
+						<div class="suggestions" id="silhouette-suggestions" role="listbox" aria-label="${getText(uiText, "labelHero")}"></div>
 					</div>
 				</form>
-				<p class="muted" style="margin-top: 10px;">${ui.guesses(attemptsUsed)}</p>
-				<p class="message">${statusText || ""}</p>
+				<p class="muted" style="margin-top: 10px;">${getText(uiText, "guesses", attemptsUsed)}</p>
 			</section>
 
 			<section class="results">
@@ -231,16 +149,29 @@ function render() {
 						? `<div class="silhouette-tried-grid">${state.guesses
 								.map((hero) => getTriedHeroItemHtml(hero))
 								.join("")}</div>`
-						: `<p class="empty">${ui.empty}</p>`
+						: `<p class="empty">${getText(uiText, "empty")}</p>`
 				}
-                ${
-                    state.mode === "unlimited" && state.solved
-                        ? `<div class="silhouette-replay-button">
-                        <button type="button" id="silhouette-next-round">${ui.replay}</button>
-                        </div>`
-                        : ""
-                }
 			</section>
+		<section class=\"status\">
+        ${
+          state.mode === "daily"
+            ? `<p class=\"daily-countdown\" id=\"daily-countdown\"></p>`
+            : ""
+        }
+        ${
+          state.solved
+            ? `<div class=\"win-row\">
+                <p class=\"win\">${getText(uiText, "win", getHeroDisplayName(state.answer))}</p>
+                ${
+                  state.mode !== "daily"
+                    ? `<button type=\"button\" class=\"replay\" id=\"replay-button\">${getText(uiText, 
+                        "replay"
+                      )}</button>`
+                    : ""
+                }
+              </div>`
+            : ``
+        }
 
 			${renderFooter()}
 		</main>
@@ -251,12 +182,12 @@ function render() {
 	const form = document.getElementById("silhouette-form");
 	const input = document.getElementById("silhouette-input");
 	const suggestions = document.getElementById("silhouette-suggestions");
-	const replayButton = document.getElementById("silhouette-next-round");
+	const replayButton = document.getElementById("replay-button");
 
 	setupHeroAutocomplete({
 		input,
 		suggestions,
-		getCandidates: () => getAvailableHeroes(),
+		getCandidates: () => getAvailableHeroes(state.guesses),
 		getAllHeroes: () => heroes,
 		getLocale: getInitialLocale,
 		options: {
@@ -292,7 +223,7 @@ function render() {
 				getAliases: (entry) => entry.aliases ?? [],
 			});
 
-            const available = getAvailableHeroes();
+            const available = getAvailableHeroes(state.guesses);
 			if (!hero) {
 				const matches = sortHeroesByName(
 					getMatchingHeroes(value, available, {
@@ -316,13 +247,13 @@ function render() {
 			}
 
 			if (!hero) {
-				state.message = ui.unknownHero;
+				state.message = uiText.unknownHero;
 				render();
 				return;
 			}
 
 			if (state.guesses.some((guess) => guess.name === hero.name)) {
-				state.message = ui.alreadyGuessed;
+				state.message = uiText.alreadyGuessed;
 				render();
 				return;
 			}
@@ -355,13 +286,12 @@ function startNewRound() {
 	const rotations = [0, 90, 180, 270];
 	const rotationIndex = Math.floor(Math.random() * rotations.length);
 
-	if (state.mode === "daily") {
-		state.answer = pickDaily(heroes, state.timeZone);
-	} else {
-		state.answer = pickRandom(heroes);
-	}
+	
+    state.answer = state.mode === "daily" ? pickDaily(heroes, state.timeZone, 2) : pickRandom(heroes);
 
 	state.rotation = rotations[rotationIndex];
+
+	// unused except if we want to zoom instead of blurring
 	state.focusX = 20 + Math.random() * 60;
 	state.focusY = 20 + Math.random() * 60;
 
@@ -374,18 +304,13 @@ function startNewRound() {
 
 
 export function initSilhouetteGame(options = {}) {
-  const mode = options.mode ?? "random";
-  const timeZone = options.timeZone ?? "UTC";
+  state.mode = options.mode ?? "unlimited";
+  state.timeZone = options.timeZone ?? "UTC";
   const locale = options.locale ?? getInitialLocale() ?? "en";
 
-  state.answer = mode === "daily" ? pickDaily(heroes, timeZone) : pickRandom(heroes);
-  state.messageKey = "";
-  state.guesses = [];
-  state.solved = false;
-  state.mode = mode;
-  state.timeZone = timeZone;
 
-  if (mode === "daily") {
+
+  if (state.mode === "daily") {
     /*const saved = loadDailyState(timeZone);
     if (saved) {
       state.guesses = saved.guesses
@@ -395,7 +320,7 @@ export function initSilhouetteGame(options = {}) {
     }*/
   }
 
-  render();
+  startNewRound();
 }
 
 
