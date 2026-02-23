@@ -1,5 +1,5 @@
 import heroes from "./data/heroes.json";
-import { gameText } from "./translate.js";
+import { gameText, landingModes } from "./translate.js";
 import { renderHeader, attachHeaderEvents } from "./header.js";
 import { renderFooter } from "./footer.js";
 import {
@@ -30,7 +30,9 @@ const state = {
   timeZone: "UTC",
 };
 
+
 const gameMode = "classic";
+const nextGameMode = landingModes.find((mode) => mode.id === "daily silhouette");
 
 function changeTheme(){
   toggleTheme();
@@ -233,7 +235,9 @@ function render() {
                     ? `<button type=\"button\" class=\"replay\" id=\"replay-button\">${getText(uiText, 
                         "replay"
                       )}</button>`
-                    : ""
+                    : `<a href="${nextGameMode.href || "#"}" class=\"next-mode\" id=\"next-mode-card\">
+                      ${nextGameMode.title[getInitialLocale()]} &rarr;
+                      </a>`
                 }
               </div>`
             : ``

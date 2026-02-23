@@ -1,4 +1,6 @@
-export const landingModes = [
+export { landingModes, landingText, attributeLabels, gameText, silhouetteText, quoteText, valueTranslations } 
+
+const landingModes = [
   {
     id: "unlimited classic",
     title: { fr: "Classique illimité", en: "Unlimited classic" },
@@ -35,9 +37,27 @@ export const landingModes = [
     },
     href: "/silhouette-daily.html",
   },
+  {
+    id: "unlimited quote",
+    title: { fr: "Citation illimitée", en: "Unlimited quote" },
+    description: {
+      fr: "Trouve autant de citations que tu veux",
+      en: "Guess as many quotes as you want",
+    },
+    href: "/quote-unlimited.html",
+  },
+  {
+    id: "daily quote",
+    title: { fr: "Citation quotidienne", en: "Daily quote" },
+    description: {
+      fr: "Trouve la citation d'un nouveau héros chaque jour",
+      en: "Guess the quote of a new hero every day",
+    },
+    href: "/quote-daily.html",
+  },
 ];
 
-export const landingText = {
+const landingText = {
   fr: {
     title: "Choisis ton mode de jeu",
     play: "Jouer",
@@ -48,7 +68,7 @@ export const landingText = {
   },
 };
 
-export const attributeLabels = {
+const attributeLabels = {
   en: {
     name: "Name",
     species: "Species",
@@ -69,7 +89,7 @@ export const attributeLabels = {
   },
 };
 
-export const gameText = {
+const gameText = {
   en: {
     eyebrow: "OWDLE",
     title: "Find the hero",
@@ -102,7 +122,7 @@ export const gameText = {
   },
 };
 
-export const silhouetteText = {
+const silhouetteText = {
 	en: {
     ...gameText.en,
 		title: "Silhouette",
@@ -117,7 +137,22 @@ export const silhouetteText = {
 	},
 };
 
-export const valueTranslations = {
+const quoteText = {
+	en: {
+    ...gameText.en,
+		title: "Quote",
+		subtitle: "Guess the hero from the quote",
+		empty: "Start guessing to reveal the quote.",
+	},
+	fr: {
+    ...gameText.fr,
+		title: "Citation",
+		subtitle: "Devine le héros à partir de sa citation",
+		empty: "Commence à deviner pour révéler la citation.",
+	},
+};
+
+const valueTranslations = {
   fr: {
     role: {
       Damage: "Dégâts", 

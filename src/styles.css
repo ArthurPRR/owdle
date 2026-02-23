@@ -532,6 +532,7 @@ td:nth-child(4) {
 
 .win {
   background: #3a7f5c;
+  height: 50px;
   color: #fff;
   padding: 12px 16px;
   border-radius: 12px;
@@ -547,6 +548,7 @@ td:nth-child(4) {
 
 .replay {
   padding: 12px 20px;
+  height: 50px;
   border-radius: 12px;
   border: none;
   background: #d0af7d;
@@ -558,6 +560,25 @@ td:nth-child(4) {
 }
 
 .replay:hover {
+  transform: translateY(-1px);
+  background: #efb96e;
+}
+
+.next-mode {
+  text-decoration: none;
+  padding: 12px 20px;
+  height: 50px;
+  border-radius: 12px;
+  border: none;
+  background: #d0af7d;
+  border-color: #030200;
+  color: #050000;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.next-mode:hover {
   transform: translateY(-1px);
   background: #efb96e;
 }
@@ -739,6 +760,16 @@ td:nth-child(4) {
 }
 
 :root.dark .replay:hover {
+  background: #9f7335;
+}
+
+:root.dark .next-mode {
+  background: #7e5414;
+  border-color: #f9f9f8;
+  color: #ffffff;
+}
+
+:root.dark .next-mode:hover {
   background: #9f7335;
 }
 
