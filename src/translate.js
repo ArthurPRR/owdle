@@ -3,6 +3,8 @@ export { landingModes, landingText, attributeLabels, gameText, silhouetteText, q
 const landingModes = [
   {
     id: "unlimited classic",
+    mode: "unlimited",
+    gameMode: "classic",
     title: { fr: "Classique illimité", en: "Unlimited classic" },
     description: {
       fr: "Joue autant de parties que tu veux",
@@ -12,6 +14,8 @@ const landingModes = [
   },
   {
     id: "daily classic",
+    mode: "daily",
+    gameMode: "classic",
     title: { fr: "Classique quotidien", en: "Daily classic" },
     description: {
       fr: "Un nouveau heros chaque jour",
@@ -21,6 +25,8 @@ const landingModes = [
   },
   {
     id: "unlimited silhouette",
+    mode: "unlimited",
+    gameMode: "silhouette",
     title: { fr: "Silhouette illimitée", en: "Unlimited silhouette" },
     description: {
       fr: "Trouve autant de silhouettes que tu veux",
@@ -30,6 +36,8 @@ const landingModes = [
   },
   {
     id: "daily silhouette",
+    mode: "daily",
+    gameMode: "silhouette",
     title: { fr: "Silhouette quotidienne", en: "Daily silhouette" },
     description: {
       fr: "Trouve la silhouette d'un nouveau héros chaque jour",
@@ -39,6 +47,8 @@ const landingModes = [
   },
   {
     id: "unlimited quote",
+    mode: "unlimited",
+    gameMode: "quote",
     title: { fr: "Citation illimitée", en: "Unlimited quote" },
     description: {
       fr: "Trouve autant de citations que tu veux",
@@ -48,6 +58,8 @@ const landingModes = [
   },
   {
     id: "daily quote",
+    mode: "daily",
+    gameMode: "quote",
     title: { fr: "Citation quotidienne", en: "Daily quote" },
     description: {
       fr: "Trouve la citation d'un nouveau héros chaque jour",

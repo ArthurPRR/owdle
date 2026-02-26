@@ -32,7 +32,7 @@ function render() {
 
   root.innerHTML = `
     <main class="layout landing">
-      ${renderHeader(getInitialLocale(), getInitialTheme(), setLocale, toggleTheme)}
+      ${renderHeader(getInitialLocale(), getInitialTheme(), null, null, setLocale, toggleTheme)}
       <h1 class="title">${text.title}</h1>
 
       <section class="mode-grid">

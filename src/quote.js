@@ -76,6 +76,8 @@ function render() {
 			${renderHeader(
 				getInitialLocale(),
 				getInitialTheme(),
+				state.mode,
+				gameMode,
 				changeLanguage,
 				changeTheme
 			)}

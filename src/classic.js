@@ -189,7 +189,7 @@ function render() {
 
   root.innerHTML = `
     <main class=\"layout\">
-      ${renderHeader(getInitialLocale(), getInitialTheme(), changeLanguage, changeTheme)}
+      ${renderHeader(getInitialLocale(), getInitialTheme(), state.mode, gameMode, changeLanguage, changeTheme)}
 
       <section class=\"controls\">
 				<p class="subtitle">${getText(uiText, "subtitle")}</p>
@@ -373,7 +373,7 @@ function render() {
 }
 
 export function initGame(options = {}) {
-  const mode = options.mode ?? "random";
+  const mode = options.mode ?? "unlimited";
   const timeZone = options.timeZone ?? "UTC";
   const locale = options.locale ?? getInitialLocale() ?? "en";
 
