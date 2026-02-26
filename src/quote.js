@@ -11,15 +11,21 @@ import {
 	getAvailableHeroes,
 } from "./heroAutocomplete.js";
 
-import { getHeroDisplayName, getHeroImageUrl, pickDaily, pickRandom,
+import { getHeroDisplayName,
+	getHeroImageUrl,
+	pickDaily, pickRandom,
 	getText,
+	getTriedHeroItemHtml,
+	loadDailyState, saveDailyState,
  } from "./data-utils.js";
 
 
 import { getInitialLocale, getInitialTheme, applyTheme, toggleTheme, setLocale } from "./settings.js";
 
-import { quoteText  } from "./translate.js";
+import { quoteText, landingModes  } from "./translate.js";
 import { applyWin } from "./winScroll.js";
+
+
 
 
 
@@ -27,11 +33,14 @@ const state = {
 	mode: "unlimited",
 	timeZone: "UTC",
 	answer: null,
-    quoteNumber: 0,
+    quote: {en: "nothing", fr: "rien"},
 	guesses: [],
 	solved: false,
 	message: "",
 };
+const gameMode = "quote";
+const nextGameMode = landingModes.find((mode) => mode.id === "daily classic");
+
 
 
 function changeTheme(){
@@ -56,8 +65,7 @@ function render() {
 
 	applyTheme(getInitialTheme());
 
-	const uiText = silhouetteText;
-	const imageUrl = getHeroImageUrl(state.answer);
+	const uiText = quoteText;
 	const attemptsUsed = state.guesses.length;
 	const statusText = state.solved
 		? getText(uiText, "win", getHeroDisplayName(state.answer))
@@ -77,24 +85,25 @@ function render() {
 			</section>
 
 			<section class="quote" style="margin-bottom: 24px;">
-				<div class="quote-text">
-                    <p>
-                    ${getQuoteText(state.answer, state.quoteNumber)}
+				<div>
+                    <p class="quote-text">
+                    \"${state.quote[getInitialLocale()]}\"
                     </p>
                 </div>
 			</section>
 
+
 			<section class="controls">
-				<form id="quote-form">
-					<label for="quote-input">${getText(uiText, "labelHero")}</label>
+				<form id="silhouette-form">
+					<label for="silhouette-input">${getText(uiText, "labelHero")}</label>
 					<div class="autocomplete">
 						<div class="input-row">
 							<input
-								id="quote-input"
+								id="silhouette-input"
 								name="guess"
 								autocomplete="off"
 								aria-autocomplete="list"
-								aria-controls="quote-suggestions"
+								aria-controls="silhouette-suggestions"
 								placeholder="${getText(uiText, "placeholder")}"
 								${state.solved ? "disabled" : ""}
 								required
@@ -102,7 +111,7 @@ function render() {
 							<button type="submit" class="submit-button" ${state.solved ? "disabled" : ""}>${getText(uiText, "guess")}</button>
 
 						</div>
-						<div class="suggestions" id="quote-suggestions" role="listbox" aria-label="${getText(uiText, "labelHero")}"></div>
+						<div class="suggestions" id="silhouette-suggestions" role="listbox" aria-label="${getText(uiText, "labelHero")}"></div>
 					</div>
 				</form>
 				<p class="muted" style="margin-top: 10px;">${getText(uiText, "guesses", attemptsUsed)}</p>
@@ -112,7 +121,7 @@ function render() {
 				${
 					state.guesses.length
 						? `<div class="silhouette-tried-grid">${state.guesses
-								.map((hero) => getTriedHeroItemHtml(hero))
+								.map((hero) => getTriedHeroItemHtml(hero, state))
 								.join("")}</div>`
 						: `<p class="empty">${getText(uiText, "empty")}</p>`
 				}
@@ -132,7 +141,9 @@ function render() {
                     ? `<button type=\"button\" class=\"replay\" id=\"replay-button\">${getText(uiText, 
                         "replay"
                       )}</button>`
-                    : ""
+                    : `<a href="${nextGameMode.href || "#"}" class=\"next-mode\" id=\"next-mode-card\">
+					  ${nextGameMode.title[getInitialLocale()]} &rarr;
+                      </a>`
                 }
               </div>`
             : ``
@@ -144,9 +155,9 @@ function render() {
 
 	attachHeaderEvents(changeLanguage, changeTheme);
 
-	const form = document.getElementById("quote-form");
-	const input = document.getElementById("quote-input");
-	const suggestions = document.getElementById("quote-suggestions");
+	const form = document.getElementById("silhouette-form");
+	const input = document.getElementById("silhouette-input");
+	const suggestions = document.getElementById("silhouette-suggestions");
 	const replayButton = document.getElementById("replay-button");
 
 	setupHeroAutocomplete({
@@ -222,6 +233,7 @@ function render() {
 				render();
 				return;
 			}
+
             const justWon = !state.solved && hero.name === state.answer.name;
             if (justWon) {
                 applyWin();
@@ -230,12 +242,15 @@ function render() {
 			state.guesses = [...state.guesses, hero];
 			state.solved = hero.name === state.answer.name;
 			state.message = "";
+			if (state.mode === "daily") {
+				saveDailyState(state, state.timeZone, gameMode);
+			}
 			render();
 		});
 	}
 
     
-    const nextInput = document.getElementById("quote-input");
+    const nextInput = document.getElementById("silhouette-input");
     if (nextInput && !state.solved) {
         nextInput.focus();
     }
@@ -247,45 +262,32 @@ function render() {
 	}
 }
 
-function startNewRound() {
-	const rotations = [0, 90, 180, 270];
-	const rotationIndex = Math.floor(Math.random() * rotations.length);
-
-	
-    state.answer = state.mode === "daily" ? pickDaily(heroes, state.timeZone, 2) : pickRandom(heroes);
-
-	state.rotation = rotations[rotationIndex];
-
-	// unused except if we want to zoom instead of blurring
-	state.focusX = 20 + Math.random() * 60;
-	state.focusY = 20 + Math.random() * 60;
-
+function startNewRound() {	
+    state.answer = state.mode === "daily" ? pickDaily(heroes, state.timeZone, 9937) : pickRandom(heroes);
+	//state.quote = state.mode === "daily" ? pickDaily(answer.quote, state.timeZone, 70218) : pickRandom(answer.quote);
 	state.guesses = [];
 	state.solved = false;
 	state.message = "";
-	render();
 }
+
 
 
 
 export function initQuoteGame(options = {}) {
   state.mode = options.mode ?? "unlimited";
   state.timeZone = options.timeZone ?? "UTC";
-  const locale = options.locale ?? getInitialLocale() ?? "en";
-
-
+  startNewRound();
 
   if (state.mode === "daily") {
-    /*const saved = loadDailyState(timeZone);
+    const saved = loadDailyState(state.timeZone, gameMode);
     if (saved) {
       state.guesses = saved.guesses
         .map((name) => heroes.find((hero) => hero.name === name) || null)
         .filter(Boolean);
       state.solved = Boolean(saved.solved);
-    }*/
+    }
   }
-
-  startNewRound();
+  render();	
 }
 
 

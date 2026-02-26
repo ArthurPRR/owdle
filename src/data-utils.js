@@ -2,8 +2,9 @@ export { getText, getAttributeLabel, translateValue,
     pickDaily, pickRandom, getCountdownText,
     startCountdown, stopCountdown, getHeroDisplayName,
     getHeroSuggestionName, slugifyName,
-     getHeroImageUrl, getHeroAltName,
-    saveDailyState, loadDailyState, normalize };
+    getHeroImageUrl, getHeroAltName,
+    saveDailyState, loadDailyState, normalize,
+    getTriedHeroItemHtml };
  
 
 import { getInitialLocale } from "./settings.js";
@@ -284,4 +285,21 @@ function getHeroAltName(hero, locale = getInitialLocale()) {
   }
 
   return hero.nameFr ?? null;
+}
+
+
+function getTriedHeroItemHtml(hero, state) {
+  const name = getHeroDisplayName(hero);
+  const imageUrl = getHeroImageUrl(hero);
+
+  return `
+    <div class="silhouette-tried-item${hero.name === state.answer.name ? " is-correct" : ""}" title="${name}">
+      ${
+        imageUrl
+          ? `<img class="silhouette-tried-avatar" src="${imageUrl}" alt="${name}" loading="lazy" />`
+          : `<div class="silhouette-tried-avatar silhouette-tried-avatar-empty" aria-hidden="true"></div>`
+      }
+      <span>${name}</span>
+    </div>
+  `;
 }

@@ -12,7 +12,7 @@ import {
 } from "./heroAutocomplete.js";
 
 import { getHeroDisplayName, getHeroImageUrl, pickDaily, pickRandom,
-	getText, saveDailyState, loadDailyState
+	getText, saveDailyState, loadDailyState, getTriedHeroItemHtml,
  } from "./data-utils.js";
 
 
@@ -78,21 +78,6 @@ function getSilhouetteStyle() {
 	`;
 }
 
-function getTriedHeroItemHtml(hero) {
-	const name = getHeroDisplayName(hero);
-	const imageUrl = getHeroImageUrl(hero);
-
-	return `
-		<div class="silhouette-tried-item${hero.name === state.answer.name ? " is-correct" : ""}" title="${name}">
-			${
-				imageUrl
-					? `<img class="silhouette-tried-avatar" src="${imageUrl}" alt="${name}" loading="lazy" />`
-					: `<div class="silhouette-tried-avatar silhouette-tried-avatar-empty" aria-hidden="true"></div>`
-			}
-			<span>${name}</span>
-		</div>
-	`;
-}
 
 function render() {
 	if (document?.documentElement) {
@@ -157,7 +142,7 @@ function render() {
 				${
 					state.guesses.length
 						? `<div class="silhouette-tried-grid">${state.guesses
-								.map((hero) => getTriedHeroItemHtml(hero))
+								.map((hero) => getTriedHeroItemHtml(hero, state))
 								.join("")}</div>`
 						: `<p class="empty">${getText(uiText, "empty")}</p>`
 				}
@@ -303,7 +288,7 @@ function startNewRound() {
 	const rotationIndex = Math.floor(Math.random() * rotations.length);
 
 	
-    state.answer = state.mode === "daily" ? pickDaily(heroes, state.timeZone, 2) : pickRandom(heroes);
+    state.answer = state.mode === "daily" ? pickDaily(heroes, state.timeZone, 3273) : pickRandom(heroes);
 
 	state.rotation = rotations[rotationIndex];
 
