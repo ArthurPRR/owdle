@@ -259,14 +259,22 @@ function render() {
 
 	if (replayButton) {
 		replayButton.addEventListener("click", () => {
-			startNewRound();
+			initQuoteGame();
 		});
 	}
 }
 
 function startNewRound() {	
     state.answer = state.mode === "daily" ? pickDaily(heroes, state.timeZone, 9937) : pickRandom(heroes);
-	//state.quote = state.mode === "daily" ? pickDaily(answer.quote, state.timeZone, 70218) : pickRandom(answer.quote);
+	if (state.answer.quotes) {
+		state.quote = state.mode === "daily" ? pickDaily(state.answer.quotes, state.timeZone, 70218) : pickRandom(state.answer.quotes);
+	}
+	else {
+		state.quote = {
+			en: "We do not have any voice line yet for " + state.answer.name,
+			fr: "Nous n'avons pas ajouté de réplique pour " + state.answer.nameFr ?? state.answer.name,
+		};
+	}
 	state.guesses = [];
 	state.solved = false;
 	state.message = "";

@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap");
-@import url("https://fonts.googleapis.com/css?family=Satisfy");
+
 
 :root {
   color-scheme: light;
@@ -101,6 +101,12 @@ header .home-link {
   color: #5c4a38;
   font-weight: 600;
 }
+
+.gamemode-button :hover {
+  transform: translateY(-2px);
+  background: rgba(246, 228, 198, 0.7);
+}
+
 
 .home-link {
   text-decoration: none;
@@ -409,7 +415,7 @@ button:hover {
 
 .quote-text {
   font-size: 45px;
-  font-family: "Satisfy", cursive;
+  font-family: "Cormorant Garamond", cursive;
   text-align: center;
 } 
 
@@ -682,6 +688,16 @@ td:nth-child(4) {
 }
 
 :root.dark button:hover {
+  background: #e8b88e;
+}
+
+
+:root.dark gamemode-button {
+  background: #d4a574;
+  color: #1a1410;
+}
+
+:root.dark gamemode-button:hover {
   background: #e8b88e;
 }
 

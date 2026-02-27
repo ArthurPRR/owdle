@@ -1,6 +1,8 @@
 export { renderHeader, attachHeaderEvents };
 
 import logoUrl from "./assets/logo/logo.png";
+import logoDarkUrl from "./assets/logo/logo-dark-mode.png";
+import miniUrl from "./assets/logo/mini.png";
 import { landingModes } from "./translate.js";
 
 function renderHeader(locale, theme, mode, currentGameMode, onLocaleChange, onThemeChange) {
@@ -23,7 +25,10 @@ function renderHeader(locale, theme, mode, currentGameMode, onLocaleChange, onTh
         </button>
       </div>
       <a class="eyebrow home-link" href="/index.html" aria-label="OWDLE">
-        <img class="logo" src="${logoUrl}" alt="OWDLE" />
+        ${theme === "dark" ?
+        "<img class=\"logo\" src=\""+logoDarkUrl+"\" alt=\"OWDLE\" />" :
+        "<img class=\"logo\" src=\""+logoUrl+"\" alt=\"OWDLE\" />"
+        }
       </a>
       ${
         mode !== null ? `

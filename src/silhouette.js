@@ -35,7 +35,7 @@ const state = {
 	message: "",
 };
 const gameMode = "silhouette";
-const nextGameMode = landingModes.find((mode) => mode.id === "daily classic");
+const nextGameMode = landingModes.find((mode) => mode.id === "daily quote");
 
 function changeTheme(){
   toggleTheme();
@@ -280,7 +280,7 @@ function render() {
 
 	if (replayButton) {
 		replayButton.addEventListener("click", () => {
-			startNewRound();
+			initSilhouetteGame();
 		});
 	}
 }

@@ -5,9 +5,21 @@
     "role": "Support",
     "subrole": "Tactician",
     "continent": "Africa",
-    "affiliation": ["Overwatch"],
+    "affiliation": [
+      "Overwatch"
+    ],
     "gender": "Female",
-    "year": 2016
+    "year": 2016,
+    "quotes": [
+      {
+        "en": "It takes a woman to know it",
+        "fr": "It takes a woman to know it"
+      },
+      {
+        "en": "Good kitty.",
+        "fr": "Good kitty."
+      }
+    ]
   },
   {
     "name": "Anran",
@@ -15,9 +27,18 @@
     "role": "Damage",
     "subrole": "Flanker",
     "continent": "Asia",
-    "affiliation": ["Overwatch", "Wuxing University"],
+    "affiliation": [
+      "Overwatch",
+      "Wuxing University"
+    ],
     "gender": "Female",
-    "year": 2026
+    "year": 2026,
+    "quotes": [
+      {
+        "en": "I'll burn brightest",
+        "fr": "I'll burn brightest"
+      }
+    ]
   },
   {
     "name": "Ashe",
@@ -25,10 +46,25 @@
     "role": "Damage",
     "subrole": "Sharpshooter",
     "continent": "North America",
-    "affiliation": ["Deadlock Gang"],
-    "UnincludedAffiliations": ["Talon", "The Arbalest"],
-    "gender":"Female",
-    "year": 2018
+    "affiliation": [
+      "Deadlock Gang"
+    ],
+    "UnincludedAffiliations": [
+      "Talon",
+      "The Arbalest"
+    ],
+    "gender": "Female",
+    "year": 2018,
+    "quotes": [
+      {
+        "en": "You picked a bad time to get lost.",
+        "fr": "You picked a bad time to get lost."
+      },
+      {
+        "en": "Just takin' out the trash.",
+        "fr": "Just takin' out the trash."
+      }
+    ]
   },
   {
     "name": "Baptiste",
@@ -36,9 +72,23 @@
     "role": "Support",
     "subrole": "Tactician",
     "continent": "America",
-    "affiliation": ["Carribbean Coalition", "Overwatch", "Talon"],
+    "affiliation": [
+      "Carribbean Coalition",
+      "Overwatch",
+      "Talon"
+    ],
     "gender": "Male",
-    "year": 2019
+    "year": 2019,
+    "quotes": [
+      {
+        "en": "Looks like that apple a day thing didn't work out for you.",
+        "fr": "Looks like that apple a day thing didn't work out for you."
+      },
+      {
+        "en": "Who wants to be immortal?",
+        "fr": "Who wants to be immortal?"
+      }
+    ]
   },
   {
     "name": "Bastion",
@@ -46,9 +96,22 @@
     "role": "Damage",
     "subrole": "Specialist",
     "continent": "Europe",
-    "affiliation": ["Ironclad Guild", "Overwatch"],
+    "affiliation": [
+      "Ironclad Guild",
+      "Overwatch"
+    ],
     "gender": "Male",
-    "year": 2016
+    "year": 2016,
+    "quotes": [
+      {
+        "en": "Boo boo doo de doo. (beeps)",
+        "fr": "Boo boo doo de doo. (beeps)"
+      },
+      {
+        "en": "Bwoo chirr chirr chirr chirr chirr chirr chirr! (churring beeps)",
+        "fr": "Bwoo chirr chirr chirr chirr chirr chirr chirr! (churring beeps)"
+      }
+    ]
   },
   {
     "name": "Brigitte",
@@ -56,9 +119,21 @@
     "role": "Support",
     "subrole": "Survivor",
     "continent": "Europe",
-    "affiliation": ["Overwatch"],
+    "affiliation": [
+      "Overwatch"
+    ],
     "gender": "Female",
-    "year": 2018
+    "year": 2018,
+    "quotes": [
+      {
+        "en": "Mace to the face.",
+        "fr": "Mace to the face."
+      },
+      {
+        "en": "Precision Swedish engineering.",
+        "fr": "Precision Swedish engineering."
+      }
+    ]
   },
   {
     "name": "Cassidy",
@@ -66,20 +141,49 @@
     "role": "Damage",
     "subrole": "Sharpshooter",
     "continent": "North America",
-    "affiliation": ["Blackwatch","Deadlock Gang", "Overwatch"],
+    "affiliation": [
+      "Blackwatch",
+      "Deadlock Gang",
+      "Overwatch"
+    ],
     "gender": "Male",
-    "year": 2016
+    "year": 2016,
+    "quotes": [
+      {
+        "en": "*chuckles* Watch and learn.",
+        "fr": "*chuckles* Watch and learn."
+      },
+      {
+        "en": "I've got a bullet with your name on it.",
+        "fr": "I've got a bullet with your name on it."
+      }
+    ]
   },
   {
     "name": "D.Va",
-    "aliases": ["DVA"],
+    "aliases": [
+      "DVA"
+    ],
     "species": "Human",
     "role": "Tank",
     "subrole": "Initiator",
     "continent": "Asia",
-    "affiliation": ["Overwatch", "MEKA"],
+    "affiliation": [
+      "Overwatch",
+      "MEKA"
+    ],
     "gender": "Female",
-    "year": 2016
+    "year": 2016,
+    "quotes": [
+      {
+        "en": "Is this easy mode?",
+        "fr": "Is this easy mode?"
+      },
+      {
+        "en": "Ever heard the rabbit in the moon?",
+        "fr": "Ever heard the rabbit in the moon?"
+      }
+    ]
   },
   {
     "name": "Domina",
@@ -87,9 +191,22 @@
     "role": "Tank",
     "subrole": "Stalwart",
     "continent": "Asia",
-    "affiliation": ["Vishkar", "Talon"],
+    "affiliation": [
+      "Vishkar",
+      "Talon"
+    ],
     "gender": "Female",
-    "year": 2026
+    "year": 2026,
+    "quotes": [
+      {
+        "en": "Well, aren't you the jester?",
+        "fr": "Well, aren't you the jester?"
+      },
+      {
+        "en": "Do speak up, darling.",
+        "fr": "Do speak up, darling."
+      }
+    ]
   },
   {
     "name": "Doomfist",
@@ -97,19 +214,43 @@
     "role": "Tank",
     "subrole": "Initiator",
     "continent": "Africa",
-    "affiliation": ["Talon"],
-    "gender":"Male",
-    "year": 2017
+    "affiliation": [
+      "Talon"
+    ],
+    "gender": "Male",
+    "year": 2017,
+    "quotes": [
+      {
+        "en": "Spare me the commentary.",
+        "fr": "Spare me the commentary."
+      },
+      {
+        "en": "Gain more experience before you challenge me again.",
+        "fr": "Gain more experience before you challenge me again."
+      }
+    ]
   },
   {
     "name": "Echo",
     "species": "Omnic",
-    "role": "Damage", 
+    "role": "Damage",
     "subrole": "Recon",
     "continent": "Asia",
-    "affiliation": ["Overwatch"],
+    "affiliation": [
+      "Overwatch"
+    ],
     "gender": "Female",
-    "year": 2020
+    "year": 2020,
+    "quotes": [
+      {
+        "en": "Is this a non-relevant conversation ?",
+        "fr": "Is this a non-relevant conversation ?"
+      },
+      {
+        "en": "Following the flight plan.",
+        "fr": "Following the flight plan."
+      }
+    ]
   },
   {
     "name": "Emre",
@@ -117,9 +258,23 @@
     "role": "Damage",
     "subrole": "Specialist",
     "continent": "Asia",
-    "affiliation": ["Overwatch", "Talon", "The Conspiracy"],
+    "affiliation": [
+      "Overwatch",
+      "Talon",
+      "The Conspiracy"
+    ],
     "gender": "Male",
-    "year": 2026
+    "year": 2026,
+    "quotes": [
+      {
+        "en": "Keep up the good fight. It's worth it.",
+        "fr": "Keep up the good fight. It's worth it."
+      },
+      {
+        "en": "Funny thing about tough calls. They're usually the right ones.",
+        "fr": "Funny thing about tough calls. They're usually the right ones."
+      }
+    ]
   },
   {
     "name": "Freja",
@@ -127,9 +282,23 @@
     "role": "Damage",
     "subrole": "Recon",
     "continent": "Europe",
-    "affiliation": ["Danish Armed Forces", "Overwatch", "Talon"],
+    "affiliation": [
+      "Danish Armed Forces",
+      "Overwatch",
+      "Talon"
+    ],
     "gender": "Female",
-    "year": 2025
+    "year": 2025,
+    "quotes": [
+      {
+        "en": "What can I say? It's a living.",
+        "fr": "What can I say? It's a living."
+      },
+      {
+        "en": "Not my bounty, not my problem.",
+        "fr": "Not my bounty, not my problem."
+      }
+    ]
   },
   {
     "name": "Genji",
@@ -137,9 +306,24 @@
     "role": "Damage",
     "subrole": "Flanker",
     "continent": "Asia",
-    "affiliation": ["Blackwatch", "Overwatch", "Shambali", "Shimada Clan"],
+    "affiliation": [
+      "Blackwatch",
+      "Overwatch",
+      "Shambali",
+      "Shimada Clan"
+    ],
     "gender": "Male",
-    "year": 2016
+    "year": 2016,
+    "quotes": [
+      {
+        "en": "Measure twice, cut once.",
+        "fr": "Measure twice, cut once."
+      },
+      {
+        "en": "Mada mada!",
+        "fr": "Mada mada!"
+      }
+    ]
   },
   {
     "name": "Hanzo",
@@ -147,9 +331,22 @@
     "role": "Damage",
     "subrole": "Sharpshooter",
     "continent": "Asia",
-    "affiliation": ["Shimada Clan", "Yokai"],
+    "affiliation": [
+      "Shimada Clan",
+      "Yokai"
+    ],
     "gender": "Male",
-    "year": 2016
+    "year": 2016,
+    "quotes": [
+      {
+        "en": "Simple geometry.",
+        "fr": "Simple geometry."
+      },
+      {
+        "en": "I choose you, spirit dragon.",
+        "fr": "I choose you, spirit dragon."
+      }
+    ]
   },
   {
     "name": "Hazard",
@@ -158,9 +355,22 @@
     "role": "Tank",
     "subrole": "Stalwart",
     "continent": "Europe",
-    "affiliation": ["British Military", "Phreaks"],
+    "affiliation": [
+      "British Military",
+      "Phreaks"
+    ],
     "gender": "Male",
-    "year": 2025
+    "year": 2025,
+    "quotes": [
+      {
+        "en": "Rules are like bones; they're made to be broken.",
+        "fr": "Rules are like bones; they're made to be broken."
+      },
+      {
+        "en": "Failin' means yer playin'.",
+        "fr": "Failin' means yer playin'."
+      }
+    ]
   },
   {
     "name": "Illari",
@@ -168,9 +378,21 @@
     "role": "Support",
     "subrole": "Survivor",
     "continent": "South America",
-    "affiliation": ["Inti Warriors"],
-    "gender":"Female",
-    "year": 2023
+    "affiliation": [
+      "Inti Warriors"
+    ],
+    "gender": "Female",
+    "year": 2023,
+    "quotes": [
+      {
+        "en": "I will make up for what I've done.",
+        "fr": "I will make up for what I've done."
+      },
+      {
+        "en": "Rise like the sun.",
+        "fr": "Rise like the sun."
+      }
+    ]
   },
   {
     "name": "Jetpack Cat",
@@ -178,9 +400,17 @@
     "role": "Support",
     "subrole": "Tactician",
     "continent": "Europe",
-    "affiliation": ["Overwatch"],
+    "affiliation": [
+      "Overwatch"
+    ],
     "gender": "Female",
-    "year": 2026
+    "year": 2026,
+    "quotes": [
+      {
+        "en": "(Taunting) Meow meow me meow meow!",
+        "fr": "(Taunting) Meow meow me meow meow!"
+      }
+    ]
   },
   {
     "name": "Junker Queen",
@@ -188,9 +418,21 @@
     "role": "Tank",
     "subrole": "Stalwart",
     "continent": "Oceanias",
-    "affiliation": ["Junkers"],
+    "affiliation": [
+      "Junkers"
+    ],
     "gender": "Female",
-    "year": 2022
+    "year": 2022,
+    "quotes": [
+      {
+        "en": "I was born to rule.",
+        "fr": "I was born to rule."
+      },
+      {
+        "en": "\"Knife\" to see ya. Ha ha ha.",
+        "fr": "\"Knife\" to see ya. Ha ha ha."
+      }
+    ]
   },
   {
     "name": "Junkrat",
@@ -198,9 +440,21 @@
     "role": "Damage",
     "subrole": "Specialist",
     "continent": "Oceania",
-    "affiliation": ["Junkers"],
+    "affiliation": [
+      "Junkers"
+    ],
     "gender": "Male",
-    "year": 2016
+    "year": 2016,
+    "quotes": [
+      {
+        "en": "Anyone want some barbecue? Heheh.",
+        "fr": "Anyone want some barbecue? Heheh."
+      },
+      {
+        "en": "If at first you don't succeed... Blow it up again!",
+        "fr": "If at first you don't succeed... Blow it up again!"
+      }
+    ]
   },
   {
     "name": "Juno",
@@ -208,9 +462,22 @@
     "role": "Support",
     "subrole": "Survivor",
     "continent": "Other",
-    "affiliation": ["Overwatch", "Project Red Promise"],
+    "affiliation": [
+      "Overwatch",
+      "Project Red Promise"
+    ],
     "gender": "Female",
-    "year": 2023
+    "year": 2023,
+    "quotes": [
+      {
+        "en": "Ahh... do not panic !",
+        "fr": "Ahh... do not panic !"
+      },
+      {
+        "en": "I have no idea what is going on !",
+        "fr": "I have no idea what is going on !"
+      }
+    ]
   },
   {
     "name": "Kiriko",
@@ -218,30 +485,71 @@
     "role": "Support",
     "subrole": "Medic",
     "continent": "Asia",
-    "affiliation": ["Yamagami blades", "Yokai"],
-    "gender":"Female",
-    "year": 2022
+    "affiliation": [
+      "Yamagami blades",
+      "Yokai"
+    ],
+    "gender": "Female",
+    "year": 2022,
+    "quotes": [
+      {
+        "en": "Kira Kira beam !",
+        "fr": "Kira Kira beam !"
+      },
+      {
+        "en": "The path shapes you. The spirits perfect you.",
+        "fr": "The path shapes you. The spirits perfect you."
+      }
+    ]
   },
   {
     "name": "Lifeweaver",
+    "nameFr": "Vital",
     "species": "Human",
     "role": "Support",
     "subrole": "Medic",
     "continent": "Asia",
-    "affiliation": [ "The Collective", "Vishkar"],
+    "affiliation": [
+      "The Collective",
+      "Vishkar"
+    ],
     "gender": "Male",
-    "year": 2024
+    "year": 2024,
+    "quotes": [
+      {
+        "en": "Life is far too short to feel guilty about... well, anything!",
+        "fr": "Life is far too short to feel guilty about... well, anything!"
+      },
+      {
+        "en": "Minds must change hearts, and hearts must change minds.",
+        "fr": "Minds must change hearts, and hearts must change minds."
+      }
+    ]
   },
   {
     "name": "Lúcio",
-    "aliases": ["Lucio"],
+    "aliases": [
+      "Lucio"
+    ],
     "species": "Human",
     "role": "Support",
     "subrole": "Tactician",
     "continent": "South America",
-    "affiliation": ["Overwatch"],
+    "affiliation": [
+      "Overwatch"
+    ],
     "gender": "Male",
-    "year": 2016
+    "year": 2016,
+    "quotes": [
+      {
+        "en": "Can't stop, won't stop.",
+        "fr": "Can't stop, won't stop."
+      },
+      {
+        "en": "I'm on top of the world.",
+        "fr": "I'm on top of the world."
+      }
+    ]
   },
   {
     "name": "Mauga",
@@ -249,9 +557,22 @@
     "role": "Tank",
     "subrole": "Bruiser",
     "continent": "Oceania",
-    "affiliation": ["Deepsea Raiders", "Talon"],
+    "affiliation": [
+      "Deepsea Raiders",
+      "Talon"
+    ],
     "gender": "Male",
-    "year": 2023
+    "year": 2023,
+    "quotes": [
+      {
+        "en": "It's never boring around me.",
+        "fr": "It's never boring around me."
+      },
+      {
+        "en": "Who's ready to have some fun?",
+        "fr": "Who's ready to have some fun?"
+      }
+    ]
   },
   {
     "name": "Mei",
@@ -259,9 +580,22 @@
     "role": "Damage",
     "subrole": "Specialist",
     "continent": "Asia",
-    "affiliation": ["Atlas News", "Overwatch"],
+    "affiliation": [
+      "Atlas News",
+      "Overwatch"
+    ],
     "gender": "Female",
-    "year": 2016
+    "year": 2016,
+    "quotes": [
+      {
+        "en": "Hey, chill out !",
+        "fr": "Hey, chill out !"
+      },
+      {
+        "en": "A-Mei-zing !",
+        "fr": "A-Mei-zing !"
+      }
+    ]
   },
   {
     "name": "Mercy",
@@ -270,9 +604,21 @@
     "role": "Support",
     "subrole": "Medic",
     "continent": "Europe",
-    "affiliation": ["Overwatch"],
+    "affiliation": [
+      "Overwatch"
+    ],
     "gender": "Female",
-    "year": 2016
+    "year": 2016,
+    "quotes": [
+      {
+        "en": "On a scale of 1 to 10, how is your pain ?",
+        "fr": "On a scale of 1 to 10, how is your pain ?"
+      },
+      {
+        "en": "How barbaric.",
+        "fr": "How barbaric."
+      }
+    ]
   },
   {
     "name": "Mizuki",
@@ -280,9 +626,23 @@
     "role": "Support",
     "subrole": "Survivor",
     "continent": "Asia",
-    "affiliation": ["Hashimoto Clan", "Talon", "Yokai"],
+    "affiliation": [
+      "Hashimoto Clan",
+      "Talon",
+      "Yokai"
+    ],
     "gender": "Male",
-    "year": 2026
+    "year": 2026,
+    "quotes": [
+      {
+        "en": "Aww, that wasn't very nice...",
+        "fr": "Aww, that wasn't very nice..."
+      },
+      {
+        "en": "Begone, spirits !",
+        "fr": "Begone, spirits !"
+      }
+    ]
   },
   {
     "name": "Moira",
@@ -290,9 +650,23 @@
     "role": "Support",
     "subrole": "Medic",
     "continent": "Europe",
-    "affiliation": ["Blackwatch", "Talon", "The Ministries"],
+    "affiliation": [
+      "Blackwatch",
+      "Talon",
+      "The Ministries"
+    ],
     "gender": "Female",
-    "year": 2017
+    "year": 2017,
+    "quotes": [
+      {
+        "en": "What an interesting hypothesis.",
+        "fr": "What an interesting hypothesis."
+      },
+      {
+        "en": "Stupidity is not a right.",
+        "fr": "Stupidity is not a right."
+      }
+    ]
   },
   {
     "name": "Orisa",
@@ -300,9 +674,22 @@
     "role": "Tank",
     "subrole": "Bruiser",
     "continent": "Africa",
-    "affiliation": ["Numbani", "Overwatch"],
+    "affiliation": [
+      "Numbani",
+      "Overwatch"
+    ],
     "gender": "Female",
-    "year": 2017
+    "year": 2017,
+    "quotes": [
+      {
+        "en": "Error 404: sarcasm module not found.",
+        "fr": "Error 404: sarcasm module not found."
+      },
+      {
+        "en": "Do you need a hug ?",
+        "fr": "Do you need a hug ?"
+      }
+    ]
   },
   {
     "name": "Pharah",
@@ -310,9 +697,22 @@
     "role": "Damage",
     "subrole": "Recon",
     "continent": "Africa",
-    "affiliation": ["Helix Security International", "Overwatch"],
-    "gender":"Female",
-    "year": 2016
+    "affiliation": [
+      "Helix Security International",
+      "Overwatch"
+    ],
+    "gender": "Female",
+    "year": 2016,
+    "quotes": [
+      {
+        "en": "Put your security in my hands.",
+        "fr": "Put your security in my hands."
+      },
+      {
+        "en": "Rocket jump? That sounds dangerous.",
+        "fr": "Rocket jump? That sounds dangerous."
+      }
+    ]
   },
   {
     "name": "Ramattra",
@@ -320,9 +720,26 @@
     "role": "Tank",
     "subrole": "Stalwart",
     "continent": "Asia",
-    "affiliation": ["Null Sector", "Shambali"],
+    "affiliation": [
+      "Null Sector",
+      "Shambali"
+    ],
     "gender": "Male",
-    "year": 2022
+    "year": 2022,
+    "quotes": [
+      {
+        "en": "I do not fight for myself. I never have.",
+        "fr": "I do not fight for myself. I never have."
+      },
+      {
+        "en": "Do your worst, or I will.",
+        "fr": "Do your worst, or I will."
+      },
+      {
+        "en": "I fought for peace for too long. I was a fool.",
+        "fr": "I fought for peace for too long. I was a fool."
+      }
+    ]
   },
   {
     "name": "Reaper",
@@ -331,19 +748,45 @@
     "role": "Damage",
     "subrole": "Flanker",
     "continent": "America",
-    "affiliation": ["Blackwatch", "Talon"],
+    "affiliation": [
+      "Blackwatch",
+      "Talon"
+    ],
     "gender": "Male",
-    "year": 2016
+    "year": 2016,
+    "quotes": [
+      {
+        "en": "Haven't I killed you somewhere before ?",
+        "fr": "Haven't I killed you somewhere before ?"
+      },
+      {
+        "en": "I'm not a psychopath. I'm a high-functioning psychopath.",
+        "fr": "I'm not a psychopath. I'm a high-functioning psychopath."
+      }
+    ]
   },
   {
     "name": "Reinhardt",
     "species": "Human",
     "role": "Tank",
     "subrole": "Stalwart",
-    "continent": "Europe",    
-    "affiliation": ["Crusaders", "Overwatch"],
+    "continent": "Europe",
+    "affiliation": [
+      "Crusaders",
+      "Overwatch"
+    ],
     "gender": "Male",
-    "year": 2016
+    "year": 2016,
+    "quotes": [
+      {
+        "en": "Precision German engineering.",
+        "fr": "Precision German engineering."
+      },
+      {
+        "en": "Ah, this old dog still knows a few tricks.",
+        "fr": "Ah, this old dog still knows a few tricks."
+      }
+    ]
   },
   {
     "name": "Roadhog",
@@ -352,10 +795,25 @@
     "role": "Tank",
     "subrole": "Bruiser",
     "continent": "Oceania",
-    "affiliation": ["Australian Liberation Front", "Junkers"],
-    "UnincludedAffiliations": ["Wreckers"],
+    "affiliation": [
+      "Australian Liberation Front",
+      "Junkers"
+    ],
+    "UnincludedAffiliations": [
+      "Wreckers"
+    ],
     "gender": "Male",
-    "year": 2016
+    "year": 2016,
+    "quotes": [
+      {
+        "en": "Welcome to the apocalypse.",
+        "fr": "Welcome to the apocalypse."
+      },
+      {
+        "en": "Say \"bacon\" one more time.",
+        "fr": "Say \"bacon\" one more time."
+      }
+    ]
   },
   {
     "name": "Sigma",
@@ -363,9 +821,21 @@
     "role": "Tank",
     "subrole": "Stalwart",
     "continent": "Europe",
-    "affiliation": ["Talon"],
+    "affiliation": [
+      "Talon"
+    ],
     "gender": "Male",
-    "year": 2019
+    "year": 2019,
+    "quotes": [
+      {
+        "en": "I don't think you understand the gravity of this situation.",
+        "fr": "I don't think you understand the gravity of this situation."
+      },
+      {
+        "en": "Many find the universe confusing. That's the beauty of it.",
+        "fr": "Many find the universe confusing. That's the beauty of it."
+      }
+    ]
   },
   {
     "name": "Soldier: 76",
@@ -373,10 +843,26 @@
     "role": "Damage",
     "subrole": "Specialist",
     "continent": "South America",
-    "affiliation": ["Blackwatch","Overwatch"],
-    "UnincludedAffiliations": ["United States Army", "Soldier Enhancement Program"],
+    "affiliation": [
+      "Blackwatch",
+      "Overwatch"
+    ],
+    "UnincludedAffiliations": [
+      "United States Army",
+      "Soldier Enhancement Program"
+    ],
     "gender": "Male",
-    "year": 2016
+    "year": 2016,
+    "quotes": [
+      {
+        "en": "I didn't start this war... But I'm damn well gonna finish it.",
+        "fr": "I didn't start this war... But I'm damn well gonna finish it."
+      },
+      {
+        "en": "Not on my watch.",
+        "fr": "Not on my watch."
+      }
+    ]
   },
   {
     "name": "Sojourn",
@@ -384,10 +870,24 @@
     "role": "Damage",
     "subrole": "Sharpshooter",
     "continent": "North America",
-    "affiliation": ["Overwatch"],
-    "UnincludedAffiliations": ["Canadian Army"],
+    "affiliation": [
+      "Overwatch"
+    ],
+    "UnincludedAffiliations": [
+      "Canadian Army"
+    ],
     "gender": "Female",
-    "year": 2022
+    "year": 2022,
+    "quotes": [
+      {
+        "en": "Eugh... don't give me that decaf.",
+        "fr": "Eugh... don't give me that decaf."
+      },
+      {
+        "en": "With these upgrades, they don't stand a chance.",
+        "fr": "With these upgrades, they don't stand a chance."
+      }
+    ]
   },
   {
     "name": "Sombra",
@@ -395,9 +895,22 @@
     "role": "Damage",
     "subrole": "Recon",
     "continent": "America",
-    "affiliation": ["Los Muertos", "Talon"],
+    "affiliation": [
+      "Los Muertos",
+      "Talon"
+    ],
     "gender": "Female",
-    "year": 2016
+    "year": 2016,
+    "quotes": [
+      {
+        "en": "Where's the fun in playing fair ?",
+        "fr": "Where's the fun in playing fair ?"
+      },
+      {
+        "en": "Mess with the best and die like the rest.",
+        "fr": "Mess with the best and die like the rest."
+      }
+    ]
   },
   {
     "name": "Symmetra",
@@ -405,9 +918,25 @@
     "role": "Damage",
     "subrole": "Specialist",
     "continent": "Asia",
-    "affiliation": ["Vishkar"],
+    "affiliation": [
+      "Vishkar"
+    ],
     "gender": "Female",
-    "year": 2016
+    "year": 2016,
+    "quotes": [
+      {
+        "en": "Such a lack of imagination.",
+        "fr": "Such a lack of imagination."
+      },
+      {
+        "en": "Everything by design.",
+        "fr": "Everything by design."
+      },
+      {
+        "en": "Am I supposed to be impressed ?",
+        "fr": "Am I supposed to be impressed ?"
+      }
+    ]
   },
   {
     "name": "Torbjorn",
@@ -415,10 +944,26 @@
     "role": "Damage",
     "subrole": "Specialist",
     "continent": "Europe",
-    "affiliation": ["Ironclad Guild", "Overwatch"],
-    "UnincludedAffiliations": ["SST Laboratories", "National Chemical, Biological, Radiation & Nuclear Defense Center"],
+    "affiliation": [
+      "Ironclad Guild",
+      "Overwatch"
+    ],
+    "UnincludedAffiliations": [
+      "SST Laboratories",
+      "National Chemical, Biological, Radiation & Nuclear Defense Center"
+    ],
     "gender": "Male",
-    "year": 2016
+    "year": 2016,
+    "quotes": [
+      {
+        "en": "Completion date? *chuckle* When it's done.",
+        "fr": "Completion date? *chuckle* When it's done."
+      },
+      {
+        "en": "Ugh, leave this to an expert.",
+        "fr": "Ugh, leave this to an expert."
+      }
+    ]
   },
   {
     "name": "Tracer",
@@ -426,9 +971,22 @@
     "role": "Damage",
     "subrole": "Flanker",
     "continent": "Europe",
-    "affiliation": ["British Military", "Overwatch"],
+    "affiliation": [
+      "British Military",
+      "Overwatch"
+    ],
     "gender": "Female",
-    "year": 2016
+    "year": 2016,
+    "quotes": [
+      {
+        "en": "Cheers, love ! The cavalry's here !",
+        "fr": "Cheers, love ! The cavalry's here !"
+      },
+      {
+        "en": "The world could always use more heroes.",
+        "fr": "The world could always use more heroes."
+      }
+    ]
   },
   {
     "name": "Vendetta",
@@ -436,9 +994,22 @@
     "role": "Damage",
     "subrole": "Flanker",
     "continent": "Europe",
-    "affiliation": ["Talon"],
+    "affiliation": [
+      "Talon"
+    ],
     "gender": "Female",
-    "year": 2025
+    "year": 2025,
+    "quotes": [
+      {
+        "en": "When the blood runs, I give chase.",
+        "fr": "When the blood runs, I give chase."
+      },
+      {
+        "en": "I do not desire power—I deserve it.",
+        "fr": "I do not desire power—I deserve it."
+      }
+    ]
+
   },
   {
     "name": "Venture",
@@ -446,9 +1017,21 @@
     "role": "Damage",
     "subrole": "Flanker",
     "continent": "America",
-    "affiliation": ["Wayfinder Society"],
+    "affiliation": [
+      "Wayfinder Society"
+    ],
     "gender": "Non-binary",
-    "year": 2024
+    "year": 2024,
+    "quotes": [
+      {
+        "en": "I can dig that!",
+        "fr": "I can dig that!"
+      },
+      {
+        "en": "\"X\" marks the spot !",
+        "fr": "\"X\" marks the spot !"
+      }
+    ]
   },
   {
     "name": "Widowmaker",
@@ -457,31 +1040,72 @@
     "role": "Damage",
     "subrole": "Sharpshooter",
     "continent": "Europe",
-    "affiliation": ["Talon"], 
+    "affiliation": [
+      "Talon"
+    ],
     "gender": "Female",
-    "year": 2016
+    "year": 2016,
+    "quotes": [
+      {
+      "en": "A single death can change everything.",
+      "fr": "A single death can change everything."
+      },
+      {
+        "en": "What's an aimbot ?",
+        "fr": "What's an aimbot ?"
+      }
+    ]
   },
   {
     "name": "Winston",
+    "aliases": ["Winton"],
     "species": "Animal",
     "role": "Tank",
     "subrole": "Initiator",
     "continent": "Other",
-    "affiliation": ["Lucheng Interstellar", "Overwatch"],
-    "gender":"Male",
-    "year": 2016
+    "affiliation": [
+      "Lucheng Interstellar",
+      "Overwatch"
+    ],
+    "gender": "Male",
+    "year": 2016,
+    "quotes": [
+      {
+        "en": "Did someone say peanut butter ?",
+        "fr": "Did someone say peanut butter ?"
+      },
+      {
+        "en": "Houston, uh... we have a problem.",
+        "fr": "Houston, uh... we have a problem."
+      }
+    ]
   },
   {
     "name": "Wrecking Ball",
     "nameFr": "Bouldozer",
-    "aliases": ["Hammond"],
+    "aliases": [
+      "Hammond"
+    ],
     "species": "Animal",
     "role": "Tank",
     "subrole": "Initiator",
     "continent": "Oceania",
-    "affiliation": ["Junkers", "Lucheng Interstellar"],
+    "affiliation": [
+      "Junkers",
+      "Lucheng Interstellar"
+    ],
     "gender": "Male",
-    "year": 2018
+    "year": 2018,
+    "quotes": [
+      {
+        "en": "Vocabulary not found. Translation impossible.",
+        "fr": "Vocabulary not found. Translation impossible."
+      },
+      {
+        "en": "What he said.",
+        "fr": "What he said."
+      }
+    ]
   },
   {
     "name": "Wuyang",
@@ -489,9 +1113,22 @@
     "role": "Support",
     "subrole": "Survivor",
     "continent": "Asia",
-    "affiliation": ["Overwatch", "Wuxing University"],
+    "affiliation": [
+      "Overwatch",
+      "Wuxing University"
+    ],
     "gender": "Male",
-    "year": 2025
+    "year": 2025,
+    "quotes": [
+      {
+        "en": "Be still as a mountain, and move like a great river.",
+        "fr": "Be still as a mountain, and move like a great river."
+      },
+      {
+        "en": "Break what doesn't bend.",
+        "fr": "Break what doesn't bend."
+      }
+    ]
   },
   {
     "name": "Zarya",
@@ -499,9 +1136,23 @@
     "role": "Tank",
     "subrole": "Bruiser",
     "continent": "Asia",
-    "affiliation": ["Overwatch", "Russian Defense Forces", "Volskaya Industries"],
-    "gender":"Female",
-    "year": 2016
+    "affiliation": [
+      "Overwatch",
+      "Russian Defense Forces",
+      "Volskaya Industries"
+    ],
+    "gender": "Female",
+    "year": 2016,
+    "quotes": [
+      {
+        "en": "Strong as the mountain.",
+        "fr": "Strong as the mountain."
+      },
+      {
+        "en": "I can bench more than you.",
+        "fr": "I can bench more than you."
+      }
+    ]
   },
   {
     "name": "Zenyatta",
@@ -509,8 +1160,24 @@
     "role": "Support",
     "subrole": "Tactician",
     "continent": "Asia",
-    "affiliation": ["Shambali"],
+    "affiliation": [
+      "Shambali"
+    ],
     "gender": "Male",
-    "year": 2016
+    "year": 2016,
+    "quotes": [
+      {
+        "en": "We are in harmony.",
+        "fr": "We are in harmony."
+      },
+      {
+        "en": "Do I think? Does a submarine swim?",
+        "fr": "Do I think? Does a submarine swim?"
+      },
+      {
+        "en": "I dreamt I was a butterfly.",
+        "fr": "I dreamt I was a butterfly."
+      }
+    ]
   }
 ]
