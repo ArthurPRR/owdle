@@ -143,7 +143,7 @@ function render() {
 			<section class="results">
 				${
 					state.guesses.length
-						? `<div class="silhouette-tried-grid">${state.guesses
+						? `<div class="tried-grid silhouette">${state.guesses
 								.map((hero) => getTriedHeroItemHtml(hero, state))
 								.join("")}</div>`
 						: `<p class="empty">${getText(uiText, "empty")}</p>`

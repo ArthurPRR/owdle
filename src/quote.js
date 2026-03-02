@@ -15,6 +15,7 @@ import { getHeroDisplayName,
 	getHeroImageUrl,
 	pickDaily, pickRandom,
 	getText,
+	translateValue,
 	getTriedHeroItemHtml,
 	loadDailyState, saveDailyState,
  } from "./data-utils.js";
@@ -35,11 +36,52 @@ const state = {
 	answer: null,
     quote: {en: "nothing", fr: "rien"},
 	guesses: [],
+	revealedHints: {},
 	solved: false,
 	message: "",
 };
 const gameMode = "quote";
 const nextGameMode = landingModes.find((mode) => mode.id === "daily classic");
+
+const hintRules = [
+	{ key: "role", textKey: "hintRole", threshold: 6 },
+	{ key: "continent", textKey: "hintContinent", threshold: 12 },
+	{ key: "subrole", textKey: "hintSubrole", threshold: 18 },
+];
+
+
+function getHintItemsHtml(uiText) {
+	if (!state.answer) {
+		return "";
+	}
+
+	const attemptsUsed = state.guesses.length;
+
+	return hintRules
+		.map(({ key, textKey, threshold }) => {
+			const unlocked = attemptsUsed >= threshold;
+			const revealed = Boolean(state.revealedHints[key]);
+			const canReveal = unlocked && !revealed;
+			const value = revealed
+				? translateValue(key, state.answer[key])
+				: unlocked
+					? getText(uiText, "hintReady")
+					: getText(uiText, "hintLocked", threshold);
+
+			if (canReveal) {
+				return `<button type="button" class="hint-item hint-button is-unlocked is-clickable" data-hint-key="${key}">
+					<span class="hint-label">${getText(uiText, textKey)}</span>
+					<span class="hint-value">${value}</span>
+				</button>`;
+			}
+
+			return `<div class="hint-item${unlocked ? " is-unlocked" : ""}${revealed ? " is-revealed" : ""}">
+				<span class="hint-label">${getText(uiText, textKey)}</span>
+				<span class="hint-value">${value}</span>
+			</div>`;
+		})
+		.join("");
+}
 
 
 
@@ -94,18 +136,25 @@ function render() {
                 </div>
 			</section>
 
+			<section class="quote-hints" aria-live="polite">
+				<p class="subtitle">${getText(uiText, "hintsTitle")}</p>
+				<div class="hint-grid">
+					${getHintItemsHtml(uiText)}
+				</div>
+			</section>
+
 
 			<section class="controls">
-				<form id="silhouette-form">
-					<label for="silhouette-input">${getText(uiText, "labelHero")}</label>
+				<form id="quote-form">
+					<label for="quote-input">${getText(uiText, "labelHero")}</label>
 					<div class="autocomplete">
 						<div class="input-row">
 							<input
-								id="silhouette-input"
+								id="quote-input"
 								name="guess"
 								autocomplete="off"
 								aria-autocomplete="list"
-								aria-controls="silhouette-suggestions"
+								aria-controls="quote-suggestions"
 								placeholder="${getText(uiText, "placeholder")}"
 								${state.solved ? "disabled" : ""}
 								required
@@ -113,7 +162,7 @@ function render() {
 							<button type="submit" class="submit-button" ${state.solved ? "disabled" : ""}>${getText(uiText, "guess")}</button>
 
 						</div>
-						<div class="suggestions" id="silhouette-suggestions" role="listbox" aria-label="${getText(uiText, "labelHero")}"></div>
+						<div class="suggestions" id="quote-suggestions" role="listbox" aria-label="${getText(uiText, "labelHero")}"></div>
 					</div>
 				</form>
 				<p class="muted" style="margin-top: 10px;">${getText(uiText, "guesses", attemptsUsed)}</p>
@@ -122,7 +171,7 @@ function render() {
 			<section class="results">
 				${
 					state.guesses.length
-						? `<div class="silhouette-tried-grid">${state.guesses
+						? `<div class="tried-grid quote">${state.guesses
 								.map((hero) => getTriedHeroItemHtml(hero, state))
 								.join("")}</div>`
 						: `<p class="empty">${getText(uiText, "empty")}</p>`
@@ -157,10 +206,27 @@ function render() {
 
 	attachHeaderEvents(changeLanguage, changeTheme);
 
-	const form = document.getElementById("silhouette-form");
-	const input = document.getElementById("silhouette-input");
-	const suggestions = document.getElementById("silhouette-suggestions");
+	const form = document.getElementById("quote-form");
+	const input = document.getElementById("quote-input");
+	const suggestions = document.getElementById("quote-suggestions");
 	const replayButton = document.getElementById("replay-button");
+	const hintButtons = document.querySelectorAll("[data-hint-key]");
+
+	hintButtons.forEach((button) => {
+		button.addEventListener("click", () => {
+			const hintKey = button.getAttribute("data-hint-key");
+
+			if (!hintKey) {
+				return;
+			}
+
+			state.revealedHints = {
+				...state.revealedHints,
+				[hintKey]: true,
+			};
+			render();
+		});
+	});
 
 	setupHeroAutocomplete({
 		input,
@@ -252,7 +318,7 @@ function render() {
 	}
 
     
-    const nextInput = document.getElementById("silhouette-input");
+    const nextInput = document.getElementById("quote-input");
     if (nextInput && !state.solved) {
         nextInput.focus();
     }
@@ -276,6 +342,7 @@ function startNewRound() {
 		};
 	}
 	state.guesses = [];
+	state.revealedHints = {};
 	state.solved = false;
 	state.message = "";
 }

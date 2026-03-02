@@ -396,6 +396,7 @@
   },
   {
     "name": "Jetpack Cat",
+    "aliases": ["Fika"],
     "species": "Animal",
     "role": "Support",
     "subrole": "Tactician",

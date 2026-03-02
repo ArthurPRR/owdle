@@ -98,14 +98,17 @@ header .home-link {
   border-radius: 8px;
   padding: 6px 10px;
   font-size: 12px;
-  color: #5c4a38;
+  background: #d0af7d;
+  color: #050000;
   font-weight: 600;
+  transition: 0.2s ease;
 }
 
-.gamemode-button :hover {
-  transform: translateY(-2px);
-  background: rgba(246, 228, 198, 0.7);
+.gamemode-button:hover {
+  transform: translateY(-1px);
+  background: #efb96e;
 }
+
 
 
 .home-link {
@@ -370,14 +373,14 @@ button:hover {
   background: rgba(255, 255, 255, 0.08);
 }
 
-.silhouette-tried-grid {
+.tried-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
 }
 
-.silhouette-tried-item {
+.tried-item {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -389,13 +392,13 @@ button:hover {
   font-weight: 600;
 }
 
-.silhouette-tried-item.is-correct {
+.tried-item.is-correct {
   background: rgba(3, 254, 78, 0.25);
   border-color: rgba(3, 180, 78, 0.7);
-  color: #0f3b1f;
+  color: #000000;
 }
 
-.silhouette-tried-avatar {
+.tried-avatar {
   width: 28px;
   height: 28px;
   border-radius: 8px;
@@ -403,11 +406,11 @@ button:hover {
   background: rgba(60, 40, 20, 0.12);
 }
 
-.silhouette-tried-avatar-empty {
+.tried-avatar-empty {
   display: inline-block;
 }
 
-.silhouette-replay-button {
+.replay-button {
   margin-top: 20px;
   display: flex;
   justify-content: center;
@@ -418,6 +421,70 @@ button:hover {
   font-family: "Cormorant Garamond", cursive;
   text-align: center;
 } 
+
+.quote-hints {
+  margin-bottom: 24px;
+}
+
+.quote-hints .subtitle {
+  text-align: center;
+}
+
+.hint-grid {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(120px, 180px));
+  justify-content: center;
+  gap: 10px;
+}
+
+.hint-item {
+  border: 1px solid rgba(60, 40, 20, 0.15);
+  border-radius: 12px;
+  min-height: 84px;
+  padding: 12px 10px;
+  background: rgba(255, 255, 255, 0.65);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+
+.hint-button {
+  font: inherit;
+  color: inherit;
+  text-align: center;
+}
+
+.hint-item.is-unlocked {
+  background: rgba(246, 228, 198, 0.55);
+  border-color: rgba(60, 40, 20, 0.28);
+}
+
+.hint-item.is-clickable {
+  cursor: pointer;
+}
+
+.hint-item.is-clickable:hover {
+  transform: translateY(-1px);
+  background: rgba(246, 228, 198, 0.78);
+}
+
+.hint-item.is-revealed {
+  background: rgba(246, 228, 198, 0.78);
+}
+
+.hint-label {
+  font-weight: 600;
+  font-size: 14px;
+  color: #000000;
+}
+
+.hint-value {
+  font-size: 14px;
+  color: #5c4a38;
+}
 
 
 th,
@@ -692,14 +759,15 @@ td:nth-child(4) {
 }
 
 
-:root.dark gamemode-button {
-  background: #d4a574;
-  color: #1a1410;
+:root.dark .gamemode-button {
+  background: #7e5414;
+  color: #ffffff;
 }
 
-:root.dark gamemode-button:hover {
-  background: #e8b88e;
+:root.dark .gamemode-button:hover {
+  background: #9f7335;
 }
+
 
 :root.dark .lang-toggle {
   background: rgba(42, 31, 24, 0.7);
@@ -735,7 +803,7 @@ td:nth-child(4) {
 
 :root.dark .suggestion-button:hover,
 :root.dark .suggestion-button.active {
-  background: rgba(70, 55, 45, 0.7);
+  background: rgba(235, 169, 122, 0.7);
 }
 
 :root.dark .submit-button{
@@ -819,6 +887,32 @@ td:nth-child(4) {
   color: #ffffff;
 }
 
+:root.dark .hint-item {
+  background: rgba(42, 31, 24, 0.75);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+:root.dark .hint-item.is-unlocked {
+  background: rgba(126, 84, 20, 0.35);
+  border-color: rgba(232, 184, 142, 0.48);
+}
+
+:root.dark .hint-item.is-clickable:hover {
+  background: rgba(126, 84, 20, 0.5);
+}
+
+:root.dark .hint-item.is-revealed {
+  background: rgba(126, 84, 20, 0.5);
+}
+
+:root.dark .hint-value {
+  color: #c9b8a8;
+}
+
+:root.dark .hint-label {
+  color: #f1ede8;
+}
+
 :root.dark .next-mode:hover {
   background: #9f7335;
 }
@@ -878,13 +972,13 @@ td:nth-child(4) {
   color: #fff;
 }
 
-:root.dark .silhouette-tried-item {
+:root.dark .tried-item {
   border-color: rgba(255, 255, 255, 0.16);
   background: rgba(42, 31, 24, 0.72);
   color: #e8e0d5;
 }
 
-:root.dark .silhouette-tried-item.is-correct {
+:root.dark .tried-item.is-correct {
   background: rgba(3, 254, 78, 0.18);
   border-color: rgba(3, 220, 120, 0.7);
   color: #c8ffd9;

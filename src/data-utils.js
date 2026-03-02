@@ -293,11 +293,11 @@ function getTriedHeroItemHtml(hero, state) {
   const imageUrl = getHeroImageUrl(hero);
 
   return `
-    <div class="silhouette-tried-item${hero.name === state.answer.name ? " is-correct" : ""}" title="${name}">
+    <div class="tried-item${hero.name === state.answer.name ? " is-correct" : ""}" title="${name}">
       ${
         imageUrl
-          ? `<img class="silhouette-tried-avatar" src="${imageUrl}" alt="${name}" loading="lazy" />`
-          : `<div class="silhouette-tried-avatar silhouette-tried-avatar-empty" aria-hidden="true"></div>`
+          ? `<img class="tried-avatar" src="${imageUrl}" alt="${name}" loading="lazy" />`
+          : `<div class="tried-avatar tried-avatar-empty" aria-hidden="true"></div>`
       }
       <span>${name}</span>
     </div>
