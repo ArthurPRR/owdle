@@ -5,8 +5,12 @@ export default defineConfig({
 		rollupOptions: {
 			input: {
 				main: "index.html",
-				daily: "daily.html",
-				illimited: "illimited.html",
+				classicDaily: "classic-daily.html",
+				classicUnlimited: "classic-unlimited.html",
+				silhouetteDaily: "silhouette-daily.html",
+				silhouetteUnlimited: "silhouette-unlimited.html",
+				quoteDaily: "quote-daily.html",
+				quoteUnlimited: "quote-unlimited.html",
 			},
 		},
 	},
