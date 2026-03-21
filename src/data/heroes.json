@@ -13,11 +13,11 @@
     "quotes": [
       {
         "en": "It takes a woman to know it",
-        "fr": "It takes a woman to know it"
+        "fr": "Seule une femme peut comprendre"
       },
       {
         "en": "Good kitty.",
-        "fr": "Good kitty."
+        "fr": "Gentil minou."
       }
     ]
   },
@@ -36,7 +36,11 @@
     "quotes": [
       {
         "en": "I'll burn brightest",
-        "fr": "I'll burn brightest"
+        "fr": "Ma colère s'attise"
+      },
+      {
+        "en": "Pass me the torch.",
+        "fr": "Passe moi le flambeau."
       }
     ]
   },
@@ -58,11 +62,15 @@
     "quotes": [
       {
         "en": "You picked a bad time to get lost.",
-        "fr": "You picked a bad time to get lost."
+        "fr": "T'as choisi le mauvais moment pour te perdre."
       },
       {
         "en": "Just takin' out the trash.",
-        "fr": "Just takin' out the trash."
+        "fr": "Pour sortir les poubelles, j'ai un majordome."
+      },
+      {
+        "en": "Did ya need me to repeat myself ?",
+        "fr": "Prenez soin d'écouter ce que je dis, parce que je ne me répète jamais."
       }
     ]
   },
@@ -82,11 +90,15 @@
     "quotes": [
       {
         "en": "Looks like that apple a day thing didn't work out for you.",
-        "fr": "Looks like that apple a day thing didn't work out for you."
+        "fr": "Si le travail c'est la santé, quelque chose me dit que tu dois pas travailler des masses."
       },
       {
-        "en": "Who wants to be immortal?",
-        "fr": "Who wants to be immortal?"
+        "en": "Who wants to be immortal ?",
+        "fr": "Qui veut atteindre l'immortalité ?"
+      },
+      {
+        "en": "I'll recommend not dying.",
+        "fr": "Evitez de mourir."
       }
     ]
   },
@@ -105,11 +117,11 @@
     "quotes": [
       {
         "en": "Boo boo doo de doo. (beeps)",
-        "fr": "Boo boo doo de doo. (beeps)"
+        "fr": "Boo boo doo de doo. (bips)"
       },
       {
-        "en": "Bwoo chirr chirr chirr chirr chirr chirr chirr! (churring beeps)",
-        "fr": "Bwoo chirr chirr chirr chirr chirr chirr chirr! (churring beeps)"
+        "en": "Bwoo chirr chirr chirr chirr chirr chirr chirr ! (churring beeps)",
+        "fr": "Bwoo chirr chirr chirr chirr chirr chirr chirr ! (bips de ronronnement)"
       }
     ]
   },
@@ -127,11 +139,11 @@
     "quotes": [
       {
         "en": "Mace to the face.",
-        "fr": "Mace to the face."
+        "fr": "Et une masse dans ta face."
       },
       {
         "en": "Precision Swedish engineering.",
-        "fr": "Precision Swedish engineering."
+        "fr": "Le style scandinave."
       }
     ]
   },
@@ -151,11 +163,11 @@
     "quotes": [
       {
         "en": "*chuckles* Watch and learn.",
-        "fr": "*chuckles* Watch and learn."
+        "fr": "*rire* T'es mon meilleur adjoint."
       },
       {
         "en": "I've got a bullet with your name on it.",
-        "fr": "I've got a bullet with your name on it."
+        "fr": "J'ai une balle avec ton nom dessus."
       }
     ]
   },
@@ -176,12 +188,12 @@
     "year": 2016,
     "quotes": [
       {
-        "en": "Is this easy mode?",
-        "fr": "Is this easy mode?"
+        "en": "Is this easy mode ?",
+        "fr": "On est en mode facile, là ?"
       },
       {
-        "en": "Ever heard the rabbit in the moon?",
-        "fr": "Ever heard the rabbit in the moon?"
+        "en": "Ever heard the rabbit in the moon ?",
+        "fr": "Vous avez déjà entendu parler du lapin lunaire ?"
       }
     ]
   },
@@ -199,12 +211,16 @@
     "year": 2026,
     "quotes": [
       {
-        "en": "Well, aren't you the jester?",
-        "fr": "Well, aren't you the jester?"
+        "en": "Well, aren't you the jester ?",
+        "fr": "Eh bien, vous ne manquez pas d'air."
       },
       {
         "en": "Do speak up, darling.",
-        "fr": "Do speak up, darling."
+        "fr": "Dites ce que vous avez à dire."
+      },
+      {
+        "en": "Juste expense it, darling.",
+        "fr": "Je suis bien trop chère pour vous."
       }
     ]
   },
@@ -222,11 +238,11 @@
     "quotes": [
       {
         "en": "Spare me the commentary.",
-        "fr": "Spare me the commentary."
+        "fr": "Epargne moi tes commentaires."
       },
       {
         "en": "Gain more experience before you challenge me again.",
-        "fr": "Gain more experience before you challenge me again."
+        "fr": "Va gagner plus d'expérience avant de venir me défier."
       }
     ]
   },
@@ -244,11 +260,11 @@
     "quotes": [
       {
         "en": "Is this a non-relevant conversation ?",
-        "fr": "Is this a non-relevant conversation ?"
+        "fr": "Est-ce un échange de banalités ?"
       },
       {
         "en": "Following the flight plan.",
-        "fr": "Following the flight plan."
+        "fr": "Poursuite du plan de vol."
       }
     ]
   },
@@ -268,11 +284,11 @@
     "quotes": [
       {
         "en": "Keep up the good fight. It's worth it.",
-        "fr": "Keep up the good fight. It's worth it."
+        "fr": "Continue de te battre pour le bien. Ça en vaut la peine."
       },
       {
         "en": "Funny thing about tough calls. They're usually the right ones.",
-        "fr": "Funny thing about tough calls. They're usually the right ones."
+        "fr": "Le truc marrant avec les décisions difficiles, c'est que ce sont souvent les bonnes."
       }
     ]
   },
@@ -291,12 +307,12 @@
     "year": 2025,
     "quotes": [
       {
-        "en": "What can I say? It's a living.",
-        "fr": "What can I say? It's a living."
+        "en": "What can I say ? It's a living.",
+        "fr": "Que dire ? C'est un mode de vie."
       },
       {
         "en": "Not my bounty, not my problem.",
-        "fr": "Not my bounty, not my problem."
+        "fr": "Ce n'est ni ma prime, ni mon problème."
       }
     ]
   },
@@ -317,11 +333,11 @@
     "quotes": [
       {
         "en": "Measure twice, cut once.",
-        "fr": "Measure twice, cut once."
+        "fr": "Réfléchir à deux fois, afin de frapper juste."
       },
       {
-        "en": "Mada mada!",
-        "fr": "Mada mada!"
+        "en": "Mada mada !",
+        "fr": "Mada mada !"
       }
     ]
   },
@@ -340,11 +356,11 @@
     "quotes": [
       {
         "en": "Simple geometry.",
-        "fr": "Simple geometry."
+        "fr": "Simple question d'angle."
       },
       {
         "en": "I choose you, spirit dragon.",
-        "fr": "I choose you, spirit dragon."
+        "fr": "Je te choisis, esprit du dragon."
       }
     ]
   },
@@ -363,12 +379,12 @@
     "year": 2025,
     "quotes": [
       {
-        "en": "Rules are like bones; they're made to be broken.",
-        "fr": "Rules are like bones; they're made to be broken."
+        "en": "Rules are like bones ; they're made to be broken.",
+        "fr": "Les règles sont comme les chevilles ; une entorse est vite arrivée."
       },
       {
         "en": "Failin' means yer playin'.",
-        "fr": "Failin' means yer playin'."
+        "fr": "Perdre, ça fait partie du jeu."
       }
     ]
   },
@@ -386,11 +402,11 @@
     "quotes": [
       {
         "en": "I will make up for what I've done.",
-        "fr": "I will make up for what I've done."
+        "fr": "Je réparerai mes fautes."
       },
       {
         "en": "Rise like the sun.",
-        "fr": "Rise like the sun."
+        "fr": "Brille, petit soleil."
       }
     ]
   },
@@ -408,8 +424,8 @@
     "year": 2026,
     "quotes": [
       {
-        "en": "(Taunting) Meow meow me meow meow!",
-        "fr": "(Taunting) Meow meow me meow meow!"
+        "en": "(Taunting) Meow meow me meow meow !",
+        "fr": "(Provocatrice) Miaou miaou miaou !"
       }
     ]
   },
@@ -418,7 +434,7 @@
     "species": "Human",
     "role": "Tank",
     "subrole": "Stalwart",
-    "continent": "Oceanias",
+    "continent": "Oceania",
     "affiliation": [
       "Junkers"
     ],
@@ -427,11 +443,11 @@
     "quotes": [
       {
         "en": "I was born to rule.",
-        "fr": "I was born to rule."
+        "fr": "J'suis née pour diriger."
       },
       {
         "en": "\"Knife\" to see ya. Ha ha ha.",
-        "fr": "\"Knife\" to see ya. Ha ha ha."
+        "fr": "A couteaux tirés. Ha ha ha."
       }
     ]
   },
@@ -448,12 +464,12 @@
     "year": 2016,
     "quotes": [
       {
-        "en": "Anyone want some barbecue? Heheh.",
-        "fr": "Anyone want some barbecue? Heheh."
+        "en": "Anyone want some barbecue ? Heheh.",
+        "fr": "Barbecue, quelqu'un ? Ha ha ha ha."
       },
       {
-        "en": "If at first you don't succeed... Blow it up again!",
-        "fr": "If at first you don't succeed... Blow it up again!"
+        "en": "If at first you don't succeed... Blow it up again !",
+        "fr": "Si ça n'explose pas du premier coup... Doublez la charge !"
       }
     ]
   },
@@ -472,11 +488,11 @@
     "quotes": [
       {
         "en": "Ahh... do not panic !",
-        "fr": "Ahh... do not panic !"
+        "fr": "Ahh... pas de panique !"
       },
       {
         "en": "I have no idea what is going on !",
-        "fr": "I have no idea what is going on !"
+        "fr": "J'comprend rien à ce qui se passe !"
       }
     ]
   },
@@ -495,11 +511,11 @@
     "quotes": [
       {
         "en": "Kira Kira beam !",
-        "fr": "Kira Kira beam !"
+        "fr": "Killer beam ! "
       },
       {
         "en": "The path shapes you. The spirits perfect you.",
-        "fr": "The path shapes you. The spirits perfect you."
+        "fr": "La voie vous façonne. Les esprits vous perfectionnent."
       }
     ]
   },
@@ -518,12 +534,12 @@
     "year": 2024,
     "quotes": [
       {
-        "en": "Life is far too short to feel guilty about... well, anything!",
-        "fr": "Life is far too short to feel guilty about... well, anything!"
+        "en": "Life is far too short to feel guilty about... well, anything !",
+        "fr": "La vie est trop courte pour se sentir coupable de... eh bien, quoi que ce soit !"
       },
       {
         "en": "Minds must change hearts, and hearts must change minds.",
-        "fr": "Minds must change hearts, and hearts must change minds."
+        "fr": "Les esprits changent les coeurs, et les coeurs changent les esprits."
       }
     ]
   },
@@ -544,11 +560,11 @@
     "quotes": [
       {
         "en": "Can't stop, won't stop.",
-        "fr": "Can't stop, won't stop."
+        "fr": "En avant la musique !"
       },
       {
         "en": "I'm on top of the world.",
-        "fr": "I'm on top of the world."
+        "fr": "Je suis au sommet de ma carrière."
       }
     ]
   },
@@ -567,11 +583,11 @@
     "quotes": [
       {
         "en": "It's never boring around me.",
-        "fr": "It's never boring around me."
+        "fr": "On ne s'ennuie jamais avec moi."
       },
       {
-        "en": "Who's ready to have some fun?",
-        "fr": "Who's ready to have some fun?"
+        "en": "Who's ready to have some fun ?",
+        "fr": "Qui a envie de s'amuser ?"
       }
     ]
   },
@@ -590,11 +606,15 @@
     "quotes": [
       {
         "en": "Hey, chill out !",
-        "fr": "Hey, chill out !"
+        "fr": "Hey, un peu de sang-froid !"
       },
       {
         "en": "A-Mei-zing !",
-        "fr": "A-Mei-zing !"
+        "fr": "C'est Mei-veilleux !"
+      },
+      {
+        "en": "You have to let it go.",
+        "fr": "Je me sens comme libérée, délivrée."
       }
     ]
   },
@@ -613,11 +633,11 @@
     "quotes": [
       {
         "en": "On a scale of 1 to 10, how is your pain ?",
-        "fr": "On a scale of 1 to 10, how is your pain ?"
+        "fr": "Sur une échelle de 1 à 10, à quel point as-tu mal ?"
       },
       {
         "en": "How barbaric.",
-        "fr": "How barbaric."
+        "fr": "De vrais barbares."
       }
     ]
   },
@@ -637,11 +657,11 @@
     "quotes": [
       {
         "en": "Aww, that wasn't very nice...",
-        "fr": "Aww, that wasn't very nice..."
+        "fr": "Aww, c'était pas très sympa, ça..."
       },
       {
         "en": "Begone, spirits !",
-        "fr": "Begone, spirits !"
+        "fr": "Hors de ma vue, esprits !"
       }
     ]
   },
@@ -661,11 +681,11 @@
     "quotes": [
       {
         "en": "What an interesting hypothesis.",
-        "fr": "What an interesting hypothesis."
+        "fr": "Une hypothèse intéressante."
       },
       {
         "en": "Stupidity is not a right.",
-        "fr": "Stupidity is not a right."
+        "fr": "La stupidité n'est pas un droit."
       }
     ]
   },
@@ -684,11 +704,11 @@
     "quotes": [
       {
         "en": "Error 404: sarcasm module not found.",
-        "fr": "Error 404: sarcasm module not found."
+        "fr": "Erreur 404: module de sarcasme introuvable."
       },
       {
         "en": "Do you need a hug ?",
-        "fr": "Do you need a hug ?"
+        "fr": "Vous voulez un câlin ?"
       }
     ]
   },
@@ -707,11 +727,11 @@
     "quotes": [
       {
         "en": "Put your security in my hands.",
-        "fr": "Put your security in my hands."
+        "fr": "La sécurité, c'est moi."
       },
       {
-        "en": "Rocket jump? That sounds dangerous.",
-        "fr": "Rocket jump? That sounds dangerous."
+        "en": "Rocket jump ? That sounds dangerous.",
+        "fr": "S'envoyer en l'air avec son lance-roquette ? Trop dangereux."
       }
     ]
   },
@@ -730,15 +750,15 @@
     "quotes": [
       {
         "en": "I do not fight for myself. I never have.",
-        "fr": "I do not fight for myself. I never have."
+        "fr": "Je ne me bats pas pour moi. Je ne l'ai jamais fait."
       },
       {
         "en": "Do your worst, or I will.",
-        "fr": "Do your worst, or I will."
+        "fr": "Si vous ne faites pas de votre mieux, je le ferai."
       },
       {
         "en": "I fought for peace for too long. I was a fool.",
-        "fr": "I fought for peace for too long. I was a fool."
+        "fr": "Je me suis trop longtemps battu pour la paix. C'était idiot."
       }
     ]
   },
@@ -758,11 +778,11 @@
     "quotes": [
       {
         "en": "Haven't I killed you somewhere before ?",
-        "fr": "Haven't I killed you somewhere before ?"
+        "fr": "Je ne t'ai pas déjà tué quelque part, toi ?"
       },
       {
         "en": "I'm not a psychopath. I'm a high-functioning psychopath.",
-        "fr": "I'm not a psychopath. I'm a high-functioning psychopath."
+        "fr": "Je ne suis pas un psychopathe. Je suis un psychopathe de haut niveau"
       }
     ]
   },
@@ -781,11 +801,11 @@
     "quotes": [
       {
         "en": "Precision German engineering.",
-        "fr": "Precision German engineering."
+        "fr": "Deutsche technologie."
       },
       {
         "en": "Ah, this old dog still knows a few tricks.",
-        "fr": "Ah, this old dog still knows a few tricks."
+        "fr": "Ah, je suis pas encore bon pour la casse."
       }
     ]
   },
@@ -808,11 +828,11 @@
     "quotes": [
       {
         "en": "Welcome to the apocalypse.",
-        "fr": "Welcome to the apocalypse."
+        "fr": "Bienvenue dans l'apocalypse."
       },
       {
         "en": "Say \"bacon\" one more time.",
-        "fr": "Say \"bacon\" one more time."
+        "fr": "Appelle moi gros porc encore une fois."
       }
     ]
   },
@@ -830,11 +850,36 @@
     "quotes": [
       {
         "en": "I don't think you understand the gravity of this situation.",
-        "fr": "I don't think you understand the gravity of this situation."
+        "fr": "Je ne pense pas que vous mesuriez la gravité de la situation."
       },
       {
         "en": "Many find the universe confusing. That's the beauty of it.",
-        "fr": "Many find the universe confusing. That's the beauty of it."
+        "fr": "D'aucuns trouvent l'univers complexe. C'est ce qui le rend captivant"
+      }
+    ]
+  },
+  {
+    "name": "Sojourn",
+    "species": "Human",
+    "role": "Damage",
+    "subrole": "Sharpshooter",
+    "continent": "North America",
+    "affiliation": [
+      "Overwatch"
+    ],
+    "UnincludedAffiliations": [
+      "Canadian Army"
+    ],
+    "gender": "Female",
+    "year": 2022,
+    "quotes": [
+      {
+        "en": "Eugh... don't give me that decaf.",
+        "fr": "Argh... tu peux garder ton déca."
+      },
+      {
+        "en": "With these upgrades, they don't stand a chance.",
+        "fr": "Avec ces améliorations, ils n'ont aucune chance."
       }
     ]
   },
@@ -857,36 +902,11 @@
     "quotes": [
       {
         "en": "I didn't start this war... But I'm damn well gonna finish it.",
-        "fr": "I didn't start this war... But I'm damn well gonna finish it."
+        "fr": "Je n'ai pas voulu cette guerre... Mais je vais y mettre un terme."
       },
       {
         "en": "Not on my watch.",
-        "fr": "Not on my watch."
-      }
-    ]
-  },
-  {
-    "name": "Sojourn",
-    "species": "Human",
-    "role": "Damage",
-    "subrole": "Sharpshooter",
-    "continent": "North America",
-    "affiliation": [
-      "Overwatch"
-    ],
-    "UnincludedAffiliations": [
-      "Canadian Army"
-    ],
-    "gender": "Female",
-    "year": 2022,
-    "quotes": [
-      {
-        "en": "Eugh... don't give me that decaf.",
-        "fr": "Eugh... don't give me that decaf."
-      },
-      {
-        "en": "With these upgrades, they don't stand a chance.",
-        "fr": "With these upgrades, they don't stand a chance."
+        "fr": "Pas tant que je serai vivant."
       }
     ]
   },
@@ -905,11 +925,11 @@
     "quotes": [
       {
         "en": "Where's the fun in playing fair ?",
-        "fr": "Where's the fun in playing fair ?"
+        "fr": "Respecter les règles, c'est pour les perdants."
       },
       {
         "en": "Mess with the best and die like the rest.",
-        "fr": "Mess with the best and die like the rest."
+        "fr": "Si tu t'attaques à la meilleure, tu mourras dans la peur."
       }
     ]
   },
@@ -927,15 +947,15 @@
     "quotes": [
       {
         "en": "Such a lack of imagination.",
-        "fr": "Such a lack of imagination."
+        "fr": "Quel manque d'imagination."
       },
       {
         "en": "Everything by design.",
-        "fr": "Everything by design."
+        "fr": "Un harmonie parfaite."
       },
       {
         "en": "Am I supposed to be impressed ?",
-        "fr": "Am I supposed to be impressed ?"
+        "fr": "C'est sensé m'impressionner ?"
       }
     ]
   },
@@ -957,12 +977,12 @@
     "year": 2016,
     "quotes": [
       {
-        "en": "Completion date? *chuckle* When it's done.",
-        "fr": "Completion date? *chuckle* When it's done."
+        "en": "Completion date ? *chuckle* When it's done.",
+        "fr": "La date de livraison ? *rire* Quand ça sera terminé."
       },
       {
         "en": "Ugh, leave this to an expert.",
-        "fr": "Ugh, leave this to an expert."
+        "fr": "Ugh, laissez faire l'expert."
       }
     ]
   },
@@ -981,11 +1001,15 @@
     "quotes": [
       {
         "en": "Cheers, love ! The cavalry's here !",
-        "fr": "Cheers, love ! The cavalry's here !"
+        "fr": "Hello mon chou ! La cavalerie est arrivée !"
       },
       {
         "en": "The world could always use more heroes.",
-        "fr": "The world could always use more heroes."
+        "fr": "Le monde aura toujours besoin de héros."
+      },
+      {
+        "en": "Looks like you need a time out.",
+        "fr": "T'as besoin d'une petite pause on dirait."
       }
     ]
   },
@@ -1003,11 +1027,11 @@
     "quotes": [
       {
         "en": "When the blood runs, I give chase.",
-        "fr": "When the blood runs, I give chase."
+        "fr": "Lorsque le sang coule, je lance la chasse"
       },
       {
         "en": "I do not desire power—I deserve it.",
-        "fr": "I do not desire power—I deserve it."
+        "fr": "Je ne désire pas le pouvoir—je le mérite."
       }
     ]
 
@@ -1025,12 +1049,12 @@
     "year": 2024,
     "quotes": [
       {
-        "en": "I can dig that!",
-        "fr": "I can dig that!"
+        "en": "I can dig that !",
+        "fr": "J'ai envie de creuser l'idée !"
       },
       {
         "en": "\"X\" marks the spot !",
-        "fr": "\"X\" marks the spot !"
+        "fr": "Vise la croix !"
       }
     ]
   },
@@ -1049,11 +1073,11 @@
     "quotes": [
       {
       "en": "A single death can change everything.",
-      "fr": "A single death can change everything."
+      "fr": "Une simple mort peut tout changer."
       },
       {
         "en": "What's an aimbot ?",
-        "fr": "What's an aimbot ?"
+        "fr": "Un aimbot ? Qu'est-ce que c'est ?"
       }
     ]
   },
@@ -1073,11 +1097,11 @@
     "quotes": [
       {
         "en": "Did someone say peanut butter ?",
-        "fr": "Did someone say peanut butter ?"
+        "fr": "Quelqu'un a parlé de beurre de cacahuète ?"
       },
       {
         "en": "Houston, uh... we have a problem.",
-        "fr": "Houston, uh... we have a problem."
+        "fr": "Houston, uh... nous avons un problème."
       }
     ]
   },
@@ -1100,11 +1124,11 @@
     "quotes": [
       {
         "en": "Vocabulary not found. Translation impossible.",
-        "fr": "Vocabulary not found. Translation impossible."
+        "fr": "Vocabulaire indisponible. Traduction impossible."
       },
       {
         "en": "What he said.",
-        "fr": "What he said."
+        "fr": "Je n'aurai pas dit mieux."
       }
     ]
   },
@@ -1123,11 +1147,11 @@
     "quotes": [
       {
         "en": "Be still as a mountain, and move like a great river.",
-        "fr": "Be still as a mountain, and move like a great river."
+        "fr": "L'immobilité de la montagne, le mouvement d'un fleuve."
       },
       {
         "en": "Break what doesn't bend.",
-        "fr": "Break what doesn't bend."
+        "fr": "Briser ce qui ne ploie pas."
       }
     ]
   },
@@ -1147,11 +1171,11 @@
     "quotes": [
       {
         "en": "Strong as the mountain.",
-        "fr": "Strong as the mountain."
+        "fr": "Solide comme un roc."
       },
       {
         "en": "I can bench more than you.",
-        "fr": "I can bench more than you."
+        "fr": "A la salle de gym, je t'explose."
       }
     ]
   },
@@ -1169,15 +1193,15 @@
     "quotes": [
       {
         "en": "We are in harmony.",
-        "fr": "We are in harmony."
+        "fr": "Nous sommes en harmonie."
       },
       {
-        "en": "Do I think? Does a submarine swim?",
-        "fr": "Do I think? Does a submarine swim?"
+        "en": "Do I think ? Does a submarine swim ?",
+        "fr": "Je pense, donc je suis"
       },
       {
         "en": "I dreamt I was a butterfly.",
-        "fr": "I dreamt I was a butterfly."
+        "fr": "(nom) rêva qu'il était papillon."
       }
     ]
   }
