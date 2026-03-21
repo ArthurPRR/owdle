@@ -60,6 +60,23 @@ Images are stocked in src/assets
 2. Run `npm run dev`.
 3. Open the URL printed by Vite.
 
+## Deployment (Vercel)
+This project can be deployed directly from the Vercel dashboard by connecting the GitHub repository.
+
+Production URL: https://owdle-iota.vercel.app
+
+Behavior:
+- Push to your production branch: Vercel deploys to Production.
+- Pull requests/other branches: Vercel creates Preview deployments.
+
+Recommended Vercel settings for this Vite project:
+- Root Directory: `.`
+- Build Command: `pnpm build`
+- Output Directory: `dist`
+- Install Command: `pnpm install`
+
+
+
 ## Contributing
 Contributions are welcome. Open an issue or a pull request with a clear
 description of the changes.
