@@ -2,17 +2,6 @@ export { landingModes, landingText, attributeLabels, gameText, silhouetteText, q
 
 const landingModes = [
   {
-    id: "unlimited classic",
-    mode: "unlimited",
-    gameMode: "classic",
-    title: { fr: "Classique illimité", en: "Unlimited classic" },
-    description: {
-      fr: "Joue autant de parties que tu veux",
-      en: "Play as many rounds as you want",
-    },
-    href: "/classic-unlimited.html",
-  },
-  {
     id: "daily classic",
     mode: "daily",
     gameMode: "classic",
@@ -24,15 +13,15 @@ const landingModes = [
     href: "/classic-daily.html",
   },
   {
-    id: "unlimited silhouette",
+    id: "unlimited classic",
     mode: "unlimited",
-    gameMode: "silhouette",
-    title: { fr: "Silhouette illimitée", en: "Unlimited silhouette" },
+    gameMode: "classic",
+    title: { fr: "Classique illimité", en: "Unlimited classic" },
     description: {
-      fr: "Trouve autant de silhouettes que tu veux",
-      en: "Guess as many silhouettes as you want",
+      fr: "Joue autant de parties que tu veux",
+      en: "Play as many rounds as you want",
     },
-    href: "/silhouette-unlimited.html",
+    href: "/classic-unlimited.html",
   },
   {
     id: "daily silhouette",
@@ -46,15 +35,15 @@ const landingModes = [
     href: "/silhouette-daily.html",
   },
   {
-    id: "unlimited quote",
+    id: "unlimited silhouette",
     mode: "unlimited",
-    gameMode: "quote",
-    title: { fr: "Citation illimitée", en: "Unlimited quote" },
+    gameMode: "silhouette",
+    title: { fr: "Silhouette illimitée", en: "Unlimited silhouette" },
     description: {
-      fr: "Trouve autant de citations que tu veux",
-      en: "Guess as many quotes as you want",
+      fr: "Trouve autant de silhouettes que tu veux",
+      en: "Guess as many silhouettes as you want",
     },
-    href: "/quote-unlimited.html",
+    href: "/silhouette-unlimited.html",
   },
   {
     id: "daily quote",
@@ -66,6 +55,17 @@ const landingModes = [
       en: "Guess the quote of a new hero every day",
     },
     href: "/quote-daily.html",
+  },
+  {
+    id: "unlimited quote",
+    mode: "unlimited",
+    gameMode: "quote",
+    title: { fr: "Citation illimitée", en: "Unlimited quote" },
+    description: {
+      fr: "Trouve autant de citations que tu veux",
+      en: "Guess as many quotes as you want",
+    },
+    href: "/quote-unlimited.html",
   },
 ];
 
